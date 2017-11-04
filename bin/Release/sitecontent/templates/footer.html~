@@ -1,0 +1,7 @@
+	<script src="js/bootstrap.min.js"></script>   
+   <script src="js/jquery.blueimp-gallery.min.js"></script>
+	<script src="js/bootstrap-image-gallery.js"></script>	
+	<script src="js/bootstrap-tagsinput.js"></script>
+	<script src="js/main.js"></script>   
+  </body>
+</html>

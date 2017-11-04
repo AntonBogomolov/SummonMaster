@@ -1,0 +1,34 @@
+<div class="col-md-12 main">
+	<h2>Привет, {USERNAME}</h2> 
+	<hr>  
+	<div class="userInfoBlock">
+		<div class="row">
+			<div class="col-md-2">	
+				<label>email: </label>
+			</div>
+			<div class="col-md-4">	
+				<input type="text" name="email" id="email" readonly value="{EMAIL}"/>
+			</div>			
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Статус аккаунта: </label>
+			</div>
+			<div class="col-md-4">	
+				<input type="text" name="accStatus" id="accStatus" readonly value="{ACCSTATUS}"/>
+			</div>			
+		</div>
+		{isPREM}{
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Премиум будет активен (дней): </label>
+			</div>
+			<div class="col-md-4">	
+				<input type="text" name="premLeft" id="premLeft" readonly value="{PREMLEFT}"/>
+			</div>			
+		</div>
+		}{}				
+		<hr> 
+		{TASKS}		
+	</div>
+</div>

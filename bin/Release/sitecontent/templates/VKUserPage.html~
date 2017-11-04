@@ -1,0 +1,343 @@
+<input type='hidden' name='tablesCnt'    value='5' />
+<input type='hidden' name='table1Fields' value='{T1FIELDS}' />
+<input type='hidden' name='table1Data'   value='{T1DATA}' />
+<input type='hidden' name='table1Func'   value='{T1FUNC}' />
+
+<input type='hidden' name='table2Fields' value='{T2FIELDS}' />
+<input type='hidden' name='table2Data'   value='{T2DATA}' />
+<input type='hidden' name='table2Func'   value='{T2FUNC}' />
+
+<input type='hidden' name='table3Fields' value='{T3FIELDS}' />
+<input type='hidden' name='table3Data'   value='{T3DATA}' />
+<input type='hidden' name='table3Func'   value='{T3FUNC}' />
+
+<input type='hidden' name='table4Fields' value='{T4FIELDS}' />
+<input type='hidden' name='table4Data'   value='{T4DATA}' />
+<input type='hidden' name='table4Func'   value='{T4FUNC}' />
+
+<input type='hidden' name='table5Fields' value='{T5FIELDS}' />
+<input type='hidden' name='table5Data'   value='{T5DATA}' />
+<input type='hidden' name='table5Func'   value='{T5FUNC}' />
+<div class="col-md-12 main">
+	<h2>Пользователь {USERNAME}, id: {ID} </h2> 
+	<hr>   
+	
+	<div class="row">                                       
+	<div class="col-md-2">
+   	<div class="media-logo"><img class="media-logo" src="{PHOTO}" alt="logo"></div>  
+   </div> 
+   
+   <div class="userInfoBlock">            
+   <div class="col-md-10">          
+		<div class="row">
+			<div class="col-md-1">	
+				<label>Имя: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="name" id="name" readonly value="{FIRSTNAME}"/>
+			</div>	
+			<div class="col-md-1">	
+				<label>Фамилия: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="lastName" id="lastName" readonly value="{LASTNAME}"/>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-md-1">	
+				<label>Пол: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="sex" id="sex" readonly value="{SEX}"/>
+			</div>	
+			<div class="col-md-1">	
+				<label>Дата рождения: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="bdate" id="bdate" readonly value="{BDATE}"/>
+			</div>
+			<div class="col-md-1">	
+				<label>ID города: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="cityId" id="cityId" readonly value="{CITYID}"/>
+			</div>	
+		</div>		
+		<div class="row">
+			<div class="col-md-1">	
+				<label>Контакты: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="contacts" id="contacts" readonly value="{CONTACTS}"/>
+			</div>				
+			<div class="col-md-1">	
+				<label>Сайт: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="site" id="site" readonly value="{SITE}"/>
+			</div>
+			<div class="col-md-1">	
+				<label>Подписчики: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="followersCnt" id="followersCnt" readonly value="{FOLLOWERSCNT}"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1">	
+				<label>Экспорт: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="export" id="export" readonly value="{EXPORT}"/>
+			</div>				
+			<div class="col-md-1">	
+				<label>Деетельность: </label>
+			</div>
+			<div class="col-md-3">	
+				<input type="text" name="activities" id="activities" readonly value="{ACTIVITIES}"/>
+			</div>			
+		</div>	
+		</div>
+		</div>
+		</div>
+		
+		<div class="row">
+		
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Занятие: </label>
+			</div>
+			<div class="col-md-4">	
+				<textarea id="occupation" rows="3" cols="40" readonly>{OCCUPATION}</textarea>
+			</div>	
+			<div class="col-md-2">	
+				<label>Персональное: </label>
+			</div>
+			<div class="col-md-4">	
+				<textarea id="personal" rows="3" cols="40" readonly>{PERSONAL}</textarea>
+			</div>			
+		</div>			                   
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Статус: </label>
+			</div>
+			<div class="col-md-4">	
+				<textarea id="status" rows="3" cols="40" readonly>{STATUS}</textarea>
+			</div>	
+			<div class="col-md-2">	
+				<label>Цитаты: </label>
+			</div>
+			<div class="col-md-4">	
+				<textarea id="quotes" rows="3" cols="40" readonly>{QUOTES}</textarea>
+			</div>			
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>О себе: </label>
+			</div>
+			<div class="col-md-4">	
+				<textarea id="about" rows="3" cols="40" readonly>{ABOUT}</textarea>
+			</div>	
+			<div class="col-md-2">	
+				<label>Интересы: </label>
+			</div>
+			<div class="col-md-4">	
+				<textarea id="interests" rows="3" cols="40" readonly>{INTERESTS}</textarea>
+			</div>			
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-4">	
+					<label>Родственники: </label>
+				</div>
+				<div class="col-md-8">	
+					<textarea id="relatives" rows="3" cols="40" readonly>{RELATIVES}</textarea>
+				</div>				
+			</div>
+			</div>	
+			
+			<div class="col-md-6">
+			<div class="row">
+			<div class="row">
+				<div class="col-md-4">	
+					<label>Отношения: </label>
+				</div>
+				<div class="col-md-8">	
+					<input type="text" name="relation" id="relation" readonly value="{RELATION}"/>
+				</div>	
+			</div>
+			<div class="row">
+				<div class="col-md-4">	
+					<label>c: </label>
+				</div>
+				<div class="col-md-2">	
+					<label><a href="?page=user&id={PARTNERID}">{PARTNERID}</a></label> 
+				</div>
+				<div class="col-md-4">	
+					<label>{PARTNERNAME}</label>
+				</div>		
+			</div>	
+			</div>
+		</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="col-md-1">	
+				<label>Игры: </label>
+			</div>
+			<div class="col-md-3">	
+				<textarea id="games" rows="3" cols="30" readonly>{GAMES}</textarea>
+			</div>	
+			<div class="col-md-1">	
+				<label>TV: </label>
+			</div>
+			<div class="col-md-3">	
+				<textarea id="tv" rows="3" cols="30" readonly>{TV}</textarea>
+			</div>			
+		</div>
+		<div class="row">
+			<div class="col-md-1">	
+				<label>Книги: </label>
+			</div>
+			<div class="col-md-3">	
+				<textarea id="book" rows="3" cols="30" readonly>{BOOKS}</textarea>
+			</div>	
+			<div class="col-md-1">	
+				<label>Фильмы: </label>
+			</div>
+			<div class="col-md-3">	
+				<textarea id="films" rows="3" cols="30" readonly>{FILMS}</textarea>
+			</div>	
+			<div class="col-md-1">	
+				<label>Музыка: </label>
+			</div>
+			<div class="col-md-3">	
+				<textarea id="music" rows="3" cols="30" readonly>{MUSIC}</textarea>
+			</div>			
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="col-md-12">	
+				<h4>Школы: </h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">					
+				<div id="Table1"></div>		
+			</div>							
+		</div>
+		<div class="row">
+			<div class="col-md-12">	
+				<h4>Университеты: </h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">					
+				<div id="Table2"></div>		
+			</div>							
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">	
+				<h4>Друзья: </h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">	
+				<input type="button" value="Получить расширенную информацию" onclick="vkGetFrends({ID})" />
+			</div>
+			<div class="col-md-1 taskHashView frendsTaskHash">	
+				<label>Результат:</label>
+			</div>	
+			<div class="col-md-6">
+				<a id="taskIdFrends"></a>	
+				<span> (для  проверки заявки перейдите по ссылке)</span>			
+			</div>		
+		</div>	
+		<div class="row">
+			<div class="col-md-12">					
+				<div id="Table3"></div>		
+			</div>							
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">	
+				<h4>Группы: </h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">	
+				<input type="button" value="Получить расширенную информацию" onclick="vkGetGroups({ID})" />
+			</div>
+			<div class="col-md-1 taskHashView groupsTaskHash">	
+				<label>Результат:</label>
+			</div>	
+			<div class="col-md-6">
+				<a id="taskIdGroups"></a>	
+				<span> (для  проверки заявки перейдите по ссылке)</span>			
+			</div>		
+		</div>
+		<div class="row">
+			<div class="col-md-12">					
+				<div id="Table4"></div>		
+			</div>							
+		</div>
+		<div class="row">
+			<div class="col-md-12">	
+				<h4>Посты: </h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">	
+				<input type="button" value="Получить расширенную информацию" onclick="vkGetPosts({ID})" />
+			</div>
+			<div class="col-md-1 taskHashView postsTaskHash">	
+				<label>Результат:</label>
+			</div>	
+			<div class="col-md-6">
+				<a id="taskIdPosts"></a>	
+				<span> (для  проверки заявки перейдите по ссылке)</span>			
+			</div>		
+		</div>
+		<div class="row">
+			<div class="col-md-1">
+				<label>Кол-во постов:</label>
+			</div>
+			<div class="col-md-2">
+				<input type="text" name="postsCnt" id="postsCnt" value="50"/>
+			</div>
+			<div class="col-md-1">
+				<label>Режим сортировки:</label>
+			</div>
+			<div class="col-md-2">
+				<select name="postsSortMode" id="postsSortMode">
+					<option selected value="0">Кол-во лайков</option>
+					<option value="1">Кол-во репостов</option>
+					<option value="2">Кол-во просмотров</option>
+					<option value="3">Кол-во комментариев</option>
+					<option value="4">По дате</option>
+				</select>	
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">					
+				<div id="Table5"></div>		
+			</div>							
+		</div>
+			
+		<hr/>		
+		<div class="row">	
+			<div class="col-md-2">	
+				<label>JSON: </label>
+			</div>
+		</div>	
+		<div class="row">			
+			<div class="col-md-6">	
+				<textarea id="json" rows="10" cols="100" readonly>{JSON}</textarea>
+			</div>			
+		</div>	
+		</div>			
+	
+
+</div>

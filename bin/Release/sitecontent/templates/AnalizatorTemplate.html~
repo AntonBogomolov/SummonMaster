@@ -1,0 +1,159 @@
+<h3>Статистика, пользователи: {USERS}</h3> 
+	<hr>   
+	<div class="userInfoBlock">
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Количество пользователей: </label>
+			</div>
+			<div class="col-md-1">	
+				<label>{USERSCNT}</label>
+			</div>	
+			<div class="col-md-6">	
+				<label> Среди них: {MALECNT} ({MALEPERSENT}) мужчин, {FEMALE} ({FEMALEPERSENT}) женщин. </label>
+			</div>				
+		</div>		
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Средний возраст: </label>
+			</div>
+			<div class="col-md-1">	
+				<label>{AVERAGEAGE}</label>
+			</div>	
+			<div class="col-md-6">	
+				<label> Количество пользователей с заполненной информацией о себе: {HASABOUTCNT}</label>
+			</div>				
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Среднее количество подписчиков: </label>
+			</div>
+			<div class="col-md-1">	
+				<label>{AVERAGEFOLLOWERS}</label>
+			</div>						
+		</div>	
+		
+		<hr>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее часто встречающиеся имена: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARNAMES}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее часто встречающиеся фамилии: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARSNAMES}</label>
+			</div>						
+		</div>	
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее часто встречающиеся политические взгляды: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARPOLITICAL}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее часто встречающиеся религиозные взгляды: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARRELIGION}</label>
+			</div>						
+		</div>	
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Главное в жизни: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARLIFEMAIN}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Главное в людях: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARPEOPLEMAIN}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Отношение к курению: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARSMOKING}</label>
+			</div>						
+		</div>	
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Отношение к алкоголю: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARALCOHOL}</label>
+			</div>						
+		</div>
+					
+		<hr>
+		
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Самые распостроненные типы отношений: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARRELATIONS}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее популярные интересы: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARINTERESTS}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее популярные книги: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARBOOKS}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее популярные игры: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARGAMES}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее популярные фильмы: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARMOVIES}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее популярная музыка: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARMUSIC}</label>
+			</div>						
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Наиболее популярные TV передачи: </label>
+			</div>
+			<div class="col-md-8">	
+				<label>{POPULARTV}</label>
+			</div>						
+		</div>	
+	</div>

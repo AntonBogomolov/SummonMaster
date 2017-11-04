@@ -1,0 +1,479 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: -10px;
+  margin-left: -20px;
+}
+.nav > li > a:hover{
+	background-color: #f5f5f5;
+}
+.nav > li > a:focus{
+	background-color: #f5f5f5;
+}
+.sub
+{
+	margin-left: 20px;
+	margin-top: -10px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a {
+  color: #fff;  
+  background-color: #428bca;
+}
+.modal-dialog
+{
+	width: 70%;
+}
+.links > a > img
+{
+	padding-right: 10px;
+	padding-bottom: 10px;	
+}
+.logo
+{
+	width: 120px;
+	height: 120px;	
+	background-size: cover;
+	margin: auto;	
+	background-image: url(../img/logo.jpeg);
+	border-radius: 4px;
+   box-shadow: 0 0 0 2px #f5f5f5, 0 0 13px #111111; 
+}
+
+/*
+ * Main content
+ */
+
+.main {
+  padding-top: 20px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 0px;
+  
+  }
+}
+.main .page-header {
+  margin-top: 0px;
+}
+
+.row
+{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+/*
+ * Placeholder dashboard ideas
+ */
+ 
+p
+{
+	margin: 3px;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+table
+{
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: center;	
+}
+
+td
+{
+	vertical-align: middle;	
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+input {
+	margin-bottom: 0.1em;
+	line-height: 1.1em;
+}
+
+select
+{
+	margin-bottom: 0.1em;
+	line-height: 1.1em;
+}
+
+.searchBlock label
+{
+	font-size: 0.8em;
+}
+.userInfoBlock label
+{
+	font-size: 0.8em;
+}
+
+#jsGrid td
+{
+	font-size: 0.8em;
+}
+
+.hint
+{
+	font-size: 0.7em;
+	color: grey;
+}
+
+.uniBox .bootstrap-tagsinput
+{
+	max-width: 250px;		
+}
+
+.cityBox .bootstrap-tagsinput
+{
+	max-width: 350px;
+}
+
+.schoolBox .bootstrap-tagsinput
+{
+	max-width: 200px;
+}
+
+.img-preview
+{
+	text-align: center;	
+}
+.img-preview img
+{
+	vertical-align: center;
+	margin: 5px;
+}
+
+.controls
+{	
+	display: inline-block;
+	float: right;
+	margin-bottom: 5px;
+	margin-right: 25px;
+	margin-left:  20px;			
+}
+
+.controlsExpand
+{	
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	margin-left:  5px;			
+}
+
+.panel 
+{
+  box-shadow: none !important;
+}
+
+.page-viewer
+{
+	width: 98%;
+	min-height: 90vh;
+	padding: 5px;
+}
+
+.preview-pics
+{	
+	max-height: 100px;
+	width: auto;
+}
+
+.preview-pics > a > img
+{
+	padding-right: 10px;
+	padding-bottom: 10px;	
+} 
+ 
+.pics
+{
+	max-height: 100px;
+	width: auto;
+	float: left;
+}
+.pics-end
+{
+	clear: both;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+hr
+{
+	border: none; 
+	color: #ddccc5;
+	background-color: #ddccc5;
+	height: 1px;
+}
+
+.media-info
+{
+	border-top: 	1px solid #ddccc5;
+	border-bottom: 1px solid #ddccc5;
+	margin-top: 10px;
+	margin-right: 0px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 0px;	
+	background: #f2eedd;
+	min-height: 50px;	
+	clear: both;
+}
+
+.media-info-short
+{
+	border: 	1px solid #ddccc5;
+	width: 99%;
+	padding-right: 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-right: -15px;
+	margin-left: -15px;	
+	margin-top: 10px;
+	background: #f2eedd;
+	min-height: 50px;	
+	clear: both;	
+	font-size: 1.0em;	
+}
+
+.logo-description
+{
+	width: auto;
+	max-width: 1024px;
+	max-height: 768px;
+	padding: 15px;
+	padding-top: 0px;
+	float: right;
+}
+
+.media-logo
+{	
+	max-height: 200px;
+	width: auto;
+	margin-bottom: 15px;
+	margin-left: 5px;
+}
+
+.media-description
+{		
+ 
+}
+
+.media-description-short
+{		
+ s
+}
+
+.media-end
+{
+	clear: both;
+}
+
+.bootstrap-tagsinput 
+{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 2px 4px;
+    color: #555;
+    vertical-align: middle;
+    max-width: 100%;
+    line-height: 18px;
+    cursor: text;
+    border-radius: 0px;
+    box-shadow: 0px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    min-width: 200px;
+ }
+ 
+.bootstrap-tagsinput .tag 
+{
+    margin-right: 0px;
+    color: white;
+}
+.label-info 
+{
+    background-color: #5bc0de;
+}
+.label 
+{
+	display: inline;
+	padding: .1em .4em .0em;
+	font-size: 75%;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 0.0em;
+	line-height: normal;
+}
+
+.outer-box
+{
+	display: none;
+/* 	position: fixed;			
+	width: 350px;
+	height: 230px;
+	margin-left: auto;
+	margin-top: auto;
+	
+	border: 2px solid #ddccc5;
+	background-color: #ffeeee;
+	border-radius: 10px;
+	box-shadow: 5px 5px 10px rgba(0,0,0,0.5);		
+	z-index: 9999; */
+}
+
+.outer-box .container
+{
+	width: 40%;
+	min-width: 250px;
+	margin-left: auto;	
+}
+
+.outer-overlay 
+{
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 9998;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+}​
+
+.wait-ico
+{
+	display: none;
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	background-size: 24px;
+	background-image: url(../../sitecontent/img/loading.gif);
+	z-index: 0;
+}
+
+textarea
+{
+	margin-bottom: 5px;
+}
+input 
+{
+	margin-bottom: 5px;
+}
+
+.file_status
+{	
+	display: inline-block;
+	margin-left: auto;
+	margin-right: 50px;	
+	float: right;	
+	
+}
+
+.file_input
+{	
+	width: 150px;	
+	display: inline-block;
+	float: left;
+}
+
+.file_del
+{
+	clear: both;	
+	margin-top: 5px;
+}
+
+.file_separator
+{
+	clear: both;	
+}
+
+.file_control
+{
+	margin-right: 10px;
+	margin-top: 2px;
+	display: inline-block;
+	float: left;
+}
+
+.tt-menu
+{
+	position: absolute;
+	top: 100%;
+	left: 0px;
+	z-index: 100;
+	width: 250px;
+	background-color: #f5f5f5;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}

@@ -1,0 +1,9 @@
+<div class="col-md-12 main">
+	<h2>Статистика по группам пользователей</h2> 
+	<hr>  	
+	<div class="searchBlock">	
+	<div class="row">
+		{DATA}
+	</div>
+	</div>
+</div>

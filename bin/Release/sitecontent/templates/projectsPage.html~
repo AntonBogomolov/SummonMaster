@@ -1,0 +1,162 @@
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title">Галерея</h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<h1 class="page-header">Работы</h1>	
+	 
+	<br id="NovemberLib">	       
+	<h3 class="sub-header">NovemberLib</h3>
+	<p><strong>Технологии: </strong> C++, FCGI, Web</p>
+	<p><strong>Описание: </strong> NovemberLib - это быстрый фреймворк для простого создания C++ web-приложений. Работает по протоколу FCGI. Имеет минимальное количество зависимостей. Back-End данного сайта работает на NovemberLib.</p>
+	<p>Особенности:</p>
+	<ul>
+		<li>Простая система шаблонов, которая поддерживает условные выражения</li>
+		<li>Модульность, Вы можете отключить ненужные модули или дописать нужный функционал</li>
+		<li>Многопоточная работа</li>
+		<li>Встроеная система сессий и авторизации пользователей</li>
+		<li>Контроль и проверка данных от пользователя</li>
+		<li>Простая работа с post/get данными, файлами, cookies, и т.д.</li>	
+		<li>Модуль для работы с MySQL БД</li>
+		<li>Страничный менеджер</li>
+		<li>Менеджер ресурсов с кешированием наиболее используемых файлов, который позволяет настроить доступ по MIME ресурса. </li>	
+	</ul>
+	<p><strong>GitHub: </strong><a href="http://www.github.com/AntonBogomolov/NovemberLib" target="blank">github.com/AntonBogomolov/NovemberLib</a> </p>
+	<p><strong>Скачать: </strong><a href="archives/NovemberLib.zip">архив</a> </p>
+	
+	<br id="FastImageBoard">
+	<h3 class="sub-header">FastImageBoard</h3>
+	<p><strong>Технологии: </strong> C++, FCGI, Web, ImageBoard, NovemberLib</p>
+	<p><strong>Описание: </strong> FastImageBoard - открытый движок для Имиджборд на основе фреймворка NovemberLib.</p>
+	<p>Особенности:</p>
+	<ul>		
+		<li>Поддержка нескольких тематических разделов</li>
+		<li>Возможность ограничения/разрешения постинга для определённых групп пользователей</li>
+		<li>Создание и проведение опросов</li>
+		<li>Премодерация сообщений</li>
+		<li>Закрытие тем</li>
+		<li>Прикрепление тем</li>
+		<li>Встроенная возможность скрытия тем и сообщений</li>
+		<li>Возможность развернуть слишком длинное сообщение без посещения темы</li>
+		<li>Встроенные ролики YouTube</li>
+		<li>Контроль NSFW-контента</li>
+		<li>Добавление тем в «избранное»</li>
+		<li>Возможность приложить больше одного файла к сообщению</li>
+		<li>Возможность прикладывать не только картинки, но и другие типы файлов</li>
+		<li>Удаление сообщений пользователем</li>
+		<li>Жалобы на сообщения</li>
+	</ul>
+	<p><strong>Demo: </strong><a href="http://FastImageBoard.ru" target="blank">FastImageBoard</a> </p>
+	<p><strong>GitHub: </strong><a href="http://www.github.com/AntonBogomolov/FastImageBoard" target="blank">github.com/AntonBogomolov/FastImageBoard</a> </p>
+	<p><strong>Скачать: </strong><a href="archives/FastImageBoard.zip">архив</a> </p>
+	<p><strong>Галерея: </strong> </p>
+			
+	<br id="DarkAndMaze">
+	<h3 class="sub-header">Dark And Maze</h3>
+	<p><strong>Технологии: </strong> Java, OpenGLES, GLSL, Android</p>
+	<p><strong>Описание: </strong> DarkAndMaze - игра на Andriod, написана на Java в IDE Eclipse. Для вывода графики используется OpenGLES 2.0. Представляет собой головоломку, игрок должен проходить лабиринты. Большая часть игрового поля не освещена, но у игрока есть факел. Основная особенность - система освещения. Она реализована на GLSL 2d трассировкой лучей.</p>
+	<p><strong>Google Play: </strong><a href="https://play.google.com/store/apps/details?id=com.mbasoft.darkandmaze" target="blank">Dark And Maze</a> </p>
+	<p><strong>GitHub: </strong><a href="http://www.github.com/AntonBogomolov/DarkAndMaze" target="blank">github.com/AntonBogomolov/DarkAndMaze</a> </p>
+	<p><strong>Скачать: </strong><a href="archives/DarkAndMaze.zip">архив</a> </p>
+	<p><strong>Галерея: </strong> </p>
+	<div class="links">
+    <a href="img/projects/darkandmaze/s1.PNG" title="screen_1" data-gallery>
+        <img width="auto" height="200px" src="img/projects/darkandmaze/s1.PNG" alt="Screenshot">
+    </a>
+    <a href="img/projects/darkandmaze/s2.PNG" title="screen_2" data-gallery>
+        <img width="auto" height="200px" src="img/projects/darkandmaze/s2.PNG" alt="Screenshot">
+    </a>
+    <a href="img/projects/darkandmaze/s3.PNG" title="screen_3" data-gallery>
+        <img width="auto" height="200px" src="img/projects/darkandmaze/s3.PNG" alt="Screenshot">
+    </a>
+    <a href="img/projects/darkandmaze/s4.PNG" title="screen_4" data-gallery>
+        <img width="auto" height="200px" src="img/projects/darkandmaze/s4.PNG" alt="Screenshot">
+    </a>
+	</div>	
+	
+	<br id="LSL">
+	<h3 class="sub-header">Light Speed Limit.</h3>
+	<p><strong>Технологии: </strong> C++, OpenGl, GLSL, SDL, MyGUI</p>
+	<p><strong>Описание: </strong> Light Speed Limit - 2d движок (OpenGL, SDL) и реализованный на нем прототип кроссплатформенной игры.</p>
+	<p>Особенности:</p>
+	<ul>		
+		<li>Многопоточность: поток рендера, поток физики, поток игровой логики</li>
+		<li>Автоматическое создание текстурных атласов</li>
+		<li>Древовидная структура сцены</li>
+		<li>Спрайтовая система. Спрайты, анимированные спрайты и их наборы</li>
+		<li>Свой гибкий физический движок. Решатель использует метод Рунге - Кутты четвертого порядка для решения дифф. уравнений.</li>
+		<li>Кроссплатформеность</li>
+		<li>Использование VBO и FBO</li>
+		<li>Возможность процедурной генерации текстур и атласов из них "на лету"</li>		
+	</ul>
+	<p><strong>GitHub: </strong><a href="http://www.github.com/AntonBogomolov/LightSpeedLimit" target="blank">github.com/AntonBogomolov/LightSpeedLimit</a> </p>
+	<p><strong>Скачать: </strong><a href="archives/LSL.zip">архив</a> </p>
+	<p><strong>Галерея: </strong> </p>
+	<div class="links">
+    <a href="img/projects/lsl/s1.PNG" title="screen_1" data-gallery>
+        <img width="auto" height="200px" src="img/projects/lsl/s1.PNG" alt="Screenshot">
+    </a>   
+	</div>
+	
+	<br id="EcoModels">
+	<h3 class="sub-header">Eco Models</h3>
+	<p><strong>Технологии: </strong> C++, OpenGl, Differential equations, MathParser</p>
+	<p><strong>Описание: </strong>Приложение позволяет проследить эволюцию моделей в течение некоторого промежутка времени при различных значениях параметров и начальных условиях задаваемых пользователем. Решатель моделей использует метод Рунге - Кутты четвертого порядка точности.</p>
+	<p>Особенности:</p>
+	<ul>		
+		<li>OpenGl используется для отображения результатов моделирования</li>
+		<li>Метод Рунге - Кутты четвертого порядка используется для решения моделей</li>
+		<li>Пользователь может создавать свои или редактировать существующие модели</li>
+		<li>Гибкое управление графиками на рабочей области: изменение их размеров, положения, выбор временного интервала отображаемых данных </li>
+		<li>Отображение на рабочей области нескольких моделей</li>
+	</ul>	
+	<p><strong>GitHub: </strong><a href="http://www.github.com/AntonBogomolov/Models" target="blank">github.com/AntonBogomolov/Models</a> </p>
+	<p><strong>Скачать: </strong><a href="archives/EcoModels.zip">архив</a> </p>
+	<p><strong>Галерея: </strong> </p>
+	<div class="links">
+    <a href="img/projects/ecomodels/s1.PNG" title="screen_1" data-gallery>
+        <img width="auto" height="200px" src="img/projects/ecomodels/s1.PNG" alt="Screenshot">
+    </a>
+    <a href="img/projects/ecomodels/s2.PNG" title="screen_2" data-gallery>
+        <img width="auto" height="200px" src="img/projects/ecomodels/s2.PNG" alt="Screenshot">
+    </a>
+    <a href="img/projects/ecomodels/s3.PNG" title="screen_3" data-gallery>
+        <img width="auto" height="200px" src="img/projects/ecomodels/s3.PNG" alt="Screenshot">
+    </a>
+    <a href="img/projects/ecomodels/s4.PNG" title="screen_4" data-gallery>
+        <img width="auto" height="200px" src="img/projects/ecomodels/s4.PNG" alt="Screenshot">
+    </a>
+	</div>
+</div>
+	

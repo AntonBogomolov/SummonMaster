@@ -1,0 +1,73 @@
+<div class="col-md-12 main">
+	<h2>Пост, id: {ID} owner id: <a href="?page=user&id={OWNERID}">{OWNERID}</a></h2> 
+	<hr>           
+	<div class="userInfoBlock">
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Дата публикации: </label>
+			</div>
+			<div class="col-md-4">	
+				<input type="text" name="date" id="date" readonly value="{DATE}"/>
+			</div>			
+		</div>		
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Текст: </label>
+			</div>
+			<div class="col-md-6">	
+				<textarea id="text" rows="10" cols="100" readonly>{TEXT}</textarea>
+			</div>			
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Ответ на: </label>
+			</div>
+			<div class="col-md-4">	
+				<input type="text" name="reply" id="reply" readonly value="{REPLY}"/>
+			</div>			
+		</div>	
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Количество комментариев: </label>
+			</div>
+			<div class="col-md-4">	
+				<input type="text" name="commCnt" id="commCnt" readonly value="{COMMCNT}"/>
+			</div>			
+		</div>
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Количество лайков: </label>
+			</div>
+			<div class="col-md-4">	
+				<input type="text" name="likesCnt" id="likesCnt" readonly value="{LIKESCNT}"/>
+			</div>			
+		</div>	
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Количество репостов: </label>
+			</div>
+			<div class="col-md-4">	
+				<input type="text" name="repostsCnt" id="repostsCnt" readonly value="{REPOSTSCNT}"/>
+			</div>			
+		</div>	
+		<div class="row">
+			<div class="col-md-2">	
+				<label>Вложения: </label>
+			</div>
+			<div class="col-md-6">	
+				<textarea id="attach" rows="10" cols="100" readonly>{ATTACH}</textarea>
+			</div>			
+		</div>	
+		<hr> 
+		<div class="row">	
+			<div class="col-md-2">	
+				<label>JSON: </label>
+			</div>
+		</div>	
+		<div class="row">			
+			<div class="col-md-6">	
+				<textarea id="json" rows="10" cols="100" readonly>{JSON}</textarea>
+			</div>			
+		</div>				
+	</div>
+</div>
