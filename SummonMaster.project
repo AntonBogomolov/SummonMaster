@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="SummonMaster" InternalType="Console">
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="main.cpp"/>
+    <File Name="utils.h"/>
+    <File Name="IUpdatable.h"/>
+    <VirtualDirectory Name="Map">
+      <File Name="src/Map/CTileData.h"/>
+      <File Name="src/Map/CMap.h"/>
+      <File Name="src/Map/CMap.cpp"/>
+      <File Name="src/Map/CMapObject.h"/>
+      <File Name="src/Map/CCellCoords.h"/>
+      <File Name="src/Map/CMapObjectPosAndSizeDescriptor.h"/>
+      <File Name="src/Map/CObjectsOnMapCollection.h"/>
+      <File Name="src/Map/CHeightMap.cpp"/>
+      <File Name="src/Map/CHeightMap.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Creatures">
+      <File Name="src/Creatures/CCharacteristics.h"/>
+      <File Name="src/Creatures/CCreature.cpp"/>
+      <File Name="src/Creatures/CCreature.h"/>
+      <File Name="src/Creatures/CEffects.h"/>
+      <File Name="src/Creatures/CResistances.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Objects">
+      <File Name="src/Objects/CSpawner.h"/>
+      <File Name="src/Objects/CObjectsTable.h"/>
+      <File Name="src/Objects/CObjectsCollection.h"/>
+      <File Name="src/Objects/CObjectsPool.h"/>
+      <File Name="src/Objects/CObjectContainer.h"/>
+      <File Name="src/Objects/CTags.h"/>
+      <File Name="src/Objects/CObject.h"/>
+    </VirtualDirectory>
+    <File Name="CSyncHelper.cpp"/>
+    <File Name="CSyncHelper.h"/>
+    <File Name="CEventDispatcher.cpp"/>
+    <File Name="CEventDispatcher.h"/>
+    <VirtualDirectory Name="Net">
+      <VirtualDirectory Name="App">
+        <File Name="src/Net/CSummonMasterApp.cpp"/>
+        <File Name="src/Net/CSummonMasterApp.h"/>
+        <File Name="src/Net/CSummonMasterCommandManager.cpp"/>
+        <File Name="src/Net/CSummonMasterCommandManager.h"/>
+        <File Name="src/Net/CSummonMasterUser.cpp"/>
+        <File Name="src/Net/CSummonMasterUser.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Pages">
+        <File Name="src/Net/cindexpage.cpp"/>
+        <File Name="src/Net/cindexpage.h"/>
+        <File Name="src/Net/csitepage.cpp"/>
+        <File Name="src/Net/csitepage.h"/>
+        <File Name="src/Net/csuccesspage.cpp"/>
+        <File Name="src/Net/csuccesspage.h"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="Game">
+        <File Name="src/Net/CGameRequest.h"/>
+        <File Name="src/Net/CGameResponce.h"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="World">
+      <File Name="src/World/CWorld.h"/>
+      <File Name="src/World/CGameRequestHandler.h"/>
+      <File Name="src/World/CGameRequestHandler.cpp"/>
+      <File Name="src/World/CWorld.cpp"/>
+      <File Name="src/World/CInstance.h"/>
+      <File Name="src/World/CInstance.cpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="Cross GCC ( i686-linux-gnu )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-pedantic;-std=c++11;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes">
+        <Library Value="november"/>
+        <Library Value="curl"/>
+        <Library Value="pthread"/>
+        <Library Value="z"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="yes">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="Cross GCC ( i686-linux-gnu )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O2;-pedantic;-std=c++11;-Wall" C_Options="-O2;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+        <Preprocessor Value="NDEBUG"/>
+      </Compiler>
+      <Linker Options="" Required="yes">
+        <Library Value="november"/>
+        <Library Value="curl"/>
+        <Library Value="pthread"/>
+        <Library Value="z"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="./bin/Release/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./bin/Release" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>
