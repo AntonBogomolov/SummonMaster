@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Anton
-Date                   :=31/10/17
+Date                   :=05/11/17
 CodeLitePath           :="/home/anton/.codelite"
 LinkerName             :=/usr/bin/i686-linux-gnu-g++
 SharedObjectLinkerName :=/usr/bin/i686-linux-gnu-g++ -shared -fPIC
@@ -50,7 +50,7 @@ LibPath                := $(LibraryPathSwitch).
 AR       := /usr/bin/i686-linux-gnu-ar rcu
 CXX      := /usr/bin/i686-linux-gnu-g++
 CC       := /usr/bin/i686-linux-gnu-gcc
-CXXFLAGS :=  -O2 -pedantic -std=c++11 -Wall $(Preprocessors)
+CXXFLAGS :=  -O2 -pedantic -std=c++14 -Wall $(Preprocessors)
 CFLAGS   :=  -O2 -Wall $(Preprocessors)
 ASFLAGS  := 
 AS       := /usr/bin/i686-linux-gnu-as
@@ -60,8 +60,8 @@ AS       := /usr/bin/i686-linux-gnu-as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/CSyncHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CHeightMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Creatures_CCreature.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterApp.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterCommandManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterUser.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_cindexpage.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/Net_csitepage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csuccesspage.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/CSyncHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CHeightMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Creatures_CCreature.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CGameRequestHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CWorld.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CInstance.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterApp.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/Net_CSummonMasterCommandManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterUser.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_cindexpage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csitepage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csuccesspage.cpp$(ObjectSuffix) 
 
 
 
@@ -139,6 +139,30 @@ $(IntermediateDirectory)/Creatures_CCreature.cpp$(DependSuffix): src/Creatures/C
 
 $(IntermediateDirectory)/Creatures_CCreature.cpp$(PreprocessSuffix): src/Creatures/CCreature.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Creatures_CCreature.cpp$(PreprocessSuffix) "src/Creatures/CCreature.cpp"
+
+$(IntermediateDirectory)/World_CGameRequestHandler.cpp$(ObjectSuffix): src/World/CGameRequestHandler.cpp $(IntermediateDirectory)/World_CGameRequestHandler.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/src/World/CGameRequestHandler.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/World_CGameRequestHandler.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/World_CGameRequestHandler.cpp$(DependSuffix): src/World/CGameRequestHandler.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/World_CGameRequestHandler.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/World_CGameRequestHandler.cpp$(DependSuffix) -MM "src/World/CGameRequestHandler.cpp"
+
+$(IntermediateDirectory)/World_CGameRequestHandler.cpp$(PreprocessSuffix): src/World/CGameRequestHandler.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/World_CGameRequestHandler.cpp$(PreprocessSuffix) "src/World/CGameRequestHandler.cpp"
+
+$(IntermediateDirectory)/World_CWorld.cpp$(ObjectSuffix): src/World/CWorld.cpp $(IntermediateDirectory)/World_CWorld.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/src/World/CWorld.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/World_CWorld.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/World_CWorld.cpp$(DependSuffix): src/World/CWorld.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/World_CWorld.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/World_CWorld.cpp$(DependSuffix) -MM "src/World/CWorld.cpp"
+
+$(IntermediateDirectory)/World_CWorld.cpp$(PreprocessSuffix): src/World/CWorld.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/World_CWorld.cpp$(PreprocessSuffix) "src/World/CWorld.cpp"
+
+$(IntermediateDirectory)/World_CInstance.cpp$(ObjectSuffix): src/World/CInstance.cpp $(IntermediateDirectory)/World_CInstance.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/src/World/CInstance.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/World_CInstance.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/World_CInstance.cpp$(DependSuffix): src/World/CInstance.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/World_CInstance.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/World_CInstance.cpp$(DependSuffix) -MM "src/World/CInstance.cpp"
+
+$(IntermediateDirectory)/World_CInstance.cpp$(PreprocessSuffix): src/World/CInstance.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/World_CInstance.cpp$(PreprocessSuffix) "src/World/CInstance.cpp"
 
 $(IntermediateDirectory)/Net_CSummonMasterApp.cpp$(ObjectSuffix): src/Net/CSummonMasterApp.cpp $(IntermediateDirectory)/Net_CSummonMasterApp.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/src/Net/CSummonMasterApp.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Net_CSummonMasterApp.cpp$(ObjectSuffix) $(IncludePath)

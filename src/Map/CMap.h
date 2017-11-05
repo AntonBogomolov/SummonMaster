@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "CObject.h"
+#include "src/Objects/CObject.h"
 #include "CTileData.h"
 #include "CObjectsOnMapCollection.h"
 #include "src/Objects/CObjectsCollection.h"
@@ -36,9 +36,9 @@ public:
         
     }
     
-    CMapGenerateParams generationParams;
     unsigned int width;
     unsigned int height;
+    CMapGenerateParams generationParams;
 protected:    
 };
 

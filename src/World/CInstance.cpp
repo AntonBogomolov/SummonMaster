@@ -1,9 +1,15 @@
 #include "CInstance.h"
 
+#include "CMap.h"
+
 CInstance::CInstance(const CObjectCreationParams& param) : CObject(param), 
 {
     setIsNeedToUpdate(true);
-    const CInstanceCreationParams& instanceParams
+    const CInstanceCreationParams& instanceParams = static_cast<const CInstanceCreationParams&>(param);
+    this->lifeTime = instanceParams.getLifeTime();
+    this->isLifeTimeNeverEnd = instanceParams.isLifeTimeNeverEnd;
+    
+    map = new CMap(instanceParams.getMapCreationParams());
 }
 
 CInstance::~CInstance()
@@ -13,6 +19,9 @@ CInstance::~CInstance()
 
 void CInstance::update(const float dt)
 {
-    lifeTime -= dt;
-    if(lifeTime < 0.0f)  setIsNeedToUpdate(false);        
+    if(!isLifeTimeNeverEnd)
+    {
+        lifeTime -= dt;
+        if(lifeTime < 0.0f)  setIsNeedToUpdate(false);
+    }
 }

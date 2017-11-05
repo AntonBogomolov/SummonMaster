@@ -7,7 +7,7 @@ CSyncHelper::CSyncHelper()
 	mtxFile		= new std::mutex();
 	mtxDB		= new std::mutex();
 	mtxMessage	= new std::mutex();
-	mtxDraw 	= new std::mutex();
+	mtxInstance	= new std::shared_timed_mutex();
 }
 
 CSyncHelper::~CSyncHelper()
@@ -17,7 +17,7 @@ CSyncHelper::~CSyncHelper()
 	delete mtxResource;
 	delete mtxDB;
 	delete mtxMessage;
-	delete mtxDraw;
+	delete mtxInstance;
 }
 
 std::mutex* CSyncHelper::getLogMutex() const
@@ -45,7 +45,7 @@ std::mutex* CSyncHelper::getMessageMutex() const
 	return mtxMessage;
 }
 
-std::mutex* CSyncHelper::getDrawMutex() const
+std::shared_timed_mutex* CSyncHelper::getInstanceMutex() const
 {
-	return mtxDraw;
+	return mtxInstance;
 }

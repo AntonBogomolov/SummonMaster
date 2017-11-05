@@ -152,10 +152,6 @@ public:
         }
     }
     
-    virtual void update(const float dt)
-    {
-        
-    }
 protected:
     CMapObject(const CMapObjectCreationParam& params, CObject* object, const bool isInstance = true) : 
                     cellCoords(params.cellCoords), position(params.position), object(object), 

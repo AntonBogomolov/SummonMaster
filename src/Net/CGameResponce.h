@@ -9,10 +9,9 @@ class CGameRequest;
 class CGameResponce
 {
 public:
-    CGameResponce(const CGameRequest& request, std::vector<uint8_t>* binData)
+    CGameResponce(const CGameRequest& request, std::vector<uint8_t>* binData) : request(request), binData(binData)
     {
-        this->request = request;
-        this->binData = binData;
+
     }
     ~CGameResponce()
     {

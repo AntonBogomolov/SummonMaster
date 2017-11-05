@@ -10,10 +10,10 @@ using nlohmann::json;
 CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request)
 {
     CGameResponce nullResponce(request, nullptr);
+    /*
     if(!request.getIsValid()) return nullResponce;
     const CSummonMasterUser* user = request.user;
     
-    js
     const ENGameRequest requestType = request.getParams().getType();
     if(requestType == ENGameRequest::GetMapDescription)
     {
@@ -33,5 +33,6 @@ CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request)
         }
         
     }
-   
+    */
+    return nullResponce;
 }

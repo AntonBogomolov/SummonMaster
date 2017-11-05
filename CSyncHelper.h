@@ -6,6 +6,7 @@
 #include <mutex>
 #include <chrono>
 #include <thread>
+#include <shared_mutex>
 
 class CSyncHelper : public ITemplateSingleton<CSyncHelper>
 {
@@ -15,7 +16,7 @@ class CSyncHelper : public ITemplateSingleton<CSyncHelper>
 		std::mutex* getFileMutex() const;
 		std::mutex* getDBMutex() const;
 		std::mutex* getMessageMutex() const;
-		std::mutex* getDrawMutex() const;
+		std::shared_timed_mutex* getInstanceMutex() const;
 
 		virtual ~CSyncHelper();
 	protected:
@@ -25,7 +26,7 @@ class CSyncHelper : public ITemplateSingleton<CSyncHelper>
 		std::mutex* mtxResource;
 		std::mutex* mtxDB;
 		std::mutex* mtxMessage;
-		std::mutex* mtxDraw;
+		std::shared_timed_mutex* mtxInstance;
 
 		friend CSyncHelper* ITemplateSingleton::getInstance();
 		CSyncHelper();

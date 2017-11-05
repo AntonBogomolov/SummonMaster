@@ -1,35 +1,34 @@
 #pragma once 
 
-
-#include "src/Objects/CObject.h"
+#include "src/Map/CMap.h"
 
 class CInstanceCreationParams : public CObjectCreationParams
 {
 public:
-    CInstanceCreationParams(const CMapCreationParams& mapCreationParams) : CObjectCreationParams(ENObjectsType::INSTANCE),
-                            mapCreationParams(mapCreationParams)
-    {
+    CInstanceCreationParams(const CMapCreationParams& mapCreationParams, const float lifeTime = 9000.0f,
+                            const bool isLifeTimeNeverEnd = false) : CObjectCreationParams(ENObjectsType::INSTANCE),
+                            mapCreationParams(mapCreationParams), lifeTime(lifeTime), isLifeTimeNeverEnd(isLifeTimeNeverEnd)
+    { 
         
     }
     ~CInstanceCreationParams()
     {
         
     }
-    const mapCreationParams& getMapCreationParams() const
+    const CMapCreationParams& getMapCreationParams() const
     {
         return mapCreationParams;
     }
-    long getLifeTime() const
+    float getLifeTime() const
     {
         return lifeTime;
     }
-protected:
+public:
     CMapCreationParams mapCreationParams;
-    long lifeTime;
-    
+    float lifeTime;
+    bool isLifeTimeNeverEnd;
 };
 
-class CMap;
 class CInstance : public CObject, public IUpdatable
 {
 public:
@@ -44,11 +43,20 @@ public:
     {
         return map;
     }
+    float getLifeTime() const
+    {
+        return lifeTime;
+    }
+    bool getIsLifeTimeNeverEnd() const
+    {
+        return isLifeTimeNeverEnd;
+    }
     
     virtual void update(const float dt);
 protected:
     CInstance(const CObjectCreationParams& param);
     
     CMap* map;
-    long lifeTime;
+    float lifeTime;
+    bool isLifeTimeNeverEnd;
 };

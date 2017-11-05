@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CCellCoords.h"
+#include "src/Map/CCellCoords.h"
 
 enum class ENGameRequest { GetMapData, GetMapDescription, GetObject };
 
@@ -43,23 +43,24 @@ public:
     }
    
 public:
+    unsigned int mapId;
     CCellCoords ldCorner;
     CCellCoords ruCorner;
     bool isNeedBlockMap;
-    bool isNeedTileMap;    
+    bool isNeedTileMap; 
 };
 
 class CSummonMasterUser;
 class CGameRequest
 {
 public:
-    CGameRequest(const CSummonMasterUser* user, const CGameRequestParam* params, const long requestCreationTime) 
+    CGameRequest(CSummonMasterUser* user, const CGameRequestParam& params, const long requestCreationTime) 
                  : user(user), params(params), requestCreationTime(requestCreationTime)
     {
         if(this->user == nullptr) this->isValid = false;
     }
     CGameRequest(const CGameRequest& request)
-                : user(request->getUser()), params(request->getParams()), requestCreationTime(request->getCreationTime())
+                : user(request.getUser()), params(request.getParams()), requestCreationTime(request.getCreationTime())
     {
         if(this->user == nullptr) this->isValid = false;
     }
@@ -67,7 +68,11 @@ public:
     {
         
     }
-    const CSummonMasterUser* getUser() const 
+    CSummonMasterUser* getUser() const 
+    {
+        return user;
+    }
+    CSummonMasterUser* getUserForModify() 
     {
         return user;
     }
