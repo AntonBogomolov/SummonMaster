@@ -19,7 +19,7 @@ public:
     }
 protected:
     CGameRequestHandler requestHandler;
-    CInstanceManager instanceManager;
+    CInstanceManager    instanceManager;
 private:
     CWorld();    
     friend CWorld* ITemplateSingleton::getInstance();

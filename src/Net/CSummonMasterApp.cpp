@@ -16,6 +16,7 @@
 
 #include "src/Creatures/CCreature.h"
 #include "src/Map/CMap.h"
+#include "src/World/CWorld.h"
 
 CSummonMasterApp::CSummonMasterApp()
 {
@@ -25,6 +26,7 @@ CSummonMasterApp::CSummonMasterApp()
 CSummonMasterApp::~CSummonMasterApp()
 {
     delete CHTTPClient::getInstance();
+    delete CWorld::getInstance();
 }
 
 void CSummonMasterApp::init()
@@ -70,5 +72,6 @@ void CSummonMasterApp::init()
 
 void CSummonMasterApp::initDB()
 {   
-    CMap map(1000,1200);
+    //CMap map(1000,1200);
+    CWorld::getInstance();
 }

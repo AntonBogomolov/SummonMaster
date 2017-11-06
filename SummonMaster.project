@@ -33,8 +33,6 @@
       <File Name="src/Objects/CTags.h"/>
       <File Name="src/Objects/CObject.h"/>
     </VirtualDirectory>
-    <File Name="CSyncHelper.cpp"/>
-    <File Name="CSyncHelper.h"/>
     <File Name="CEventDispatcher.cpp"/>
     <File Name="CEventDispatcher.h"/>
     <VirtualDirectory Name="Net">

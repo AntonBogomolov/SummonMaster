@@ -4,8 +4,8 @@
 #include "CInstance.h"
 #include <map>
 
-#include "CSyncHelper.h"
-
+#include <mutex>
+#include <shared_mutex>
 
 class CInstanceManager : public IUpdatable
 {
@@ -24,9 +24,9 @@ public:
     }
     
     bool getIsInstanceExist(const unsigned int id) const
-    {
-        std::shared_lock<std::shared_timed_mutex> lock(*CSyncHelper::getInstance()->getInstanceMutex());
-        
+    {   
+        std::shared_lock<std::shared_timed_mutex> lock(mtxInstance);
+      
         auto it = instances.find(id);
         if(it != instances.end())
         {
@@ -36,7 +36,7 @@ public:
     }
     const CInstance* getInstance(const unsigned int id) const
     {
-        std::shared_lock<std::shared_timed_mutex> lock(*CSyncHelper::getInstance()->getInstanceMutex());
+        std::shared_lock<std::shared_timed_mutex> lock(mtxInstance);
         
         auto it = instances.find(id);
         if(it != instances.end())
@@ -47,7 +47,7 @@ public:
     }
     CInstance* getInstanceForModify(const unsigned int id)
     {
-        std::shared_lock<std::shared_timed_mutex> lock(*CSyncHelper::getInstance()->getInstanceMutex());
+        std::shared_lock<std::shared_timed_mutex> lock(mtxInstance);
         
         auto it = instances.find(id);
         if(it != instances.end())
@@ -58,7 +58,7 @@ public:
     }
     void deleteInstance(const unsigned int id)
     {
-        std::unique_lock<std::shared_timed_mutex> lock(*CSyncHelper::getInstance()->getInstanceMutex());
+        std::unique_lock<std::shared_timed_mutex> lock(mtxInstance);
         
         auto it = instances.find(id);
         if(it != instances.end())
@@ -68,23 +68,24 @@ public:
         }
     }
     
-    void addInstance(CInstance* newInstance)
+    unsigned int addInstance(CInstance* newInstance)
     {
-        if(!newInstance) return;
+        if(!newInstance) return 0;
         bool isExist = getIsInstanceExist(newInstance->getObjectId());
         if(isExist)
         {
             delete newInstance;
-            return;
+            return 0;
         }
         
-        std::unique_lock<std::shared_timed_mutex> lock(*CSyncHelper::getInstance()->getInstanceMutex());
+        std::unique_lock<std::shared_timed_mutex> lock(mtxInstance);
         instances[newInstance->getObjectId()] = newInstance;
+        return newInstance->getObjectId();
     }
     
     void clearGarbage() 
     {
-        std::unique_lock<std::shared_timed_mutex> lock(*CSyncHelper::getInstance()->getInstanceMutex());
+        std::unique_lock<std::shared_timed_mutex> lock(mtxInstance);
         
         for(auto it = instances.begin(); it != instances.end();)
         {
@@ -103,7 +104,7 @@ public:
     
     virtual void update(const float dt)
     {
-        std::shared_lock<std::shared_timed_mutex> lock(*CSyncHelper::getInstance()->getInstanceMutex());
+        std::shared_lock<std::shared_timed_mutex> lock(mtxInstance);
         
         for(auto it = instances.begin(); it != instances.end();)
         {
@@ -118,4 +119,5 @@ public:
     CInstanceManager(const CInstanceManager& inst) = delete;
 protected:
     std::map<unsigned int, CInstance*> instances;
+    mutable std::shared_timed_mutex mtxInstance;
 };

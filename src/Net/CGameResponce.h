@@ -9,7 +9,7 @@ class CGameRequest;
 class CGameResponce
 {
 public:
-    CGameResponce(const CGameRequest& request, std::vector<uint8_t>* binData) : request(request), binData(binData)
+    CGameResponce(const CGameRequest& request, std::vector<uint8_t> binData) : request(request), binData(binData)
     {
 
     }
@@ -22,11 +22,11 @@ public:
     {
         return request;
     }
-    std::vector<uint8_t>* getBinData()
+    std::vector<uint8_t>& getBinData()
     {
         return binData;
     }
 protected:
     const CGameRequest& request;
-    std::vector<uint8_t>* binData;
+    std::vector<uint8_t> binData;
 };

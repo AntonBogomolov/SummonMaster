@@ -9,7 +9,10 @@ Release/Net_CSummonMasterApp.cpp.o: src/Net/CSummonMasterApp.cpp \
  src/Map/CObjectsOnMapCollection.h src/Map/CMapObject.h \
  src/Map/CCellCoords.h src/Map/CMapObjectPosAndSizeDescriptor.h \
  src/Objects/CObjectsPool.h src/Objects/CObjectsCollection.h \
- src/Objects/CObjectsTable.h
+ src/Objects/CObjectsTable.h src/World/CWorld.h \
+ src/World/CGameRequestHandler.h src/Net/CGameRequest.h \
+ src/Net/CGameResponce.h src/World/CInstanceManager.h \
+ src/World/CInstance.h
 
 src/Net/CSummonMasterApp.h:
 
@@ -60,3 +63,15 @@ src/Objects/CObjectsPool.h:
 src/Objects/CObjectsCollection.h:
 
 src/Objects/CObjectsTable.h:
+
+src/World/CWorld.h:
+
+src/World/CGameRequestHandler.h:
+
+src/Net/CGameRequest.h:
+
+src/Net/CGameResponce.h:
+
+src/World/CInstanceManager.h:
+
+src/World/CInstance.h:

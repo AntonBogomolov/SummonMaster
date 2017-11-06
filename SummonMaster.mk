@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Anton
-Date                   :=05/11/17
+Date                   :=06/11/17
 CodeLitePath           :="/home/anton/.codelite"
 LinkerName             :=/usr/bin/i686-linux-gnu-g++
 SharedObjectLinkerName :=/usr/bin/i686-linux-gnu-g++ -shared -fPIC
@@ -60,8 +60,8 @@ AS       := /usr/bin/i686-linux-gnu-as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/CSyncHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CHeightMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Creatures_CCreature.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CGameRequestHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CWorld.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CInstance.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterApp.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/Net_CSummonMasterCommandManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterUser.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_cindexpage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csitepage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csuccesspage.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CHeightMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Creatures_CCreature.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CGameRequestHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CWorld.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CInstance.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterApp.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterCommandManager.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/Net_CSummonMasterUser.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_cindexpage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csitepage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csuccesspage.cpp$(ObjectSuffix) 
 
 
 
@@ -99,14 +99,6 @@ $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 
 $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
-
-$(IntermediateDirectory)/CSyncHelper.cpp$(ObjectSuffix): CSyncHelper.cpp $(IntermediateDirectory)/CSyncHelper.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/CSyncHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/CSyncHelper.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/CSyncHelper.cpp$(DependSuffix): CSyncHelper.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/CSyncHelper.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/CSyncHelper.cpp$(DependSuffix) -MM "CSyncHelper.cpp"
-
-$(IntermediateDirectory)/CSyncHelper.cpp$(PreprocessSuffix): CSyncHelper.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/CSyncHelper.cpp$(PreprocessSuffix) "CSyncHelper.cpp"
 
 $(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix): CEventDispatcher.cpp $(IntermediateDirectory)/CEventDispatcher.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/CEventDispatcher.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix) $(IncludePath)

@@ -1,20 +1,22 @@
 #pragma once 
 
+
 #include <novemberlib/interfaces/ITemplateSingleton.h>
 #include "CObject.h"
-#include "CMapObject.h"
+#include "CObjectsPool.h"
+#include "src/World/CInstance.h"
 
 class CMap;
-class CSpawner : public ITemplateSingleton
+class CSpawner : public ITemplateSingleton<CSpawner>
 {
 public:
-    template<class T> CObject* createObject(CObjectsPool& objectPool, const CObjectCreationParams& params)
+    template<class T> CObject* createObject(CObjectsPool<CObject>& objectPool, const CObjectCreationParams& params)
     {
         CObject* result = nullptr; 
         try
         {
             result = new T(params);
-            objectPool->addToPool(result);
+            objectPool.addToPool(result);
         }
         catch(...)
         {
@@ -23,9 +25,9 @@ public:
         return result;
     }
     
-    template<class T> CMap* createMap(const CObjectCreationParams& params)
+    template<class T> CInstance* createInstance(const CInstanceCreationParams& params)
     {
-        CMap* result = nullptr; 
+        CInstance* result = nullptr; 
         try
         {
             result = new T(params);
@@ -67,7 +69,7 @@ public:
         return result;
     }
 
-    ~virtual CSpawner()
+    virtual ~CSpawner()
     {
         
     }

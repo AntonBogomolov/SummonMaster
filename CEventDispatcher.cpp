@@ -1,6 +1,5 @@
 #include "CEventDispatcher.h"
 
-#include "CSyncHelper.h"
 #include "utils.h"
 
 // ==================================================

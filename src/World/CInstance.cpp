@@ -1,8 +1,8 @@
 #include "CInstance.h"
 
-#include "CMap.h"
+#include "src/Map/CMap.h"
 
-CInstance::CInstance(const CObjectCreationParams& param) : CObject(param), 
+CInstance::CInstance(const CObjectCreationParams& param) : CObject(param)
 {
     setIsNeedToUpdate(true);
     const CInstanceCreationParams& instanceParams = static_cast<const CInstanceCreationParams&>(param);

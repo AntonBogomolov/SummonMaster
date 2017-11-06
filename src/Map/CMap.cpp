@@ -24,8 +24,6 @@ CMap::CMap(const CMapCreationParams& param) : IEventHandler()
     
     generateTileMap(param.generationParams);
     updateBlockMap(CCellCoords(0,0), CCellCoords(width-1, height-1));
-    
-    setIsValid(true);
 }
 
 void CMap::updateBlockMap(const CCellCoords& leftDownCorner, const CCellCoords& rightUpCorner)

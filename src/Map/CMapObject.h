@@ -1,5 +1,6 @@
 #pragma once 
 
+#include "IUpdatable.h"
 #include "src/Objects/CObject.h"
 #include "CCellCoords.h"
 #include "CMapObjectPosAndSizeDescriptor.h"
@@ -23,7 +24,7 @@ protected:
     
 };
 
-class CMapObject : public IEventHandler, IUpdatable
+class CMapObject : public IEventHandler, public IUpdatable
 {
 public:
     friend class CSpawner;
