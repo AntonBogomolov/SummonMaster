@@ -6,7 +6,8 @@ Release/World_CWorld.cpp.o: src/World/CWorld.cpp src/World/CWorld.h \
  src/Objects/CObjectContainer.h CEventDispatcher.h src/Map/CTileData.h \
  src/Map/CObjectsOnMapCollection.h src/Map/CMapObject.h \
  src/Map/CMapObjectPosAndSizeDescriptor.h src/Objects/CObjectsPool.h \
- src/Objects/CObjectsCollection.h src/Objects/CObjectsTable.h
+ src/Objects/CObjectsCollection.h src/Objects/CObjectsTable.h \
+ src/Objects/CSpawner.h
 
 src/World/CWorld.h:
 
@@ -49,3 +50,5 @@ src/Objects/CObjectsPool.h:
 src/Objects/CObjectsCollection.h:
 
 src/Objects/CObjectsTable.h:
+
+src/Objects/CSpawner.h:

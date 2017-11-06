@@ -1,13 +1,11 @@
 #pragma once 
 
-
-#include <novemberlib/interfaces/ITemplateSingleton.h>
 #include "CObject.h"
 #include "CObjectsPool.h"
 #include "src/World/CInstance.h"
 
 class CMap;
-class CSpawner : public ITemplateSingleton<CSpawner>
+class CSpawner
 {
 public:
     template<class T> CObject* createObject(CObjectsPool<CObject>& objectPool, const CObjectCreationParams& params)
@@ -69,15 +67,13 @@ public:
         return result;
     }
 
+    CSpawner()
+    {
+        
+    }
     virtual ~CSpawner()
     {
         
     }
 protected:
-private:
-    friend CSpawner* ITemplateSingleton::getInstance();
-    CSpawner()
-    {
-        
-    }
 };

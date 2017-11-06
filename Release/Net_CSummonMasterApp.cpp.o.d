@@ -12,7 +12,7 @@ Release/Net_CSummonMasterApp.cpp.o: src/Net/CSummonMasterApp.cpp \
  src/Objects/CObjectsTable.h src/World/CWorld.h \
  src/World/CGameRequestHandler.h src/Net/CGameRequest.h \
  src/Net/CGameResponce.h src/World/CInstanceManager.h \
- src/World/CInstance.h
+ src/World/CInstance.h src/Objects/CSpawner.h
 
 src/Net/CSummonMasterApp.h:
 
@@ -75,3 +75,5 @@ src/Net/CGameResponce.h:
 src/World/CInstanceManager.h:
 
 src/World/CInstance.h:
+
+src/Objects/CSpawner.h:
