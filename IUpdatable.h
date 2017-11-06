@@ -5,7 +5,7 @@ class IUpdatable
 public:
     IUpdatable(){isNeedToUpdate = false;};
     virtual ~IUpdatable(){};
-    virtual void update(const float dt)  = 0;
+    virtual void update(const float dt) = 0;
     
     void setIsNeedToUpdate(const bool isNeedToUpdate)
     {

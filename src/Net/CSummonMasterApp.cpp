@@ -68,10 +68,11 @@ void CSummonMasterApp::init()
 	pages->addPageType<CSuccessPage>("success");
 	
 	initDB();
+    
+    CWorld::getInstance()->run();
 }
 
 void CSummonMasterApp::initDB()
 {   
-    //CMap map(1000,1200);
-    CWorld::getInstance();
+   
 }

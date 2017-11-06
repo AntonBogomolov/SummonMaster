@@ -4,14 +4,16 @@
 #include <novemberlib/utils/json.h>
 using nlohmann::json;
 
-class CGameRequest;
-
 class CGameResponce
 {
 public:
-    CGameResponce(const CGameRequest& request, std::vector<uint8_t> binData) : request(request), binData(binData)
+    CGameResponce(const CGameRequest& request, std::vector<uint8_t> binData) : request(request), binData(std::move(binData))
     {
 
+    }
+    CGameResponce(CGameResponce&& that) : request(that.getRequest())
+    {
+        this->binData = std::move(that.getBinData());
     }
     ~CGameResponce()
     {

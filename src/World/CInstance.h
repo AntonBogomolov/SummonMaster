@@ -32,6 +32,7 @@ public:
 class CInstance : public CObject, public IUpdatable
 {
 public:
+    friend class CSpawner;
     CInstance(const CInstance& inst) = delete;
     virtual ~CInstance();
     

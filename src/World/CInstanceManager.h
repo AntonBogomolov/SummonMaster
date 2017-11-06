@@ -80,7 +80,8 @@ public:
         
         std::unique_lock<std::shared_timed_mutex> lock(mtxInstance);
         instances[newInstance->getObjectId()] = newInstance;
-        return newInstance->getObjectId();
+        
+        return newInstance->getObjectId();        
     }
     
     void clearGarbage() 
@@ -106,7 +107,7 @@ public:
     {
         std::shared_lock<std::shared_timed_mutex> lock(mtxInstance);
         
-        for(auto it = instances.begin(); it != instances.end();)
+        for(auto it = instances.begin(); it != instances.end();++it)
         {
             CInstance* currInst = it->second;
             if(currInst->getIsValid() && currInst->getIsNeedToUpdate())
@@ -114,6 +115,7 @@ public:
                 currInst->update(dt);
             }
         }
+       
     }
     
     CInstanceManager(const CInstanceManager& inst) = delete;
