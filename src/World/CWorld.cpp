@@ -43,6 +43,8 @@ void CWorld::run()
 
 void CWorld::collectGarbage()
 {
+    instanceManager.clearGarbage();
+    globalObjectsTable.
     CLog::getInstance()->addInfo("Garbage  Collected");
 }
 

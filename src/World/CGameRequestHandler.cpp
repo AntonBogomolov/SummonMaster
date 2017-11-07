@@ -28,7 +28,7 @@ CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request)
         result["width"] = map->getWidth();
         result["height"]= map->getHeight();
         
-        return CGameResponce(request, json::to_cbor(result));
+        return CGameResponce(request, std::move(json::to_cbor(result)));
     }
     else
     if(requestType == ENGameRequest::GetMapData)
@@ -44,7 +44,7 @@ CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request)
         result["width"] = map->getWidth();
         result["height"]= map->getHeight();
         
-        return CGameResponce(request, json::to_cbor(result));
+        return CGameResponce(request, std::move(json::to_cbor(result)));
     }
     
     return nullResponce;
