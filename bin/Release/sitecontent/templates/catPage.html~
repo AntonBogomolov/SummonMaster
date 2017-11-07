@@ -1,6 +1,0 @@
-<div class="col-md-12 main">
-	<div class="row">
-		<h2>{TYPE}</h2>
-		<h2><a href="?page=upload&cat={TYPE}">Добавить на сайт</a></h2>
-	</div>		
-</div>
