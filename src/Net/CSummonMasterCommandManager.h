@@ -12,6 +12,8 @@ class CSummonMasterCommandManager : public CCommandsManager
     public:
         virtual CCommandResult processCommand(CFCGIRequest* currRequest);
         
+        CCommandResult gameGetInstancesList(CFCGIRequest* currRequest) const;
+        
         CCommandResult loginCommand(CFCGIRequest* currRequest) const;
         CCommandResult logoutCommand(CFCGIRequest* currRequest) const;
 

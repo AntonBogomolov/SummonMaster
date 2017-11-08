@@ -4,48 +4,78 @@
 #include "src/Objects/CSpawner.h"
 
 #include "CWorld.h"
-#include "novemberlib/utils/json.h"
-using nlohmann::json;
 
 CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request)
 {
     CGameResponce nullResponce(request, std::vector<uint8_t>());
     
     if(!request.getIsValid()) return nullResponce;
-    const CSummonMasterUser* user = request.getUser();
-    CWorld* world = CWorld::getInstance();
-    CInstanceManager& instanceManager = world->getInstanceManager();
-    
+    CSummonMasterUser* user = request.getUserForModify();
+        
     const ENGameRequest requestType = request.getParams().getType();
-    if(requestType == ENGameRequest::GetMapDescription)
+    if(requestType == ENGameRequest::GetInstanceDescription)
     {
         json result;
-        unsigned int mapId = request.getParams().getId();
-        const CInstance* instance = instanceManager.getInstance(mapId);
-        if(!instance) return nullResponce;
+        result["result"] = json::object();
         
-        const CMap* map = instance->getMap();
-        result["width"] = map->getWidth();
-        result["height"]= map->getHeight();
+        getInstanceDescription(user, request.getParams(), result);        
+        return CGameResponce(request, std::move(json::to_cbor(result)));
+    }
+    else
+    if(requestType == ENGameRequest::GetInstancesList)
+    {
+        json result;
+        result["result"] = json::array();
         
+        getInstancesList(user, request.getParams(), result);        
         return CGameResponce(request, std::move(json::to_cbor(result)));
     }
     else
     if(requestType == ENGameRequest::GetMapData)
     {
         const CGetMapDataRequestParam& params = static_cast<const CGetMapDataRequestParam&>(request.getParams());
-        
         json result;
-        unsigned int mapId = params.getId();
-        const CInstance* instance = instanceManager.getInstance(mapId);
-        if(!instance) return nullResponce;
-        
-        const CMap* map = instance->getMap();
-        result["width"] = map->getWidth();
-        result["height"]= map->getHeight();
-        
         return CGameResponce(request, std::move(json::to_cbor(result)));
     }
     
     return nullResponce;
+}
+
+void CGameRequestHandler::getInstancesList(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
+{
+    CWorld* world = CWorld::getInstance();
+    CInstanceManager& instanceManager = world->getInstanceManager();
+    
+    std::map<unsigned int, CInstance*> instances = instanceManager.getInstances();
+    for(auto it = instances.begin(); it != instances.end(); ++it)
+    {
+        const CInstance* currInst = it->second;
+        if(currInst && currInst->getIsValid() && !currInst->getIsLifeTimeEnd())
+        {
+            json currInstanceJson;
+            currInstanceJson["id"] = currInst->getObjectId();
+            currInstanceJson["descripion"] = currInst->getDescription();
+            result["result"].push_back(currInstanceJson);
+        }
+    }
+}
+
+void CGameRequestHandler::getInstanceDescription(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
+{
+    CWorld* world = CWorld::getInstance();
+    CInstanceManager& instanceManager = world->getInstanceManager();
+    
+    unsigned int mapId = params.getId();
+    const CInstance* instance = instanceManager.getInstance(mapId);
+    if(!instance) return;
+        
+    const CMap* map = instance->getMap();
+    result["result"]["description"] = instance->getDescription();
+    result["result"]["width"] = map->getWidth();
+    result["result"]["height"]= map->getHeight();    
+}
+
+void CGameRequestHandler::getMapData(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
+{
+    
 }

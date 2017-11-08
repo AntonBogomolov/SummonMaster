@@ -56,6 +56,11 @@ public:
         }
         return nullptr;
     }
+    const std::map<unsigned int, CInstance*>& getInstances() const
+    {
+        std::shared_lock<std::shared_timed_mutex> lock(mtxInstance);
+        return instances;
+    }
     void deleteInstance(const unsigned int id)
     {
         std::unique_lock<std::shared_timed_mutex> lock(mtxInstance);

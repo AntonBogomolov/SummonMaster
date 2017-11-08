@@ -2,7 +2,7 @@
 #define CVKGETAPP_H
 
 #include "novemberlib/FCGI/CFCGIApp.h"
-
+#include <thread>
 
 class CSummonMasterApp : public CFCGIApp
 {
@@ -13,6 +13,8 @@ class CSummonMasterApp : public CFCGIApp
 		virtual void init();
 	private:
 		void initDB();
+        
+        std::thread* gameThread;
 };
 
 #endif // CVKGETAPP_H

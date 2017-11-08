@@ -11,6 +11,9 @@ public:
     {
 
     }
+    CGameResponce(const CGameResponce& that) = delete;
+    CGameResponce& operator = (const CGameResponce& that) = delete;
+    
     CGameResponce(CGameResponce&& that) : request(that.getRequest())
     {
         this->binData = std::move(that.getBinData());

@@ -6,6 +6,7 @@ CInstance::CInstance(const CObjectCreationParams& param) : CObject(param)
 {
     setIsNeedToUpdate(true);
     const CInstanceCreationParams& instanceParams = static_cast<const CInstanceCreationParams&>(param);
+    this->description = instanceParams.getDescription();
     this->lifeTime = instanceParams.getLifeTime();
     this->isLifeTimeNeverEnd = instanceParams.isLifeTimeNeverEnd;
     

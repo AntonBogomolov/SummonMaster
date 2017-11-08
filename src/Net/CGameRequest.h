@@ -2,7 +2,7 @@
 
 #include "src/Map/CCellCoords.h"
 
-enum class ENGameRequest { GetMapData, GetMapDescription, GetObject };
+enum class ENGameRequest {GetInstancesList, GetMapData, GetInstanceDescription, GetObject };
 
 class CGameRequestParam
 {

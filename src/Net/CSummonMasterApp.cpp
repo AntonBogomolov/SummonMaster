@@ -27,6 +27,7 @@ CSummonMasterApp::~CSummonMasterApp()
 {
     delete CHTTPClient::getInstance();
     delete CWorld::getInstance();
+    delete gameThread;
 }
 
 void CSummonMasterApp::init()
@@ -69,7 +70,8 @@ void CSummonMasterApp::init()
 	
 	initDB();
     
-    CWorld::getInstance()->run();
+    gameThread = new std::thread(&CWorld::run, CWorld::getInstance());
+    
 }
 
 void CSummonMasterApp::initDB()

@@ -1,10 +1,14 @@
 #include "CSummonMasterCommandManager.h"
 
-#include "novemberlib/novemberlib.h"
+#include <novemberlib/novemberlib.h>
 #include "CSummonMasterUser.h"
 
-#include "novemberlib/HTTPClient/CHTTPClient.h"
-#include "novemberlib/utils/json.h"
+#include "src/World/CWorld.h"
+#include "src/Net/CGameRequest.h"
+#include "src/Net/CGameResponce.h"
+
+#include <novemberlib/HTTPClient/CHTTPClient.h>
+#include <novemberlib/utils/json.h>
 using nlohmann::json;
 
 CSummonMasterCommandManager::CSummonMasterCommandManager()
@@ -29,13 +33,43 @@ CCommandResult CSummonMasterCommandManager::processCommand(CFCGIRequest* currReq
         result.setIsValid(false);
         return result;
     }
+    
+    if (command == "getInstancesList")  return gameGetInstancesList(currRequest);
 
     if (command == "login")             return loginCommand(currRequest);
     if (command == "logout")            return logoutCommand(currRequest);
-
+    
     result.setIsValid(false);
     return result;
 }
+
+
+CCommandResult CSummonMasterCommandManager::gameGetInstancesList(CFCGIRequest* currRequest) const
+{
+    CFCGIRequestHandler* request = currRequest->getRequestForModify();
+	CCommandResult commandResult;
+    commandResult.setData("Not valid input data");
+    time_t now;
+    time(&now);
+       
+    std::string userIdStr = request->post.get("user_id", "");
+    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    
+    CWorld* world = CWorld::getInstance();
+    CGameRequestParam gameRequestParams(ENGameRequest::GetInstancesList);
+    CGameRequest  gameRequest(user, gameRequestParams, now);
+    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
+    
+    std::vector<uint8_t>* resultBinData = new std::vector<uint8_t>(std::move(responce.getBinData()));
+    
+    commandResult.setIsSuccess(true);
+    commandResult.setBinData(resultBinData);
+    commandResult.setType(CCommandResult::CR_BIN);
+    commandResult.appendHeader("Access-Control-Allow-Origin: *");
+    return commandResult;
+}
+
 
 CCommandResult CSummonMasterCommandManager::loginCommand(CFCGIRequest* currRequest) const
 {

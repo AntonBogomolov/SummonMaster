@@ -22,7 +22,7 @@ void CWorld::init()
 {
     CMapGenerateParams mapGenParams;
     CMapCreationParams globalMapParam(1000, 1200, mapGenParams);
-    CInstanceCreationParams instanceCreationParam(globalMapParam, 999.0f, true);
+    CInstanceCreationParams instanceCreationParam(globalMapParam, "global map", true);
     
     instanceManager.addInstance(spawner.createInstance<CInstance>(instanceCreationParam));
     
@@ -44,7 +44,6 @@ void CWorld::run()
 void CWorld::collectGarbage()
 {
     instanceManager.clearGarbage();
-    globalObjectsTable.
     CLog::getInstance()->addInfo("Garbage  Collected");
 }
 
