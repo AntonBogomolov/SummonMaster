@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include "utils.h"
 
+#include "src/IJSONSerializable.h"
+
 class CMapObjectPosAndSizeDescriptor
 {
 public:
@@ -28,6 +30,19 @@ public:
     ~CMapObjectPosAndSizeDescriptor()
     {
         
+    }
+    
+    virtual const json toJSON() const
+    {
+        return json{
+            {"xCenter", xCenter},
+            {"yCenter", yCenter},
+            {"width", width},
+            {"height", height},
+            {"xRotCenter", xRotCenter},
+            {"yRotCenter", yRotCenter},
+            {"rotation", rotation}
+        };
     }
 public:    
     uint16_t  xCenter;

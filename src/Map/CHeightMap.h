@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-class CHeightMap
+class CHeightMap 
 {
 private:
 	unsigned int width;

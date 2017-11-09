@@ -1,8 +1,9 @@
 #pragma once
 
 #include <map>
+#include "src/IJSONSerializable.h"
 
-class CResistances
+class CResistances : public IJSONSerializable
 {
 public:
     CResistances() : 
@@ -59,6 +60,19 @@ public:
     int getMentalResist() const
     {
         return mental;
+    }
+    
+    virtual const json toJSON() const
+    {
+        return json{
+            {"physical", physical},
+            {"fire", fire},
+            {"cold", cold},
+            {"electro", electro},
+            {"acid", acid},
+            {"poison", poison},
+            {"mental", mental}
+        };
     }
 protected:
     int physical;

@@ -34,7 +34,8 @@ CCommandResult CSummonMasterCommandManager::processCommand(CFCGIRequest* currReq
         return result;
     }
     
-    if (command == "getInstancesList")  return gameGetInstancesList(currRequest);
+    if (command == "getInstancesList")          return gameGetInstancesList(currRequest);
+    if (command == "getInstanceDescription")    return gameGetInstanceDescription(currRequest);
 
     if (command == "login")             return loginCommand(currRequest);
     if (command == "logout")            return logoutCommand(currRequest);
@@ -52,12 +53,42 @@ CCommandResult CSummonMasterCommandManager::gameGetInstancesList(CFCGIRequest* c
     time_t now;
     time(&now);
        
-    std::string userIdStr = request->post.get("user_id", "");
     if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
 	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     
     CWorld* world = CWorld::getInstance();
     CGameRequestParam gameRequestParams(ENGameRequest::GetInstancesList);
+    CGameRequest  gameRequest(user, gameRequestParams, now);
+    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
+    
+    std::vector<uint8_t>* resultBinData = new std::vector<uint8_t>(std::move(responce.getBinData()));
+    
+    commandResult.setIsSuccess(true);
+    commandResult.setBinData(resultBinData);
+    commandResult.setType(CCommandResult::CR_BIN);
+    commandResult.appendHeader("Access-Control-Allow-Origin: *");
+    return commandResult;
+}
+
+
+CCommandResult CSummonMasterCommandManager::gameGetInstanceDescription(CFCGIRequest* currRequest) const
+{
+    CFCGIRequestHandler* request = currRequest->getRequestForModify();
+	CCommandResult commandResult;
+    commandResult.setData("Not valid input data");
+    time_t now;
+    time(&now);
+       
+    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    std::string instIdStr = request->post.get("instance_id", "");
+    unsigned int instanceId = 0;
+    try{ instanceId = std::stoi(instIdStr);}
+    catch(...) {instanceId = 0;}
+    if(instanceId == 0) return commandResult;
+    
+    CWorld* world = CWorld::getInstance();
+    CGameRequestParam gameRequestParams(ENGameRequest::GetInstanceDescription, instanceId);
     CGameRequest  gameRequest(user, gameRequestParams, now);
     CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
     

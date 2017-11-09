@@ -68,6 +68,15 @@ public:
     }
     
     virtual void update(const float dt);
+    
+    virtual const json toJSON() const
+    {
+        json result = CObject::toJSON();
+        result["map"] = map->toJSON();
+        result["isLifeTimeNeverEnd"] = isLifeTimeNeverEnd;
+        result["description"] = description;
+        return result;
+    }
 protected:
     CInstance(const CObjectCreationParams& param);
     

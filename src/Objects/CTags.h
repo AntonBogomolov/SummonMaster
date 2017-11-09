@@ -1,13 +1,14 @@
 #pragma once
 
-#include "CObjectContainer.h"
-
-#include "novemberlib/interfaces/ITemplateSingleton.h"
+#include <novemberlib/interfaces/ITemplateSingleton.h>
 #include <string>
 #include <vector>
 #include <map>
 #include <fstream>
 #include <iostream>
+
+#include "CObjectContainer.h"
+#include "src/IJSONSerializable.h"
 
 //enum class ENTags {HUMAN, UNDEAD, ANIMAL, SUMMON, PET};
 
@@ -80,7 +81,7 @@ private:
     }
 };
 
-class CTags : public CObjectContainer<int>
+class CTags : public CObjectContainer<int>, public IJSONSerializable
 {
 public:
     CTags()
@@ -123,6 +124,11 @@ public:
             if(currObj == tag) return true;
         }
         return false;
+    }
+    
+    virtual const json toJSON() const
+    {
+        return json(container);
     }
 protected:
 };

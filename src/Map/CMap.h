@@ -7,6 +7,8 @@
 #include "CEventDispatcher.h"
 #include "IUpdatable.h"
 
+#include "src/IJSONSerializable.h"
+
 class CMapGenerateParams
 {
 public:
@@ -43,7 +45,7 @@ protected:
 };
 
 class CHeightMap;
-class CMap : public IEventHandler, public IUpdatable
+class CMap : public IEventHandler, public IUpdatable, public IJSONSerializable
 {
 public:
     friend class CInstance;
@@ -107,6 +109,14 @@ public:
     }
        
     virtual ~CMap();
+    
+    virtual const json toJSON() const
+    {
+        return json{
+            {"width", width},
+            {"height", height}
+        };
+    }
 protected:
     CMap(const CMapCreationParams& param);
 

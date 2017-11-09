@@ -3,8 +3,9 @@
 #include "utils.h"
 #include "CTags.h"
 #include "CEventDispatcher.h"
+#include "src/IJSONSerializable.h"
 
-enum class ENObjectsType { NOTSET, EFFECT, CREATURE, MAP, INSTANCE };
+enum class ENObjectsType { NOTSET = 0, EFFECT, CREATURE, MAP, INSTANCE };
 
 class CObjectCreationParams
 {
@@ -29,7 +30,7 @@ public:
 protected:    
 };
 
-class CObject : public IEventHandler
+class CObject : public IEventHandler, public IJSONSerializable
 {
 public:
     friend class CSpawner;
@@ -62,6 +63,14 @@ public:
     void setIsValid(const bool isValid)
     {
         this->isValid = isValid;
+    }
+    virtual const json toJSON() const
+    {
+        return json{
+            {"objectId", objectId},
+            {"objectType", static_cast<int>(objectType)},
+            {"tags", tags.toJSON()}
+        };
     }
 protected:
     CObject(const CObjectCreationParams& params)

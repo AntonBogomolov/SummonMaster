@@ -5,6 +5,8 @@
 #include "CCellCoords.h"
 #include "CMapObjectPosAndSizeDescriptor.h"
 
+#include "src/IJSONSerializable.h"
+
 class CMapObjectCreationParam
 {
 public:
@@ -24,7 +26,7 @@ protected:
     
 };
 
-class CMapObject : public IEventHandler, public IUpdatable
+class CMapObject : public IEventHandler, public IUpdatable, public IJSONSerializable
 {
 public:
     friend class CSpawner;
@@ -153,6 +155,18 @@ public:
         }
     }
     
+    virtual const json toJSON() const
+    {
+        return json{
+            {"xCell", cellCoords.xCell},
+            {"yCell", cellCoords.yCell},
+            {"position", position.toJSON()},
+            {"object", object->toJSON()},
+            {"isInstanceObject", isInstanceObject},
+            {"isBlocking", isBlocking},
+            {"instanceId", instanceId}
+        };
+    }
 protected:
     CMapObject(const CMapObjectCreationParam& params, CObject* object, const bool isInstance = true) : 
                     cellCoords(params.cellCoords), position(params.position), object(object), 

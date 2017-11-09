@@ -1,8 +1,9 @@
 #pragma once
 
 #include <vector>
+#include "src/IJSONSerializable.h"
 
-enum class ENCondition{ NORMAL, DEAD };
+enum class ENCondition{ NORMAL = 0, DEAD };
 
 class CCharacteristics
 {
@@ -107,6 +108,18 @@ public:
     {
         magica += deltaMagica;
         if(magica > maxMagica) magica = maxMagica;
+    }
+    virtual const json toJSON() const
+    {
+        return json{
+            {"condition", static_cast<int>(condition)},
+            {"hp", static_cast<int>(hp)},
+            {"maxHP", maxHP},
+            {"stamina", stamina},
+            {"maxStamina", maxStamina},
+            {"magica", magica},
+            {"maxMagica", maxMagica}
+        };
     }
 protected:
     ENCondition condition;

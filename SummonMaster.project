@@ -66,6 +66,7 @@
       <File Name="src/World/CInstance.cpp"/>
       <File Name="src/World/CInstanceManager.h"/>
     </VirtualDirectory>
+    <File Name="src/IJSONSerializable.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

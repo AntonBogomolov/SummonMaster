@@ -55,6 +55,16 @@ public:
         return effects;
     }
     virtual void update(const float dt);  
+    
+    virtual const json toJSON() const
+    {
+        return json{
+            CObject::toJSON(),
+            {"resistances", resistances.toJSON()},
+            {"characteristics", characteristics.toJSON()},
+            {"effects", effects.toJSON()}
+        };
+    }
 protected:
     CCreature(const CObjectCreationParams& param); 
 

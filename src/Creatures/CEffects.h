@@ -3,7 +3,9 @@
 #include "src/Objects/CObject.h"
 #include "src/Objects/CObjectContainer.h"
 
-enum class ENEffect { NONE, IGNITE, FREEZE, SHOCK, POISONED, BLEEDING, PARALIZE };
+#include "src/IJSONSerializable.h"
+
+enum class ENEffect { NONE = 0, IGNITE, FREEZE, SHOCK, POISONED, BLEEDING, PARALIZE };
 
 class CEffectCreationParams : public CObjectCreationParams
 {
@@ -76,6 +78,19 @@ public:
     {
         if(isActive) duration += dt;
     }
+    
+    virtual const json toJSON() const
+    {
+        return json{
+            CObject::toJSON(),
+            {"isActive", isActive},
+            {"isPermanent", isPermanent},
+            {"duration", duration},
+            {"value", value},
+            {"effectType", static_cast<int>(effectType)},
+            {"param", param}
+        };
+    }
 protected:
     CEffect(const CObjectCreationParams& param) : CObject(param)
     {
@@ -96,7 +111,7 @@ protected:
     int param;
 };
 
-class CEffects
+class CEffects : public IJSONSerializable
 {
 public:
     CEffects()
@@ -223,7 +238,20 @@ public:
             if(!currEffect.getIsActive()) resultEffects.push_back(&currEffect);
         }
         return resultEffects;
-    } 
+    }
+
+    virtual const json toJSON() const
+    {
+        json result = json::array();
+                
+        const std::vector<CEffect>& effectsVector = effects.getContainer();
+        for(auto it = effectsVector.begin(); it != effectsVector.end(); ++it)
+        {
+            const CEffect& effect = (*it);
+            result.push_back(effect.toJSON());
+        }
+        return result;
+    }
 protected:
     CObjectContainer<CEffect> effects;
 };

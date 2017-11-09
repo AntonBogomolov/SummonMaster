@@ -52,9 +52,7 @@ void CGameRequestHandler::getInstancesList(CSummonMasterUser* user, const CGameR
         const CInstance* currInst = it->second;
         if(currInst && currInst->getIsValid() && !currInst->getIsLifeTimeEnd())
         {
-            json currInstanceJson;
-            currInstanceJson["id"] = currInst->getObjectId();
-            currInstanceJson["descripion"] = currInst->getDescription();
+            json currInstanceJson = currInst->toJSON();
             result["result"].push_back(currInstanceJson);
         }
     }
@@ -68,11 +66,12 @@ void CGameRequestHandler::getInstanceDescription(CSummonMasterUser* user, const 
     unsigned int mapId = params.getId();
     const CInstance* instance = instanceManager.getInstance(mapId);
     if(!instance) return;
-        
-    const CMap* map = instance->getMap();
-    result["result"]["description"] = instance->getDescription();
-    result["result"]["width"] = map->getWidth();
-    result["result"]["height"]= map->getHeight();    
+    result["result"] = instance->toJSON();    
+    
+//    const CMap* map = instance->getMap();
+//    result["result"]["description"] = instance->getDescription();
+//    result["result"]["width"] = map->getWidth();
+//    result["result"]["height"]= map->getHeight();    
 }
 
 void CGameRequestHandler::getMapData(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
