@@ -58,12 +58,11 @@ public:
     
     virtual const json toJSON() const
     {
-        return json{
-            CObject::toJSON(),
-            {"resistances", resistances.toJSON()},
-            {"characteristics", characteristics.toJSON()},
-            {"effects", effects.toJSON()}
-        };
+        json result = CObject::toJSON();
+        result["resistances"]       = resistances.toJSON();
+        result["characteristics"]   = characteristics.toJSON();
+        result["effects"]           = effects.toJSON();
+        return result;
     }
 protected:
     CCreature(const CObjectCreationParams& param); 

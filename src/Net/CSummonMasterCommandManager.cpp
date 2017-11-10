@@ -36,6 +36,7 @@ CCommandResult CSummonMasterCommandManager::processCommand(CFCGIRequest* currReq
     
     if (command == "getInstancesList")          return gameGetInstancesList(currRequest);
     if (command == "getInstanceDescription")    return gameGetInstanceDescription(currRequest);
+    if (command == "getMapData")                return gameGetMapData(currRequest);
 
     if (command == "login")             return loginCommand(currRequest);
     if (command == "logout")            return logoutCommand(currRequest);
@@ -70,6 +71,60 @@ CCommandResult CSummonMasterCommandManager::gameGetInstancesList(CFCGIRequest* c
     return commandResult;
 }
 
+CCommandResult CSummonMasterCommandManager::gameGetMapData(CFCGIRequest* currRequest) const
+{
+    CFCGIRequestHandler* request = currRequest->getRequestForModify();
+	CCommandResult commandResult;
+    commandResult.setData("Not valid input data");
+    time_t now;
+    time(&now);
+       
+    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    std::string mapIdStr = request->post.get("map_id", "");
+    std::string ldXIdStr = request->post.get("ldX", "");
+    std::string ldYIdStr  = request->post.get("ldY", "");
+    std::string ruXIdStr = request->post.get("ruX", "");
+    std::string ruYIdStr = request->post.get("ruY", "");
+    unsigned int mapId = 0;
+    unsigned int ldX = 0;
+    unsigned int ldY = 0;
+    unsigned int ruX = 0;
+    unsigned int ruY = 0;
+    CLog::getInstance()->addInfo(mapIdStr + " " + ldXIdStr + ldYIdStr + ruXIdStr + ruYIdStr);
+    try
+    {
+        mapId = std::stoi(mapIdStr);
+        ldX = std::stoi(ldXIdStr);
+        ldY = std::stoi(ldYIdStr);
+        ruX = std::stoi(ruXIdStr);
+        ruY = std::stoi(ruYIdStr);
+    }
+    catch(...)
+    {
+        mapId = 0;
+        ldX = 0;
+        ldY = 0;
+        ruX = 0;
+        ruY = 0;
+    }
+    if(mapId == 0) return commandResult;
+    
+    
+    
+    CWorld* world = CWorld::getInstance();
+    CGetMapDataRequestParam gameRequestParams(mapId, CCellCoords(ldX, ldY), CCellCoords(ruX, ruY));
+    CGameRequest  gameRequest(user, gameRequestParams, now);
+    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
+    
+    std::vector<uint8_t>* resultBinData = new std::vector<uint8_t>(std::move(responce.getBinData()));
+    
+    commandResult.setIsSuccess(true);
+    commandResult.setBinData(resultBinData);
+    commandResult.setType(CCommandResult::CR_BIN);
+    commandResult.appendHeader("Access-Control-Allow-Origin: *");
+    return commandResult;
+}
 
 CCommandResult CSummonMasterCommandManager::gameGetInstanceDescription(CFCGIRequest* currRequest) const
 {

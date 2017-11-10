@@ -81,15 +81,14 @@ public:
     
     virtual const json toJSON() const
     {
-        return json{
-            CObject::toJSON(),
-            {"isActive", isActive},
-            {"isPermanent", isPermanent},
-            {"duration", duration},
-            {"value", value},
-            {"effectType", static_cast<int>(effectType)},
-            {"param", param}
-        };
+        json result = CObject::toJSON();
+        result["isActive"]    = isActive;
+        result["isPermanent"] = isPermanent;
+        result["duration"]    = duration;
+        result["value"]       = value;
+        result["effectType"]  = static_cast<int>(effectType);
+        result["param"]       = param;
+        return result;
     }
 protected:
     CEffect(const CObjectCreationParams& param) : CObject(param)
