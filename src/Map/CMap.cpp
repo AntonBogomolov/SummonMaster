@@ -36,7 +36,7 @@ void CMap::updateBlockMap(const CCellCoords& leftDownCorner, const CCellCoords& 
             for(auto it = objectsInCell.begin(); it != objectsInCell.end(); ++it)
             {
                 CMapObject* mapObject = (*it);
-                if(mapObject && mapObject->getIsBlocking())
+                if(mapObject && mapObject->getBlockMode() != ENMapObjectBlockMode::notBlock)
                 {
                     std::vector<CCellCoords> blockedCells;
                     mapObject->getBlockedCells(blockedCells);

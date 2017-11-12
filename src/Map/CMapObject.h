@@ -7,11 +7,14 @@
 
 #include "src/IJSONSerializable.h"
 
+enum class ENMapObjectBlockMode {notBlock = 0, blockOneTile, blockAllTiles};
+
 class CMapObjectCreationParam
 {
 public:
-    CMapObjectCreationParam(const CCellCoords& cellCoords, const CMapObjectPosAndSizeDescriptor& position, const bool isBlocking) : 
-                            cellCoords(cellCoords), position(position), isBlocking(isBlocking)
+    CMapObjectCreationParam(const CCellCoords& cellCoords, const CMapObjectPosAndSizeDescriptor& position, 
+                            const ENMapObjectBlockMode blockMode = ENMapObjectBlockMode::notBlock,  const unsigned int layerId = 0) : 
+                            cellCoords(cellCoords), position(position), blockMode(blockMode), layerId(layerId)
     {
         
     }
@@ -21,7 +24,8 @@ public:
     }    
     CCellCoords cellCoords;
     CMapObjectPosAndSizeDescriptor position;
-    bool isBlocking;
+    ENMapObjectBlockMode blockMode;
+    unsigned int layerId;
 protected:
     
 };
@@ -36,7 +40,8 @@ public:
         this->position   = mapObj.getObjectPositionInCellDescriptor();
         this->cellCoords = mapObj.getCellCoords();
         this->isInstanceObject  = mapObj.getIsInstanceObject();
-        this->isBlocking        = mapObj.getIsBlocking();
+        this->blockMode         = mapObj.getBlockMode();
+        this->layerId           = mapObj.getLayerId();
         this->instanceId        = CUtils::getInstance()->getRandomNumber();
         
         if(this->isInstanceObject) this->object = mapObj.getObjectForModify();
@@ -56,9 +61,9 @@ public:
     {
         return cellCoords;
     }
-    bool getIsBlocking() const
+    ENMapObjectBlockMode getBlockMode() const
     {
-        return isBlocking;
+        return blockMode;
     }
     const CMapObjectPosAndSizeDescriptor getObjectPositionInCellDescriptor() const
     {
@@ -100,6 +105,10 @@ public:
     {
         return instanceId;
     }
+    unsigned int getLayerId() const
+    {
+        return layerId;
+    }
     bool isValid() const
     {
         bool result = true;
@@ -110,7 +119,12 @@ public:
     }
     void getBlockedCells(std::vector<CCellCoords>& cells) const
     {
-        if(!isBlocking) return;
+        if(blockMode == ENMapObjectBlockMode::notBlock) return;
+        if(blockMode == ENMapObjectBlockMode::blockOneTile) 
+        {
+            cells.push_back(cellCoords);
+            return;
+        }
         
         int p1x;
         int p1y;
@@ -163,14 +177,15 @@ public:
             {"position", position.toJSON()},
             {"object", object->toJSON()},
             {"isInstanceObject", isInstanceObject},
-            {"isBlocking", isBlocking},
+            {"blockMode", static_cast<int>(blockMode)},
+            {"layerId", layerId},
             {"instanceId", instanceId}
         };
     }
 protected:
     CMapObject(const CMapObjectCreationParam& params, CObject* object, const bool isInstance = true) : 
                     cellCoords(params.cellCoords), position(params.position), object(object), 
-                    isInstanceObject(isInstance), isBlocking(params.isBlocking)
+                    isInstanceObject(isInstance), blockMode(params.blockMode), layerId(params.layerId)
     {
         instanceId = CUtils::getInstance()->getRandomNumber();
     }
@@ -179,7 +194,8 @@ protected:
     CMapObjectPosAndSizeDescriptor position;
     CObject* object;
     bool isInstanceObject;
-    bool isBlocking;
+    ENMapObjectBlockMode blockMode;
+    unsigned int layerId;
     unsigned int instanceId;
 };
 

@@ -34,7 +34,7 @@ public:
     }
     void setTileBorder(const ENTileBorder val)  
     {
-        data = (data & 0x0F) | ((static_cast<uint8_t>(val)) & 0xF0);
+        data = (data & 0x0F) | (((static_cast<uint8_t>(val)) << 4) & 0xF0);
     }
     ENBioms getTileBiom() const 
     {
@@ -42,7 +42,7 @@ public:
     }
     ENTileBorder getTileBorder() const 
     {
-        return static_cast<ENTileBorder>((data & 0xF0) << 4 );
+        return static_cast<ENTileBorder>((data & 0xF0) >> 4 );
     }
     
     uint8_t getData() const 

@@ -60,7 +60,7 @@ public:
         for(auto it = objVector.begin(); it != objVector.end(); ++it)
         {
             CMapObject* currObj = (*it);
-            if(currObj->getIsBlocking()) return true;
+            if(currObj->getBlockMode() != ENMapObjectBlockMode::notBlock) return true;
         }
         return false;
     }    
