@@ -21,7 +21,7 @@ CWorld::~CWorld()
 void CWorld::init()
 {
     CMapGenerateParams mapGenParams;
-    CMapCreationParams globalMapParam(1000, 1200, mapGenParams);
+    CMapCreationParams globalMapParam(800, 900, mapGenParams);
     CInstanceCreationParams instanceCreationParam(globalMapParam, "global map", true);
     
     instanceManager.addInstance(spawner.createInstance<CInstance>(instanceCreationParam));

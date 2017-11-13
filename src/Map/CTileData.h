@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-enum class ENBioms{ GRASS = 0, DESERT = 1, SNOW = 2, WATER = 3, LAVA = 4};
+enum class ENBioms{ GRASS = 0, DESERT = 1, SNOW = 2, WATER = 3, LAVA = 4, WARFOG = 5};
 enum class ENTileBorder{ NONE = 0, H_A = 1, H_B = 2, V_A = 3, V_B = 4, C_DR_A = 5, C_DR_B = 6,
                          C_DL_A = 7, C_DL_B = 8, C_UR_A = 9, C_UR_B = 10, C_UL_A = 11, C_UL_B = 12};
 
