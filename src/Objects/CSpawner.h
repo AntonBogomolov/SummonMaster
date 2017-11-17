@@ -8,7 +8,7 @@ class CMap;
 class CSpawner
 {
 public:
-    template<class T> CObject* createObject(CObjectsPool<CObject>& objectPool, const CObjectCreationParams& params)
+    template<class T> CObject* createObject(CObjectsPool<CObject>& objectPool, const CObjectCreationParams& params) const
     {
         CObject* result = nullptr; 
         try
@@ -23,7 +23,7 @@ public:
         return result;
     }
     
-    template<class T> CInstance* createInstance(const CInstanceCreationParams& params)
+    template<class T> CInstance* createInstance(const CInstanceCreationParams& params) const 
     {
         CInstance* result = nullptr; 
         try
@@ -37,7 +37,7 @@ public:
         return result;
     }
     
-    template<class T> CMapObject* spawnMapObject(CMap& map, const CMapObjectCreationParam& params, CObject* object)
+    template<class T> CMapObject* spawnMapObject(CMap& map, const CMapObjectCreationParam& params, CObject* object) const 
     {
         CMapObject* result = nullptr;
         try
@@ -52,7 +52,7 @@ public:
         return result;
     }
     
-    template<class T> CMapObject* spawnInstanceMapObject(CMap& map, const CMapObjectCreationParam& params, CObject* object)
+    template<class T> CMapObject* spawnInstanceMapObject(CMap& map, const CMapObjectCreationParam& params, CObject* object) const
     {
         CMapObject* result = nullptr;
         try

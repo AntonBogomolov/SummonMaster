@@ -72,14 +72,29 @@ public:
     bool**& getBlockMap()
     {
         return blockMap;
-    }    
-    
-    const CTileData& getTileAt(const unsigned int x, const unsigned int y) const
+    }
+    const CTileData& getTileAtFast(const unsigned int row, const unsigned int col) const
     {
-        if(x < 0 || x >= width) return tileMap[0][0];
-        if(y < 0 || y >= height)return tileMap[0][0];
+        return tileMap[row][col];
+    }
+    const bool getIsBlockAtFast(const unsigned int row, const unsigned int col) const
+    {
+        return blockMap[row][col];
+    }
+    
+    const CTileData& getTileAt(const unsigned int row, const unsigned int col) const
+    {
+        if(col < 0 || col >= width) return tileMap[0][0];
+        if(row < 0 || row >= height)return tileMap[0][0];
         
-        return tileMap[x][y];
+        return tileMap[row][col];
+    }
+    const bool getIsBlockAt(const unsigned int row, const unsigned int col) const
+    {
+        if(col < 0 || col >= width) return blockMap[0][0];
+        if(row < 0 || row >= height)return blockMap[0][0];
+        
+        return blockMap[row][col];
     }
     const CObjectsCollection& getLocalObjectsTable() const
     {

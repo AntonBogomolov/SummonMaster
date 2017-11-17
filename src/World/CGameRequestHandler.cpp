@@ -8,7 +8,7 @@
 
 #include "CWorld.h"
 
-CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request)
+CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request) const
 {
     CGameResponce nullResponce(request, std::vector<uint8_t>());
     
@@ -49,9 +49,9 @@ CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request)
 void CGameRequestHandler::getInstancesList(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
 {
     CWorld* world = CWorld::getInstance();
-    CInstanceManager& instanceManager = world->getInstanceManager();
+    const CInstanceManager& instanceManager = world->getInstanceManager();
     
-    std::map<unsigned int, CInstance*> instances = instanceManager.getInstances();
+    const std::map<unsigned int, CInstance*> instances = instanceManager.getInstances();
     for(auto it = instances.begin(); it != instances.end(); ++it)
     {
         const CInstance* currInst = it->second;
@@ -66,7 +66,7 @@ void CGameRequestHandler::getInstancesList(CSummonMasterUser* user, const CGameR
 void CGameRequestHandler::getInstanceDescription(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
 {
     CWorld* world = CWorld::getInstance();
-    CInstanceManager& instanceManager = world->getInstanceManager();
+    const CInstanceManager& instanceManager = world->getInstanceManager();
     
     unsigned int mapId = params.getId();
     const CInstance* instance = instanceManager.getInstance(mapId);
@@ -77,16 +77,16 @@ void CGameRequestHandler::getInstanceDescription(CSummonMasterUser* user, const 
 void CGameRequestHandler::getMapData(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
 {
     CWorld* world = CWorld::getInstance();
-    CInstanceManager& instanceManager = world->getInstanceManager();
+    const CInstanceManager& instanceManager = world->getInstanceManager();
     
     unsigned int mapId = params.getId();
-    CInstance* instance = instanceManager.getInstanceForModify(mapId);
+    const CInstance* instance = instanceManager.getInstance(mapId);
     if(!instance || instance->getIsLifeTimeEnd()) return;
-    CMap* map = instance->getMapForModify();
+    const CMap* map = instance->getMap();
     if(!map) return;
     
-    bool**& blockMap     = map->getBlockMap();
-    CTileData**& tileMap = map->getTileMap();
+    //const bool**& blockMap     = map->getBlockMap();
+    //const CTileData**& tileMap = map->getTileMap();
     const CGetMapDataRequestParam& mapParams = static_cast<const CGetMapDataRequestParam&>(params);
     
     unsigned int mapWidth = map->getWidth();
@@ -104,7 +104,7 @@ void CGameRequestHandler::getMapData(CSummonMasterUser* user, const CGameRequest
         {
             for(unsigned int col = mapParams.ldCorner.xCell; col <= mapParams.ruCorner.xCell; col++)
             {
-                blockMapPart.push_back(blockMap[row][col]);
+                blockMapPart.push_back(map->getIsBlockAtFast(row, col));
             }
         }
         
@@ -116,7 +116,7 @@ void CGameRequestHandler::getMapData(CSummonMasterUser* user, const CGameRequest
         {
             for(unsigned int col = mapParams.ldCorner.xCell; col <= mapParams.ruCorner.xCell; col++)
             {
-                tileMapPart.push_back(tileMap[row][col].getData());
+                tileMapPart.push_back(map->getTileAtFast(row, col).getData());
             }
         }
         result["result"]["tileData"] = json(std::move(tileMapPart));

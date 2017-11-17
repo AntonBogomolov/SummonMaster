@@ -32,6 +32,7 @@
       <File Name="src/Objects/CObjectContainer.h"/>
       <File Name="src/Objects/CTags.h"/>
       <File Name="src/Objects/CObject.h"/>
+      <File Name="src/Objects/CMovableObject.h"/>
     </VirtualDirectory>
     <File Name="CEventDispatcher.cpp"/>
     <File Name="CEventDispatcher.h"/>

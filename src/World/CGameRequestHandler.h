@@ -20,7 +20,7 @@ public:
         
     }
     
-    CGameResponce executeRequest(CGameRequest& request);
+    CGameResponce executeRequest(CGameRequest& request) const;
     
 protected:
     void getInstancesList(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;

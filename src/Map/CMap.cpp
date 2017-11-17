@@ -54,7 +54,7 @@ void CMap::updateBlockMap(const CCellCoords& leftDownCorner, const CCellCoords& 
 
 void CMap::updateTileMap(const CCellCoords& leftDownCorner, const CCellCoords& rightUpCorner)
 {
-    
+        
 }
 
 void CMap::generateTileMap(const CMapGenerateParams& params)
@@ -62,12 +62,12 @@ void CMap::generateTileMap(const CMapGenerateParams& params)
     CHeightMapGenerator generator;
     heightMap = generator.generateHeightMap(width, 101);
     
-    CTileData defaultTile = CTileData(ENBioms::GRASS, ENTileBorder::NONE);   
+    CTileData defaultTile(ENBioms::GRASS);   
     for(unsigned int row = 0; row < height; row++)
     {
         for(unsigned int col = 0; col < width; col++)
         {
-            tileMap[row][col]  = defaultTile;
+            tileMap[row][col]  = CTileData(static_cast<ENBioms>(CUtils::getInstance()->getRandomNumber(0,4)));
             blockMap[row][col] = false;
         }
     }
@@ -84,5 +84,4 @@ CMap::~CMap()
     }
     delete [] tileMap;
     delete [] blockMap;
-    
 }

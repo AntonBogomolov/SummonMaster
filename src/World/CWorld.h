@@ -11,19 +11,36 @@ class CWorld : public ITemplateSingleton<CWorld>
 public:
     virtual ~CWorld();
     
-    CGameRequestHandler& getRequestHandler() 
+    const CGameRequestHandler& getRequestHandler() const 
     {
         return requestHandler;
     }
-    CInstanceManager& getInstanceManager() 
+    const CInstanceManager& getInstanceManager() const 
     {
         return instanceManager;
     }
-    CSpawner& getSpawner() 
+    const CSpawner& getSpawner() const 
     {
         return spawner;
     }
-    CObjectsCollection& getGlobalObjectsTable() 
+    const CObjectsCollection& getGlobalObjectsTable() const 
+    {
+        return globalObjectsTable;
+    }
+    
+    CGameRequestHandler& getRequestHandlerForModify() 
+    {
+        return requestHandler;
+    }
+    CInstanceManager& getInstanceManagerForModify() 
+    {
+        return instanceManager;
+    }
+    CSpawner& getSpawnerForModify() 
+    {
+        return spawner;
+    }
+    CObjectsCollection& getGlobalObjectsTableForModify() 
     {
         return globalObjectsTable;
     }
