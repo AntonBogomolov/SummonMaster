@@ -16,6 +16,8 @@
       <File Name="src/Map/CObjectsOnMapCollection.h"/>
       <File Name="src/Map/CHeightMap.cpp"/>
       <File Name="src/Map/CHeightMap.h"/>
+      <File Name="src/Map/CPathFinder.h"/>
+      <File Name="src/Map/CPathFinder.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Creatures">
       <File Name="src/Creatures/CCharacteristics.h"/>
@@ -33,17 +35,18 @@
       <File Name="src/Objects/CTags.h"/>
       <File Name="src/Objects/CObject.h"/>
       <File Name="src/Objects/CMovableObject.h"/>
+      <File Name="src/Objects/CMovableObject.cpp"/>
     </VirtualDirectory>
     <File Name="CEventDispatcher.cpp"/>
     <File Name="CEventDispatcher.h"/>
     <VirtualDirectory Name="Net">
       <VirtualDirectory Name="App">
-        <File Name="src/Net/CSummonMasterApp.cpp"/>
         <File Name="src/Net/CSummonMasterApp.h"/>
         <File Name="src/Net/CSummonMasterCommandManager.cpp"/>
         <File Name="src/Net/CSummonMasterCommandManager.h"/>
         <File Name="src/Net/CSummonMasterUser.cpp"/>
         <File Name="src/Net/CSummonMasterUser.h"/>
+        <File Name="src/Net/CSummonMasterApp.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="Pages">
         <File Name="src/Net/cindexpage.cpp"/>

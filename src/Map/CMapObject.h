@@ -150,30 +150,35 @@ public:
         if(rightPoint < p1x) rightPoint = p1x;
         if(upPoint < p1y)    upPoint    = p1y;
         
-        int xCellStart = cellCoords.xCell;
-        if(leftPoint < 0) xCellStart -= (1 + leftPoint / CMetrics::cellWidth);
-        int xCellEnd = cellCoords.xCell;
-        if(rightPoint > CMetrics::cellWidth) xCellEnd += 1 + (rightPoint - CMetrics::cellWidth) / CMetrics::cellWidth;
+        int colStart = cellCoords.col;
+        if(leftPoint < 0) colStart -= (1 + leftPoint / CMetrics::cellWidth);
+        int colEnd = cellCoords.col;
+        if(rightPoint > CMetrics::cellWidth) colEnd += 1 + (rightPoint - CMetrics::cellWidth) / CMetrics::cellWidth;
         
-        int yCellStart = cellCoords.yCell;
-        if(downPoint < 0) yCellStart -= (1 + downPoint / CMetrics::cellHeight);
-        int yCellEnd = cellCoords.yCell;
-        if(upPoint > CMetrics::cellHeight) yCellEnd += 1 + (upPoint - CMetrics::cellHeight) / CMetrics::cellHeight;
+        int rowStart = cellCoords.row;
+        if(downPoint < 0) rowStart -= (1 + downPoint / CMetrics::cellHeight);
+        int rowEnd = cellCoords.row;
+        if(upPoint > CMetrics::cellHeight) rowEnd += 1 + (upPoint - CMetrics::cellHeight) / CMetrics::cellHeight;
         
-        for(int x = xCellStart; x <= xCellEnd; x++ )
+        for(int x = colStart; x <= colEnd; x++ )
         {
-            for(int y = yCellStart; y <= yCellEnd; y++ )
+            for(int y = rowStart; y <= rowEnd; y++ )
             {
                 cells.push_back(CCellCoords(x,y));
             }
         }
     }
     
+    virtual void update(const float dt)
+    {
+        if(updatableObject && updatableObject->getIsNeedToUpdate()) updatableObject->update(dt);
+    }
+    
     virtual const json toJSON() const
     {
         return json{
-            {"xCell", cellCoords.xCell},
-            {"yCell", cellCoords.yCell},
+            {"col", cellCoords.col},
+            {"row", cellCoords.row},
             {"position", position.toJSON()},
             {"object", object->toJSON()},
             {"isInstanceObject", isInstanceObject},
@@ -188,6 +193,7 @@ protected:
                     isInstanceObject(isInstance), blockMode(params.blockMode), layerId(params.layerId)
     {
         instanceId = CUtils::getInstance()->getRandomNumber();
+        updatableObject = dynamic_cast<IUpdatable*>(object);
     }
 
     CCellCoords cellCoords;
@@ -197,5 +203,8 @@ protected:
     ENMapObjectBlockMode blockMode;
     unsigned int layerId;
     unsigned int instanceId;
+    
+private:
+    IUpdatable* updatableObject;
 };
 

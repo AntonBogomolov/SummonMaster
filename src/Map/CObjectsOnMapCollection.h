@@ -4,7 +4,8 @@
 #include "src/Objects/CObjectsPool.h"
 
 #include <vector>
-#include <map>
+#include <unordered_map>
+
 
 class CObjectsOnMapCollection
 {
@@ -121,6 +122,6 @@ public:
         return false;
     }
 protected:
-    std::map<CCellCoords, std::vector<CMapObject*>> objects;
+    std::unordered_map<CCellCoords, std::vector<CMapObject*>> objects;
     CObjectsPool<CMapObject> objectPool;
 };

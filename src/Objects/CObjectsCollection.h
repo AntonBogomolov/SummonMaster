@@ -106,5 +106,5 @@ public:
     }
     
 private:  
-    std::map<ENObjectsType, CObjectsTable*> tables;
+    std::unordered_map<ENObjectsType, CObjectsTable*> tables;
 };

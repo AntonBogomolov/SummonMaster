@@ -3,22 +3,22 @@
 class CCellCoords
 {
 public:
-    unsigned int xCell;
-    unsigned int yCell;
+    unsigned int col;
+    unsigned int row;
     
     CCellCoords()
     {
         
     }
-    CCellCoords(const unsigned int xCell, const unsigned int yCell)
+    CCellCoords(const unsigned int col, const unsigned int row)
     {
-        this->xCell = xCell;
-        this->yCell = yCell;
+        this->col = col;
+        this->row = row;
     }
     CCellCoords(const CCellCoords& cell)
     {
-        this->xCell = cell.xCell;
-        this->yCell = cell.yCell;
+        this->col = cell.col;
+        this->row = cell.row;
     }
     ~CCellCoords()
     {
@@ -27,15 +27,37 @@ public:
     
     bool operator <(const CCellCoords& rhs) const
     {
-        if(xCell > rhs.xCell) return false;
+        if(col > rhs.col) return false;
         else
-        if(xCell < rhs.xCell) return true;
+        if(col < rhs.col) return true;
         else
         {
-            if(yCell < rhs.yCell) return true;
+            if(row < rhs.row) return true;
             else return false;
         }
+    }
+    
+    bool operator ==(const CCellCoords& rhs) const
+    {
+        if(this->col == rhs.col && this->row == rhs.row) return true;
+        return false;
     }
 protected:
     
 };
+
+using namespace std;
+
+namespace std 
+{
+    template <>
+    class hash<CCellCoords>
+    {
+    public :
+        size_t operator()(const CCellCoords &cell ) const
+        {
+            const int maxCoord = 10000;
+            return cell.row * maxCoord + cell.col;
+        }
+    };
+}

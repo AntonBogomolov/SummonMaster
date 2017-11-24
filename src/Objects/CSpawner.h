@@ -37,7 +37,8 @@ public:
         return result;
     }
     
-    template<class T> CMapObject* spawnMapObject(CMap& map, const CMapObjectCreationParam& params, CObject* object) const 
+    template<class T> CMapObject* spawnMapObject(CMap& map, const CMapObjectCreationParam& params, 
+                                                 CObject* object) const 
     {
         CMapObject* result = nullptr;
         try
@@ -52,7 +53,8 @@ public:
         return result;
     }
     
-    template<class T> CMapObject* spawnInstanceMapObject(CMap& map, const CMapObjectCreationParam& params, CObject* object) const
+    template<class T> CMapObject* spawnInstanceMapObject(CMap& map, const CMapObjectCreationParam& params, 
+                                                         CObject* object) const
     {
         CMapObject* result = nullptr;
         try

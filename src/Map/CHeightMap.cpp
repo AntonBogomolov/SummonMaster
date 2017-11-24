@@ -14,7 +14,7 @@ CHeightMapGenerator::~CHeightMapGenerator()
 CHeightMap* CHeightMapGenerator::generateHeightMap(const unsigned int sideLen, const unsigned int seed)
 {
     CHeightMap* heightMap = startDiamondSquareGenerator(sideLen, seed);
-	heightMap->pow(2.0f);
+	heightMap->pow(4.0f);
     heightMap->calcAverageValues(); 
     return heightMap;
 }

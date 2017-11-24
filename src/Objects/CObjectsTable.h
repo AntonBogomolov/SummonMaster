@@ -1,7 +1,22 @@
 #pragma once 
 
 #include "CObject.h"
-#include <map>
+#include <unordered_map>
+
+using namespace std;
+
+namespace std 
+{
+    template <>
+    class hash<ENObjectsType>
+    {
+    public :
+        size_t operator()(const ENObjectsType &type ) const
+        {
+            return static_cast<int>(type);
+        }
+    };
+}
 
 class CObjectsTable
 {
@@ -77,6 +92,6 @@ public:
     }
     
 protected:
-    std::map<unsigned int, CObject*> table;
+    std::unordered_map<unsigned int, CObject*> table;
     ENObjectsType type;
 };

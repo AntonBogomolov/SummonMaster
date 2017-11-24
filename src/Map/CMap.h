@@ -4,6 +4,7 @@
 #include "CTileData.h"
 #include "CObjectsOnMapCollection.h"
 #include "src/Objects/CObjectsCollection.h"
+#include "CPathFinder.h"
 #include "CEventDispatcher.h"
 #include "IUpdatable.h"
 
@@ -44,6 +45,7 @@ public:
 protected:    
 };
 
+class CMovableObject;
 class CHeightMap;
 class CMap : public IEventHandler, public IUpdatable, public IJSONSerializable
 {
@@ -115,13 +117,16 @@ public:
     }
     bool getIsTileBlocked(const CCellCoords& coords) const
     {
-        return blockMap[coords.xCell][coords.yCell];
+        return blockMap[coords.col][coords.row];
     }
     
-    virtual void update(const float dt)
+    const CPathFinder& getPathFinder() const
     {
-        
+        return *pathFinder;
     }
+    
+    virtual void update(const float dt);    
+    virtual unsigned int getMoveWeight(const CCellCoords& cell, const CMovableObject* object) const;
        
     virtual ~CMap();
     
@@ -146,6 +151,7 @@ protected:
     CObjectsOnMapCollection objectsOnMap;
     unsigned int width;
     unsigned int height;
+    CPathFinderAStar* pathFinder;
 };
 
 class CInvalidateMapEventParam : public CEventParam

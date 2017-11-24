@@ -91,18 +91,18 @@ void CGameRequestHandler::getMapData(CSummonMasterUser* user, const CGameRequest
     
     unsigned int mapWidth = map->getWidth();
     unsigned int mapHeight= map->getHeight();
-    if(mapParams.ldCorner.xCell > mapWidth - 1 || mapParams.ruCorner.xCell > mapWidth - 1) return;
-    if(mapParams.ldCorner.yCell > mapHeight- 1 || mapParams.ruCorner.yCell > mapHeight- 1) return;
-    if(mapParams.ldCorner.xCell < 0 || mapParams.ruCorner.xCell < 0) return;
-    if(mapParams.ldCorner.yCell < 0 || mapParams.ruCorner.yCell < 0) return;
+    if(mapParams.ldCorner.col > mapWidth - 1 || mapParams.ruCorner.col > mapWidth - 1) return;
+    if(mapParams.ldCorner.row > mapHeight- 1 || mapParams.ruCorner.row > mapHeight- 1) return;
+    if(mapParams.ldCorner.col < 0 || mapParams.ruCorner.col < 0) return;
+    if(mapParams.ldCorner.row < 0 || mapParams.ruCorner.row < 0) return;
     
     std::vector<bool> blockMapPart = std::vector<bool>();
     std::vector<uint8_t> tileMapPart = std::vector<uint8_t>();
     if(mapParams.isNeedBlockMap) 
     {
-        for(unsigned int row = mapParams.ldCorner.yCell; row <= mapParams.ruCorner.yCell; row++)
+        for(unsigned int row = mapParams.ldCorner.row; row <= mapParams.ruCorner.row; row++)
         {
-            for(unsigned int col = mapParams.ldCorner.xCell; col <= mapParams.ruCorner.xCell; col++)
+            for(unsigned int col = mapParams.ldCorner.col; col <= mapParams.ruCorner.col; col++)
             {
                 blockMapPart.push_back(map->getIsBlockAtFast(row, col));
             }
@@ -112,17 +112,17 @@ void CGameRequestHandler::getMapData(CSummonMasterUser* user, const CGameRequest
     }   
     if(mapParams.isNeedTileMap)
     {
-        for(unsigned int row = mapParams.ldCorner.yCell; row <= mapParams.ruCorner.yCell; row++)
+        for(unsigned int row = mapParams.ldCorner.row; row <= mapParams.ruCorner.row; row++)
         {
-            for(unsigned int col = mapParams.ldCorner.xCell; col <= mapParams.ruCorner.xCell; col++)
+            for(unsigned int col = mapParams.ldCorner.col; col <= mapParams.ruCorner.col; col++)
             {
                 tileMapPart.push_back(map->getTileAtFast(row, col).getData());
             }
         }
         result["result"]["tileData"] = json(std::move(tileMapPart));
     }
-    result["result"]["ldCorner"] = json{{"x", mapParams.ldCorner.xCell}, {"y", mapParams.ldCorner.yCell}};
-    result["result"]["ruCorner"] = json{{"x", mapParams.ruCorner.xCell}, {"y", mapParams.ruCorner.yCell}};
+    result["result"]["ldCorner"] = json{{"x", mapParams.ldCorner.col}, {"y", mapParams.ldCorner.row}};
+    result["result"]["ruCorner"] = json{{"x", mapParams.ruCorner.col}, {"y", mapParams.ruCorner.row}};
     
     CLog::getInstance()->addInfo(result.dump());
 }
