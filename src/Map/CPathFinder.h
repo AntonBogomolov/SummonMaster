@@ -6,6 +6,7 @@
 #include <cmath>
 
 #include "CCellCoords.h"
+#include "../IJSONSerializable.h"
 
 class CPathNode
 {
@@ -51,12 +52,16 @@ protected:
    
 };
 
-class CPathOnMap
+class CPathOnMap : public IJSONSerializable
 {
 public:
     CPathOnMap(std::queue<CPathNode>& path)
     {
         this->path = std::move(path);
+    }
+    CPathOnMap(const CPathOnMap& pathOnMap)
+    {
+        this->path = pathOnMap.path;
     }
     CPathOnMap(CPathOnMap&& that) 
     {
@@ -69,7 +74,18 @@ public:
     ~CPathOnMap()
     {
         
-    }   
+    } 
+    
+    CPathOnMap& operator=(const CPathOnMap& pathOnMap)
+    {
+        this->path = pathOnMap.path;
+        return *this;
+    }
+
+    bool getIsEmpty() const
+    {
+        return path.empty();
+    }
 
     long getPathCost() const
     {
@@ -82,6 +98,20 @@ public:
             tmpQueue.pop();
         }
         return cost;
+    }
+    
+    virtual const json toJSON() const
+    {
+        json result = json::array();
+                
+        std::queue<CPathNode> tmpQueue = path;
+        while(!tmpQueue.empty())
+        {
+            CPathNode& currNode = tmpQueue.front();
+            tmpQueue.pop();
+            result.push_back(json{{"row", currNode.row},{"col", currNode.col},{"cost", currNode.cost}});
+        }
+        return result;
     }
 public:
     std::queue<CPathNode> path;

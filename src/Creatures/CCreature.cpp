@@ -30,5 +30,8 @@ CCreature::~CCreature()
 
 void CCreature::update(const float dt)
 {
-
+    if(isNeedToUpdate)
+    {
+        effects.update(dt);
+    }
 }

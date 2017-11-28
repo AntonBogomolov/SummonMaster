@@ -5,7 +5,7 @@
 //#include <map>
 //#include <queue>
 
-enum class ENEvent {NOTSET, INVALIDATE_MAP_REGION};
+enum class ENEvent {NOTSET, INVALIDATE_MAP_REGION, CHANGE_OBJECT_CELL};
 
 class CEventParam
 {

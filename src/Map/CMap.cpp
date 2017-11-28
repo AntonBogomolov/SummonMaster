@@ -86,7 +86,8 @@ void CMap::generateTileMap(const CMapGenerateParams& params)
 unsigned int CMap::getMoveWeight(const CCellCoords& cell, const CMovableObject* object) const
 {
     if(cell.col >= width || cell.row >= height) return std::numeric_limits<unsigned int>::max();
-    if(!object || !object->isValid() ) return std::numeric_limits<unsigned int>::max();
+    if(!object || !object->isValid() )          return std::numeric_limits<unsigned int>::max();
+    if(getIsBlockAt(cell.row, cell.col))        return std::numeric_limits<unsigned int>::max();
     
     CTileData& tile = tileMap[cell.row][cell.col];
     return object->getMoveCost(tile);
@@ -99,6 +100,15 @@ void CMap::update(const float dt)
     {
         CMapObject* currMapObj = (*it);
         if(currMapObj->getIsNeedToUpdate()) currMapObj->update(dt);
+    }
+}
+
+void CMap::receiveMessage(const IEventHandler& messageSender, const CEventParam* eventParams)
+{
+    if(eventParams->getEventType() == ENEvent::CHANGE_OBJECT_CELL)
+    {
+        const CChangeObjectCellEventParam* params = dynamic_cast<const CChangeObjectCellEventParam*>(eventParams);
+        objectsOnMap.moveObjectToCell(params->getMapObject(), params->getSourceCell(), params->getDestCell());
     }
 }
 

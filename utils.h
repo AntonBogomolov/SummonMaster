@@ -53,6 +53,8 @@ private:
     }
 };
 
+enum class ENDirection { Up = 0, Down = 1, Right = 2, Left = 3, UpRight = 4, UpLeft = 5, DownRight = 6, DownLeft = 7, NONE = 8 }; 
+
 class CMetrics
 {
 public:
@@ -60,5 +62,6 @@ public:
     static const uint16_t cellHeight = 128;
     static const uint16_t cellCenterX = cellWidth / 2;
     static const uint16_t cellCenterY = cellHeight / 2;
+    static const uint16_t baseMoveCost = 10;
 };
 

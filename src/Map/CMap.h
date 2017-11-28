@@ -127,6 +127,7 @@ public:
     
     virtual void update(const float dt);    
     virtual unsigned int getMoveWeight(const CCellCoords& cell, const CMovableObject* object) const;
+    void receiveMessage(const IEventHandler& messageSender, const CEventParam* eventParams);
        
     virtual ~CMap();
     
@@ -184,4 +185,38 @@ protected:
     CCellCoords rightUpCorner;
 };
 
-
+class CChangeObjectCellEventParam : public CEventParam
+{
+public:
+    CChangeObjectCellEventParam(CMapObject* object, const CCellCoords& source, const CCellCoords& dest) :
+                             CEventParam(ENEvent::CHANGE_OBJECT_CELL)
+    {
+        this->object = object;
+        this->source = source;
+        this->dest   = dest;
+    }   
+    CChangeObjectCellEventParam(const CChangeObjectCellEventParam& param) : CEventParam(param)
+    {
+       
+    }
+    virtual ~CChangeObjectCellEventParam()
+    {
+        
+    }
+    const CCellCoords& getSourceCell() const
+    {
+        return source;
+    }
+    const CCellCoords& getDestCell() const
+    {
+        return dest;
+    }
+    CMapObject* getMapObject() const
+    {
+        return object;
+    }
+protected:
+    CMapObject* object;
+    CCellCoords source;
+    CCellCoords dest;
+};

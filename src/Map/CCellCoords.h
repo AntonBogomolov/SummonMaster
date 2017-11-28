@@ -1,5 +1,7 @@
 #pragma once 
 
+#include "utils.h"
+
 class CCellCoords
 {
 public:
@@ -25,6 +27,23 @@ public:
         
     }
     
+    ENDirection getDirection(const CCellCoords& point) const 
+    {
+        if(col >  point.col && row >  point.row ) return ENDirection::UpLeft;
+        if(col == point.col && row >  point.row ) return ENDirection::Up;
+        if(col <  point.col && row >  point.row ) return ENDirection::UpRight;
+        
+        if(col >  point.col && row == point.row ) return ENDirection::Left;
+        if(col == point.col && row == point.row ) return ENDirection::NONE;
+        if(col <  point.col && row == point.row ) return ENDirection::Right;
+        
+        if(col >  point.col && row <  point.row ) return ENDirection::DownLeft;
+        if(col == point.col && row <  point.row ) return ENDirection::Down;
+        if(col <  point.col && row <  point.row ) return ENDirection::DownRight;
+        
+        return ENDirection::NONE;
+    }
+    
     bool operator <(const CCellCoords& rhs) const
     {
         if(col > rhs.col) return false;
@@ -40,6 +59,11 @@ public:
     bool operator ==(const CCellCoords& rhs) const
     {
         if(this->col == rhs.col && this->row == rhs.row) return true;
+        return false;
+    }
+    bool operator !=(const CCellCoords& rhs) const
+    {
+        if(this->col != rhs.col || this->row != rhs.row) return true;
         return false;
     }
 protected:

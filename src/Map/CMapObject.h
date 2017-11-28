@@ -30,6 +30,7 @@ protected:
     
 };
 
+class CMap;
 class CMapObject : public IEventHandler, public IUpdatable, public IJSONSerializable
 {
 public:
@@ -43,6 +44,7 @@ public:
         this->blockMode         = mapObj.getBlockMode();
         this->layerId           = mapObj.getLayerId();
         this->instanceId        = CUtils::getInstance()->getRandomNumber();
+        this->ownerMap          = mapObj.getOwnerMap();
         
         if(this->isInstanceObject) this->object = mapObj.getObjectForModify();
         else this->object = mapObj.ejectObjectForModify();
@@ -53,6 +55,14 @@ public:
         if(!isInstanceObject) delete object;
     }
     
+    const CMap* getOwnerMap() const
+    {
+        return ownerMap;
+    }
+    CMap* getOwnerMap()
+    {
+        return ownerMap;
+    }
     const CCellCoords getCellCoords() const
     {
         return cellCoords;
@@ -188,9 +198,9 @@ public:
         };
     }
 protected:
-    CMapObject(const CMapObjectCreationParam& params, CObject* object, const bool isInstance = true) : 
+    CMapObject(const CMapObjectCreationParam& params, CMap* map, CObject* object, const bool isInstance = true) : 
                     cellCoords(params.cellCoords), position(params.position), object(object), 
-                    isInstanceObject(isInstance), blockMode(params.blockMode), layerId(params.layerId)
+                    isInstanceObject(isInstance), blockMode(params.blockMode), layerId(params.layerId), ownerMap(map)
     {
         instanceId = CUtils::getInstance()->getRandomNumber();
         updatableObject = dynamic_cast<IUpdatable*>(object);
@@ -203,6 +213,7 @@ protected:
     ENMapObjectBlockMode blockMode;
     unsigned int layerId;
     unsigned int instanceId;
+    CMap* ownerMap;
     
 private:
     IUpdatable* updatableObject;

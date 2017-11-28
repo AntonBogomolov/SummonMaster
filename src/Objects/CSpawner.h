@@ -43,7 +43,7 @@ public:
         CMapObject* result = nullptr;
         try
         {
-            result = new T(params, object, false);
+            result = new T(params, map, object, false);
             map.getObjectsOnMapCollection().getObjectsPool().addToPool(result);
         }
         catch(...)
@@ -59,7 +59,7 @@ public:
         CMapObject* result = nullptr;
         try
         {
-            result = new T(params, object, true);
+            result = new T(params, map, object, true);
             map.getObjectsOnMapCollection().getObjectsPool().addToPool(result);
         }
         catch(...)
