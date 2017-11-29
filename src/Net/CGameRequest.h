@@ -1,8 +1,9 @@
 #pragma once
 
 #include "src/Map/CCellCoords.h"
+#include "src/Objects/CTags.h"
 
-enum class ENGameRequest {GetInstancesList, GetMapData, GetInstanceDescription, GetObject };
+enum class ENGameRequest {GetInstancesList, GetMapData, GetInstanceDescription, GetObject, GetObjects, SetPathTarget};
 
 class CGameRequestParam
 {
@@ -49,6 +50,67 @@ public:
     bool isNeedBlockMap;
     bool isNeedTileMap; 
 };
+
+class CSetPathTargetRequestParam : public CGameRequestParam
+{
+public:
+    CSetPathTargetRequestParam(const unsigned int instanceId, const unsigned int objectId, const CCellCoords& target) 
+                                : CGameRequestParam(ENGameRequest::SetPathTarget, objectId),
+                                instanceId(instanceId), target(target)
+    {
+        
+    }
+    virtual ~CSetPathTargetRequestParam()
+    {
+        
+    }
+   
+public:
+    unsigned int instanceId;
+    CCellCoords target;
+};
+
+class CGetObjectRequestParam : public CGameRequestParam
+{
+public:
+    CGetObjectRequestParam(const unsigned int instanceId, const unsigned int objectId) 
+                                : CGameRequestParam(ENGameRequest::GetObject, objectId),
+                                instanceId(instanceId)
+    {
+        
+    }
+    virtual ~CGetObjectRequestParam()
+    {
+        
+    }
+   
+public:
+    unsigned int instanceId;
+};
+
+
+class CGetObjectsRequestParam : public CGameRequestParam
+{
+public:
+    CGetObjectsRequestParam(const unsigned int instanceId, const unsigned int movableObjectId, 
+                                const CCellCoords& ldCorner, const CCellCoords& ruCorner, const CTagFilter& tagFilter) 
+                                : CGameRequestParam(ENGameRequest::GetObjects, movableObjectId),
+                                instanceId(instanceId), ldCorner(ldCorner), ruCorner(ruCorner), tagFilter(tagFilter)
+    {
+        
+    }
+    virtual ~CGetObjectsRequestParam()
+    {
+        
+    }
+   
+public:
+    unsigned int instanceId;
+    CCellCoords ldCorner;
+    CCellCoords ruCorner;
+    CTagFilter tagFilter;
+};
+
 
 class CSummonMasterUser;
 class CGameRequest

@@ -96,6 +96,7 @@ protected:
     {
         if(pathEndPoint != CCellCoords(0,0))
         {
+            object->getTagsForModify().addTag(CTagMap::getInstance()->getTagId("MOVABLE"));
             const CPathFinder& pathFinder = ownerMap->getPathFinder();
             path = pathFinder.findPath(cellCoords, pathEndPoint, this);
         }

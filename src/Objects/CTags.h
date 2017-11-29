@@ -23,6 +23,14 @@ public:
         }
         return "NONE";
     }
+    int getTagId(const std::string& text) const 
+    {
+        for(auto it = tagsMap.begin(); it != tagsMap.end(); ++it)
+        {
+            if(it->second == text) return it->first;
+        }
+        return -1;
+    }
     void init()
     {
         if(!isInit)
@@ -97,7 +105,7 @@ public:
         
     }
 
-    virtual void addObject(const int obj)
+    void addTag(const int obj)
     {
         if(!isHasTag(obj)) container.push_back(obj);
     }
@@ -116,7 +124,7 @@ public:
             }
         }
     }
-    bool isHasTag(const int tag)
+    bool isHasTag(const int tag) const
     {
         for(auto it = container.begin(); it != container.end(); ++it)
         {
@@ -131,4 +139,27 @@ public:
         return json(container);
     }
 protected:
+};
+
+enum class ENTagFilterMode {And = 0, Or = 1, Not = 2};
+
+class CTagFilter
+{
+public:
+    CTagFilter() : tags(), filterMode(ENTagFilterMode::Or)
+    {
+
+    }
+    CTagFilter(const CTagFilter& filter)
+    {
+        this->tags = filter.tags;
+        this->filterMode = filter.filterMode;
+    }
+    ~CTagFilter()
+    {
+        
+    }
+    
+    CTags tags;
+    ENTagFilterMode filterMode;
 };

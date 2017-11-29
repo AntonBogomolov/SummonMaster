@@ -111,7 +111,7 @@ public:
     {
         return objectsOnMap;
     }
-    CObjectsOnMapCollection& getObjectsOnMapCollection()
+    CObjectsOnMapCollection& getObjectsOnMapCollectionForModify()
     {
         return objectsOnMap;
     }

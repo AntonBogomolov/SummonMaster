@@ -55,6 +55,10 @@ public:
     const CTags& getTags() const
     {
         return tags;
+    }
+    CTags& getTagsForModify()
+    {
+        return tags;
     }  
     bool getIsValid() const
     {
@@ -64,6 +68,38 @@ public:
     {
         this->isValid = isValid;
     }
+    bool isFilterFit(const CTagFilter& filter) const
+    {
+        const std::vector<int>& filterTags = filter.tags.getContainer();
+        if(filter.filterMode == ENTagFilterMode::Or)
+        {
+            for(auto it = filterTags.begin(); it != filterTags.end(); ++it)
+            {
+                int currTagId = (*it);
+                if(tags.isHasTag(currTagId)) return true;
+            }
+        }
+        if(filter.filterMode == ENTagFilterMode::And)
+        {
+            for(auto it = filterTags.begin(); it != filterTags.end(); ++it)
+            {
+                int currTagId = (*it);
+                if(!tags.isHasTag(currTagId)) return false;
+            }
+            return true;
+        }
+        if(filter.filterMode == ENTagFilterMode::Not)
+        {
+            for(auto it = filterTags.begin(); it != filterTags.end(); ++it)
+            {
+                int currTagId = (*it);
+                if(tags.isHasTag(currTagId)) return false;
+            }
+            return true;
+        }
+        return false;
+    }
+    
     virtual const json toJSON() const
     {
         return json{

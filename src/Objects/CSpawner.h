@@ -14,7 +14,7 @@ public:
         try
         {
             result = new T(params);
-            objectPool.addToPool(result);
+            objectPool.addToPool(result->getObjectId(), result);
         }
         catch(...)
         {
@@ -44,7 +44,7 @@ public:
         try
         {
             result = new T(params, map, object, false);
-            map.getObjectsOnMapCollection().getObjectsPool().addToPool(result);
+            map.getObjectsOnMapCollectionForModify().getObjectsPoolForModify().addToPool(result->getInstanceId(), result);
         }
         catch(...)
         {
@@ -60,7 +60,7 @@ public:
         try
         {
             result = new T(params, map, object, true);
-            map.getObjectsOnMapCollection().getObjectsPool().addToPool(result);
+            map.getObjectsOnMapCollectionForModify().getObjectsPoolForModify().addToPool(result->getInstanceId(), result);
         }
         catch(...)
         {

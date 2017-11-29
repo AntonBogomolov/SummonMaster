@@ -20,16 +20,20 @@ public:
     }
     CObjectsOnMapCollection(const CObjectsOnMapCollection& coll) = delete;
     
-    CObjectsPool<CMapObject>& getObjectsPool()
+    CObjectsPool<CMapObject>& getObjectsPoolForModify()
+    {
+        return objectPool;
+    }
+    const CObjectsPool<CMapObject>& getObjectsPool() const
     {
         return objectPool;
     }
     void collectGarbage()
     {
-        std::vector<CMapObject*>& mapObjects = objectPool.getObjects();
+        std::unordered_map<unsigned int, CMapObject*>& mapObjects = objectPool.getObjectsForModify();
         for(auto it = mapObjects.begin(); it != mapObjects.end();)
         {
-            CMapObject* currObj = (*it);
+            CMapObject* currObj = it->second;
             if(!isConsistMapObject(currObj))
             {
                 delete currObj;

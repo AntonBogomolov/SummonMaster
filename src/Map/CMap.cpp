@@ -95,10 +95,10 @@ unsigned int CMap::getMoveWeight(const CCellCoords& cell, const CMovableObject* 
 
 void CMap::update(const float dt)
 {
-    std::vector<CMapObject*> objects = objectsOnMap.getObjectsPool().getObjects();
+    std::unordered_map<unsigned int, CMapObject*>& objects = objectsOnMap.getObjectsPoolForModify().getObjectsForModify();
     for(auto it = objects.begin(); it != objects.end(); ++it)
     {
-        CMapObject* currMapObj = (*it);
+        CMapObject* currMapObj = (it->second);
         if(currMapObj->getIsNeedToUpdate()) currMapObj->update(dt);
     }
 }
