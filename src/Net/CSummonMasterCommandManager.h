@@ -16,6 +16,10 @@ class CSummonMasterCommandManager : public CCommandsManager
         CCommandResult gameGetInstanceDescription(CFCGIRequest* currRequest) const;
         CCommandResult gameGetMapData(CFCGIRequest* currRequest) const;
         
+        CCommandResult gameGetMapObject(CFCGIRequest* currRequest) const;
+        CCommandResult gameGetMapObjects(CFCGIRequest* currRequest) const;
+        CCommandResult gameSetPathTarget(CFCGIRequest* currRequest) const;
+        
         CCommandResult loginCommand(CFCGIRequest* currRequest) const;
         CCommandResult logoutCommand(CFCGIRequest* currRequest) const;
 

@@ -1,43 +1,15 @@
 #include "CMovableObject.h"
-
 #include "src/Map/CTileData.h"
 
-unsigned int CMovableObject::getMoveCost(const CTileData& tile) const
-{
-    switch(tile.getTileBiom())
-    {
-        case ENBioms::DESERT:
-            return 20;
-        break;
-        case ENBioms::GRASS:
-            return 10;
-        break;
-        case ENBioms::LAVA:
-            return 15;
-        break;
-        case ENBioms::SNOW:
-            return 15;
-        break;
-        case ENBioms::WARFOG:
-            return 9999;
-        break;
-        case ENBioms::WATER:
-            return 9999;
-        break;
-        default: 
-            return 9999;
-        break;
-    }
-}
 
 void CMovableObject::update(const float dt)
 {
     CMapObject::update(dt);
     
-    if(isNeedToUpdate && !path.getIsEmpty())
+    if(isNeedToUpdate && !path.getIsEmpty() && movableInterface != nullptr)
     {
-        float moveSpeedKoeff = getMoveCost(ownerMap->getTileAtFast(cellCoords.row, cellCoords.col)) / CMetrics::baseMoveCost;
-        float dl = (dt * moveSpeed * CMetrics::cellWidth) / moveSpeedKoeff;
+        float moveSpeedKoeff = movableInterface->getMoveCost(ownerMap->getTileAtFast(cellCoords.row, cellCoords.col)) / CMetrics::baseMoveCost;
+        float dl = (dt * movableInterface->getMoveSpeed() * CMetrics::cellWidth) / moveSpeedKoeff;
         
         if(dl < CMetrics::cellWidth)
         {

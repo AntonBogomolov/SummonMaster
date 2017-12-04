@@ -3,7 +3,7 @@
 #include "src/Map/CCellCoords.h"
 #include "src/Objects/CTags.h"
 
-enum class ENGameRequest {GetInstancesList, GetMapData, GetInstanceDescription, GetObject, GetObjects, SetPathTarget};
+enum class ENGameRequest {GetInstancesList, GetMapData, GetInstanceDescription, GetMapObject, GetMapObjects, SetPathTarget, GetPlayer, LoginPlayer};
 
 class CGameRequestParam
 {
@@ -70,16 +70,16 @@ public:
     CCellCoords target;
 };
 
-class CGetObjectRequestParam : public CGameRequestParam
+class CGetMapObjectRequestParam : public CGameRequestParam
 {
 public:
-    CGetObjectRequestParam(const unsigned int instanceId, const unsigned int objectId) 
-                                : CGameRequestParam(ENGameRequest::GetObject, objectId),
+    CGetMapObjectRequestParam(const unsigned int instanceId, const unsigned int objectId) 
+                                : CGameRequestParam(ENGameRequest::GetMapObject, objectId),
                                 instanceId(instanceId)
     {
         
     }
-    virtual ~CGetObjectRequestParam()
+    virtual ~CGetMapObjectRequestParam()
     {
         
     }
@@ -88,18 +88,30 @@ public:
     unsigned int instanceId;
 };
 
-
-class CGetObjectsRequestParam : public CGameRequestParam
+class CGetPlayerRequestParam : public CGameRequestParam
 {
 public:
-    CGetObjectsRequestParam(const unsigned int instanceId, const unsigned int movableObjectId, 
-                                const CCellCoords& ldCorner, const CCellCoords& ruCorner, const CTagFilter& tagFilter) 
-                                : CGameRequestParam(ENGameRequest::GetObjects, movableObjectId),
+    CGetPlayerRequestParam(const unsigned int objectId) : CGameRequestParam(ENGameRequest::GetPlayer, objectId)
+    {
+        
+    }
+    virtual ~CGetPlayerRequestParam()
+    {
+        
+    }
+};
+
+class CGetMapObjectsRequestParam : public CGameRequestParam
+{
+public:
+    CGetMapObjectsRequestParam(const unsigned int instanceId, const CCellCoords& ldCorner, const CCellCoords& ruCorner, 
+                               const CTagFilter& tagFilter) 
+                                : CGameRequestParam(ENGameRequest::GetMapObjects, instanceId),
                                 instanceId(instanceId), ldCorner(ldCorner), ruCorner(ruCorner), tagFilter(tagFilter)
     {
         
     }
-    virtual ~CGetObjectsRequestParam()
+    virtual ~CGetMapObjectsRequestParam()
     {
         
     }

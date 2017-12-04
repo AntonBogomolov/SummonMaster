@@ -6,7 +6,7 @@
 #include <cmath>
 
 #include "CCellCoords.h"
-#include "../IJSONSerializable.h"
+#include "src/IJSONSerializable.h"
 
 class CPathNode
 {

@@ -63,5 +63,6 @@ public:
     static const uint16_t cellCenterX = cellWidth / 2;
     static const uint16_t cellCenterY = cellHeight / 2;
     static const uint16_t baseMoveCost = 10;
+    static const uint16_t baseMoveSpeed = 10;
 };
 

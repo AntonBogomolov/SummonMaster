@@ -1,11 +1,11 @@
 #pragma once
 
-#include "utils.h"
+#include "src/utils.h"
 #include "CTags.h"
-#include "CEventDispatcher.h"
+#include "src/CEventDispatcher.h"
 #include "src/IJSONSerializable.h"
 
-enum class ENObjectsType { NOTSET = 0, EFFECT, CREATURE, MAP, INSTANCE };
+enum class ENObjectsType { NOTSET = 0, EFFECT, CREATURE, PLAYER, MAP, INSTANCE };
 
 class CObjectCreationParams
 {
@@ -67,6 +67,10 @@ public:
     void setIsValid(const bool isValid)
     {
         this->isValid = isValid;
+    }
+    void setObjectType(const ENObjectsType newType) 
+    {
+        objectType = newType;
     }
     bool isFilterFit(const CTagFilter& filter) const
     {

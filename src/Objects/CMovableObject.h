@@ -3,16 +3,17 @@
 #include "src/Map/CMapObject.h"
 #include "src/Map/CPathFinder.h"
 #include "src/Map/CMap.h"
+#include "src/Objects/IMovable.h"
 
 class CMovableObjectCreationParam : public CMapObjectCreationParam
 {
 public:
     CMovableObjectCreationParam(const CCellCoords& cellCoords, const CMapObjectPosAndSizeDescriptor& position, 
-                            const float moveSpeed, const CCellCoords& pathTarget,
+                            const CCellCoords& pathTarget,
                             const ENMapObjectBlockMode blockMode = ENMapObjectBlockMode::notBlock,  
                             const unsigned int layerId = 0) 
                                 : CMapObjectCreationParam(cellCoords, position, blockMode, layerId),
-                                moveSpeed(moveSpeed), pathTarget(pathTarget)
+                                pathTarget(pathTarget)
                            
     {
         
@@ -22,16 +23,11 @@ public:
         
     }    
 
-    float getMoveSpeed() const
-    {
-        return moveSpeed;
-    }
     const CCellCoords& getPathTarget() const
     {
         return pathTarget;
     }
 protected:
-    float moveSpeed;
     CCellCoords pathTarget;
 };
 
@@ -43,7 +39,7 @@ public:
     CMovableObject( CMovableObject& obj) : CMapObject(obj),
                     pathEndPoint(obj.getPathEndCell()), path(obj.getPath())
     {
-        
+        movableInterface = dynamic_cast<IMovable*>(object);
     }
     virtual ~CMovableObject()
     {
@@ -62,16 +58,23 @@ public:
     {
         return path;
     }
+    unsigned int getMoveCost(const CTileData& tileData) const
+    {
+        if(movableInterface == nullptr) return std::numeric_limits<unsigned int>::max();
+        return movableInterface->getMoveCost(tileData);
+    }
     float setPathTarget(const CCellCoords& pathEndPoint)
     {
         float pathTime = 0.0f;
+        if(movableInterface == nullptr) return pathTime;
+        
         if(pathEndPoint != CCellCoords(0,0))
         {
             const CPathFinder& pathFinder = ownerMap->getPathFinder();
             this->path = pathFinder.findPath(cellCoords, pathEndPoint, this);
             this->pathEndPoint = pathEndPoint;
             
-            pathTime = this->path.getPathCost() / this->moveSpeed;
+            pathTime = this->path.getPathCost() / movableInterface->getMoveSpeed();
         }
         return pathTime;
     }
@@ -82,19 +85,22 @@ public:
         result["pathEndPointCol"] = pathEndPoint.col;
         result["pathEndPointRow"] = pathEndPoint.row;
         result["path"] = path.toJSON();
-        result["moveSpeed"]  = moveSpeed;
+        if(movableInterface != nullptr) result["moveSpeed"] = movableInterface->getMoveSpeed();
         return result;
     }
-    
-    virtual unsigned int getMoveCost(const CTileData& tile) const;
+
     virtual void update(const float dt);
     
 protected:
-    CMovableObject(const CMovableObjectCreationParam& params, CMap* map, CObject* object, const bool isInstance = true) 
+    CMovableObject(const CMapObjectCreationParam& params, CMap* map, CObject* object, const bool isInstance = true) 
                     : CMapObject(params, map, object, isInstance),
-                    pathEndPoint(params.getPathTarget()), path(), moveSpeed(params.getMoveSpeed())
+                    pathEndPoint(getCellCoords()), path()
     {
-        if(pathEndPoint != CCellCoords(0,0))
+        const CMovableObjectCreationParam& movableCreationParams = static_cast<const CMovableObjectCreationParam&>(params);
+        pathEndPoint = movableCreationParams.getPathTarget();
+        
+        movableInterface = dynamic_cast<IMovable*>(object);
+        if(movableInterface != nullptr && pathEndPoint != CCellCoords(0,0))
         {
             object->getTagsForModify().addTag(CTagMap::getInstance()->getTagId("MOVABLE"));
             const CPathFinder& pathFinder = ownerMap->getPathFinder();
@@ -104,5 +110,5 @@ protected:
 
     CCellCoords pathEndPoint;
     CPathOnMap path;
-    float moveSpeed;
+    IMovable* movableInterface;
 };

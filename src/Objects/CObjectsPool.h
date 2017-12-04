@@ -40,6 +40,17 @@ public:
             }
         }
     }
+    const T* findObject(const unsigned int id) const
+    {
+        if(objects.find(id) == objects.end()) return nullptr;
+        return objects.at(id);
+    }
+    T* findObjectForModify(const unsigned int id)
+    {
+        if(objects.find(id) == objects.end()) return nullptr;
+        return objects.at(id);
+    }
+    
     std::unordered_map<unsigned int, T*>& getObjectsForModify()
     {
         return objects;
@@ -49,6 +60,5 @@ public:
         return objects;
     }
 protected:
-    //std::vector<T*> objects;
     std::unordered_map<unsigned int, T*> objects;
 };

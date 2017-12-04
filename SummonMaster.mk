@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Anton
-Date                   :=29/11/17
+Date                   :=04/12/17
 CodeLitePath           :="/home/anton/.codelite"
 LinkerName             :=/usr/bin/i686-linux-gnu-g++
 SharedObjectLinkerName :=/usr/bin/i686-linux-gnu-g++ -shared -fPIC
@@ -60,8 +60,8 @@ AS       := /usr/bin/i686-linux-gnu-as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CHeightMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CPathFinder.cpp$(ObjectSuffix) $(IntermediateDirectory)/Creatures_CCreature.cpp$(ObjectSuffix) $(IntermediateDirectory)/Objects_CMovableObject.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CGameRequestHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CWorld.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CInstance.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/Net_CSummonMasterCommandManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterUser.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterApp.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_cindexpage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csitepage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csuccesspage.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_CEventDispatcher.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CHeightMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/Map_CPathFinder.cpp$(ObjectSuffix) $(IntermediateDirectory)/Creatures_CCreature.cpp$(ObjectSuffix) $(IntermediateDirectory)/Creatures_CPlayer.cpp$(ObjectSuffix) $(IntermediateDirectory)/Objects_CMovableObject.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CGameRequestHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/World_CWorld.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/World_CInstance.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterCommandManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterUser.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_CSummonMasterApp.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_cindexpage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csitepage.cpp$(ObjectSuffix) $(IntermediateDirectory)/Net_csuccesspage.cpp$(ObjectSuffix) 
 
 
 
@@ -100,13 +100,13 @@ $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
 
-$(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix): CEventDispatcher.cpp $(IntermediateDirectory)/CEventDispatcher.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/CEventDispatcher.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/CEventDispatcher.cpp$(DependSuffix): CEventDispatcher.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/CEventDispatcher.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/CEventDispatcher.cpp$(DependSuffix) -MM "CEventDispatcher.cpp"
+$(IntermediateDirectory)/src_CEventDispatcher.cpp$(ObjectSuffix): src/CEventDispatcher.cpp $(IntermediateDirectory)/src_CEventDispatcher.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/src/CEventDispatcher.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_CEventDispatcher.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_CEventDispatcher.cpp$(DependSuffix): src/CEventDispatcher.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_CEventDispatcher.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_CEventDispatcher.cpp$(DependSuffix) -MM "src/CEventDispatcher.cpp"
 
-$(IntermediateDirectory)/CEventDispatcher.cpp$(PreprocessSuffix): CEventDispatcher.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/CEventDispatcher.cpp$(PreprocessSuffix) "CEventDispatcher.cpp"
+$(IntermediateDirectory)/src_CEventDispatcher.cpp$(PreprocessSuffix): src/CEventDispatcher.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_CEventDispatcher.cpp$(PreprocessSuffix) "src/CEventDispatcher.cpp"
 
 $(IntermediateDirectory)/Map_CMap.cpp$(ObjectSuffix): src/Map/CMap.cpp $(IntermediateDirectory)/Map_CMap.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/src/Map/CMap.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Map_CMap.cpp$(ObjectSuffix) $(IncludePath)
@@ -139,6 +139,14 @@ $(IntermediateDirectory)/Creatures_CCreature.cpp$(DependSuffix): src/Creatures/C
 
 $(IntermediateDirectory)/Creatures_CCreature.cpp$(PreprocessSuffix): src/Creatures/CCreature.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Creatures_CCreature.cpp$(PreprocessSuffix) "src/Creatures/CCreature.cpp"
+
+$(IntermediateDirectory)/Creatures_CPlayer.cpp$(ObjectSuffix): src/Creatures/CPlayer.cpp $(IntermediateDirectory)/Creatures_CPlayer.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/src/Creatures/CPlayer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Creatures_CPlayer.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Creatures_CPlayer.cpp$(DependSuffix): src/Creatures/CPlayer.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Creatures_CPlayer.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Creatures_CPlayer.cpp$(DependSuffix) -MM "src/Creatures/CPlayer.cpp"
+
+$(IntermediateDirectory)/Creatures_CPlayer.cpp$(PreprocessSuffix): src/Creatures/CPlayer.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Creatures_CPlayer.cpp$(PreprocessSuffix) "src/Creatures/CPlayer.cpp"
 
 $(IntermediateDirectory)/Objects_CMovableObject.cpp$(ObjectSuffix): src/Objects/CMovableObject.cpp $(IntermediateDirectory)/Objects_CMovableObject.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/anton/projects/SummonMaster/src/Objects/CMovableObject.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Objects_CMovableObject.cpp$(ObjectSuffix) $(IncludePath)

@@ -4,8 +4,6 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
-    <File Name="utils.h"/>
-    <File Name="IUpdatable.h"/>
     <VirtualDirectory Name="Map">
       <File Name="src/Map/CTileData.h"/>
       <File Name="src/Map/CMap.h"/>
@@ -25,6 +23,8 @@
       <File Name="src/Creatures/CCreature.h"/>
       <File Name="src/Creatures/CEffects.h"/>
       <File Name="src/Creatures/CResistances.h"/>
+      <File Name="src/Creatures/CPlayer.h"/>
+      <File Name="src/Creatures/CPlayer.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Objects">
       <File Name="src/Objects/CSpawner.h"/>
@@ -36,17 +36,16 @@
       <File Name="src/Objects/CObject.h"/>
       <File Name="src/Objects/CMovableObject.h"/>
       <File Name="src/Objects/CMovableObject.cpp"/>
+      <File Name="src/Objects/IMovable.h"/>
     </VirtualDirectory>
-    <File Name="CEventDispatcher.cpp"/>
-    <File Name="CEventDispatcher.h"/>
     <VirtualDirectory Name="Net">
       <VirtualDirectory Name="App">
         <File Name="src/Net/CSummonMasterApp.h"/>
         <File Name="src/Net/CSummonMasterCommandManager.cpp"/>
-        <File Name="src/Net/CSummonMasterCommandManager.h"/>
         <File Name="src/Net/CSummonMasterUser.cpp"/>
         <File Name="src/Net/CSummonMasterUser.h"/>
         <File Name="src/Net/CSummonMasterApp.cpp"/>
+        <File Name="src/Net/CSummonMasterCommandManager.h"/>
       </VirtualDirectory>
       <VirtualDirectory Name="Pages">
         <File Name="src/Net/cindexpage.cpp"/>
@@ -71,6 +70,11 @@
       <File Name="src/World/CInstanceManager.h"/>
     </VirtualDirectory>
     <File Name="src/IJSONSerializable.h"/>
+    <File Name="src/IDBSerializable.h"/>
+    <File Name="src/CEventDispatcher.cpp"/>
+    <File Name="src/CEventDispatcher.h"/>
+    <File Name="src/IUpdatable.h"/>
+    <File Name="src/utils.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

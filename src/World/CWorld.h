@@ -5,7 +5,9 @@
 #include "CInstanceManager.h"
 #include "src/Objects/CSpawner.h"
 #include "src/Objects/CObjectsCollection.h"
+#include "src/Objects/CObjectsPool.h"
 
+class CPlayer;
 class CWorld : public ITemplateSingleton<CWorld>
 {
 public:
@@ -27,6 +29,10 @@ public:
     {
         return globalObjectsTable;
     }
+    const CObjectsPool<CPlayer>& getPlayersPool() const 
+    {
+        return players;
+    }
     
     CGameRequestHandler& getRequestHandlerForModify() 
     {
@@ -44,13 +50,18 @@ public:
     {
         return globalObjectsTable;
     }
-   
+    CObjectsPool<CPlayer>& getPlayersPoolForModify() 
+    {
+        return players;
+    }
+    
     void run();
 protected:
     CGameRequestHandler requestHandler;
     CInstanceManager    instanceManager;
     CSpawner            spawner;
     CObjectsCollection  globalObjectsTable;
+    CObjectsPool<CPlayer> players;
      
     void logicLoop();
     void watchHandler();

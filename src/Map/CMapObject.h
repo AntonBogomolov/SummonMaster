@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "IUpdatable.h"
+#include "src/IUpdatable.h"
 #include "src/Objects/CObject.h"
 #include "CCellCoords.h"
 #include "CMapObjectPosAndSizeDescriptor.h"

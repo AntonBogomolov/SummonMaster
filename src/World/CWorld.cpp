@@ -8,6 +8,8 @@
 #include <novemberlib/helpers/CConfigHelper.h>
 #include <novemberlib/utils/CLog.h>
 
+#include "src/Creatures/CPlayer.h"
+
 CWorld::CWorld()
 {
     isInit = false;

@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "utils.h"
+#include "src/utils.h"
 
 class CCellCoords
 {

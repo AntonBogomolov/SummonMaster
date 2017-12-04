@@ -56,6 +56,27 @@ public:
             if(currObj->getInstanceId() == objInstanceId) return currObj;
         }
         return nullptr;
+    }
+    bool removeMapObject(const CCellCoords& cell, const unsigned int objInstanceId)
+    {
+        if(objects.find(cell) == objects.end()) return false;
+        
+        std::vector<CMapObject*>& objVector = objects[cell];
+        for(auto it = objVector.begin(); it != objVector.end();)
+        {
+            CMapObject* currObj = (*it);
+            if(currObj->getInstanceId() == objInstanceId)
+            {
+                objVector.erase(it);
+                objectPool.deleteObject(currObj);
+                return true;
+            }
+            else
+            {
+                ++it;
+            }
+        }
+        return false;
     }  
     bool getIsConsistBlockingObject(const CCellCoords& cell)
     {
@@ -84,6 +105,20 @@ public:
             if(isConsistMapObject(it->first, obj)) return true;            
         }
         return false;
+    }
+    void removeMapObject(CMapObject* obj)
+    {
+        for(auto it = objects.begin(); it != objects.end(); ++it)
+        {
+            if(removeMapObject(it->first, obj->getInstanceId())) 
+            {
+                return;
+            }
+        }
+    }
+    void removeMapObject(const CCellCoords& cell, CMapObject* obj)
+    {
+        removeMapObject(cell, obj->getInstanceId());
     }
     bool placeMapObject(CMapObject* obj, const CCellCoords& coordsToPlace)
     {

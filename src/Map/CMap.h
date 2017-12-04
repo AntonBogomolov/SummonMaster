@@ -5,15 +5,14 @@
 #include "CObjectsOnMapCollection.h"
 #include "src/Objects/CObjectsCollection.h"
 #include "CPathFinder.h"
-#include "CEventDispatcher.h"
-#include "IUpdatable.h"
-
+#include "src/CEventDispatcher.h"
+#include "src/IUpdatable.h"
 #include "src/IJSONSerializable.h"
 
 class CMapGenerateParams
 {
 public:
-    CMapGenerateParams()
+    CMapGenerateParams() : waterLevel(0.0f)
     {
         
     }

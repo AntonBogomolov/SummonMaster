@@ -1,6 +1,7 @@
 #pragma once
 
-#include "IUpdatable.h"
+#include "src/IUpdatable.h"
+#include "src/Objects/IMovable.h"
 #include "src/Objects/CObject.h"
 #include "src/Objects/CObjectContainer.h"
 
@@ -32,8 +33,9 @@ public:
 protected:    
 };
 
-class CCreature : public CObject, public IUpdatable
+class CCreature : public CObject, public IUpdatable, public IMovable
 {
+friend class CSpawner;
 public:
     CCreature(const CCreature& creature);
     virtual ~CCreature();
@@ -55,6 +57,8 @@ public:
         return effects;
     }
     virtual void update(const float dt);  
+    virtual float getMoveSpeed() const;
+    virtual unsigned int getMoveCost(const CTileData& tile) const;
     
     virtual const json toJSON() const
     {

@@ -6,6 +6,8 @@
 #include "src/Net/CSummonMasterUser.h"
 #include "src/Objects/CSpawner.h"
 #include "src/Objects/CMovableObject.h"
+#include "src/Objects/CObjectsPool.h"
+#include "src/Creatures/CPlayer.h"
 
 #include "CWorld.h"
 
@@ -20,10 +22,10 @@ CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request) const
     result["result"] = json::object();
         
     const ENGameRequest requestType = request.getParams().getType();
-    if(requestType == ENGameRequest::GetObjects)
+    if(requestType == ENGameRequest::GetMapObjects)
     {
         result["result"] = json::array();
-        getObjects(user, request.getParams(), result);        
+        getMapObjects(user, request.getParams(), result);        
         return CGameResponce(request, std::move(json::to_cbor(result)));
     }else
     if(requestType == ENGameRequest::GetMapData)
@@ -31,9 +33,9 @@ CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request) const
         getMapData(user, request.getParams(), result);        
         return CGameResponce(request, std::move(json::to_cbor(result)));
     }else
-    if(requestType == ENGameRequest::GetObject)
+    if(requestType == ENGameRequest::GetMapObject)
     {
-        getObject(user, request.getParams(), result);        
+        getMapObject(user, request.getParams(), result);        
         return CGameResponce(request, std::move(json::to_cbor(result)));
     }else
     if(requestType == ENGameRequest::SetPathTarget)
@@ -52,17 +54,35 @@ CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request) const
         result["result"] = json::array();
         getInstancesList(user, request.getParams(), result);        
         return CGameResponce(request, std::move(json::to_cbor(result)));
+    }else
+    if(requestType == ENGameRequest::GetPlayer)
+    {
+        getPlayer(user, request.getParams(), result);        
+        return CGameResponce(request, std::move(json::to_cbor(result)));
     }
     
     return nullResponce;
 }
 
-void CGameRequestHandler::getObject(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
+void CGameRequestHandler::getPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
+{
+    CWorld* world = CWorld::getInstance();
+     
+    const CGetPlayerRequestParam& objParams = static_cast<const CGetPlayerRequestParam&>(params);
+    const CObjectsPool<CPlayer>& players = world->getPlayersPool();
+    unsigned int objId = objParams.getId();
+    const CPlayer* player = players.findObject(objId);
+    if(player == nullptr) return;
+    
+    result["result"] = player->toJSON();
+}
+
+void CGameRequestHandler::getMapObject(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
 {
     CWorld* world = CWorld::getInstance();
     const CInstanceManager& instanceManager = world->getInstanceManager();
     
-    const CGetObjectRequestParam& objParams = static_cast<const CGetObjectRequestParam&>(params);
+    const CGetMapObjectRequestParam& objParams = static_cast<const CGetMapObjectRequestParam&>(params);
     
     unsigned int instanceId = objParams.instanceId;
     const CInstance* instance = instanceManager.getInstance(instanceId);
@@ -77,12 +97,12 @@ void CGameRequestHandler::getObject(CSummonMasterUser* user, const CGameRequestP
         result["result"] = objects.at(objId)->toJSON();
     }
 }
-void CGameRequestHandler::getObjects(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
+void CGameRequestHandler::getMapObjects(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
 {
     CWorld* world = CWorld::getInstance();
     const CInstanceManager& instanceManager = world->getInstanceManager();
     
-    const CGetObjectsRequestParam& objParams = static_cast<const CGetObjectsRequestParam&>(params);
+    const CGetMapObjectsRequestParam& objParams = static_cast<const CGetMapObjectsRequestParam&>(params);
     
     unsigned int instanceId = objParams.instanceId;
     const CInstance* instance = instanceManager.getInstance(instanceId);
@@ -90,7 +110,6 @@ void CGameRequestHandler::getObjects(CSummonMasterUser* user, const CGameRequest
     const CMap* map = instance->getMap();
     if(!map) return;
   
-    unsigned int objId = objParams.getId();
     const std::unordered_map<unsigned int, CMapObject*>& objects = map->getObjectsOnMapCollection().getObjectsPool().getObjects();
     for(auto it = objects.begin(); it != objects.end(); ++it)
     {
