@@ -3,7 +3,8 @@
 #include "src/Map/CCellCoords.h"
 #include "src/Objects/CTags.h"
 
-enum class ENGameRequest {GetInstancesList, GetMapData, GetInstanceDescription, GetMapObject, GetMapObjects, SetPathTarget, GetPlayer, LoginPlayer};
+enum class ENGameRequest {  GetInstancesList, GetMapData, GetInstanceDescription, GetMapObject, GetMapObjects,
+                            SetPathTarget, GetPlayer, LoginPlayer, LogoutPlayer, CreatePlayer};
 
 class CGameRequestParam
 {
@@ -58,13 +59,10 @@ public:
                                 : CGameRequestParam(ENGameRequest::SetPathTarget, objectId),
                                 instanceId(instanceId), target(target)
     {
-        
     }
     virtual ~CSetPathTargetRequestParam()
     {
-        
     }
-   
 public:
     unsigned int instanceId;
     CCellCoords target;
@@ -77,13 +75,10 @@ public:
                                 : CGameRequestParam(ENGameRequest::GetMapObject, objectId),
                                 instanceId(instanceId)
     {
-        
     }
     virtual ~CGetMapObjectRequestParam()
     {
-        
     }
-   
 public:
     unsigned int instanceId;
 };
@@ -91,14 +86,52 @@ public:
 class CGetPlayerRequestParam : public CGameRequestParam
 {
 public:
-    CGetPlayerRequestParam(const unsigned int objectId) : CGameRequestParam(ENGameRequest::GetPlayer, objectId)
+    CGetPlayerRequestParam(const std::string& key) : CGameRequestParam(ENGameRequest::GetPlayer, 0), key(key)
     {
-        
     }
     virtual ~CGetPlayerRequestParam()
     {
-        
     }
+    std::string key;
+};
+
+class CLoginPlayerRequestParam : public CGameRequestParam
+{
+public:
+    CLoginPlayerRequestParam(const std::string& key, const unsigned int instanceId) 
+                            : CGameRequestParam(ENGameRequest::LoginPlayer, instanceId), instanceId(instanceId), key(key)
+    {
+    }
+    virtual ~CLoginPlayerRequestParam()
+    {
+    }
+    unsigned int instanceId;
+    std::string key;
+};
+
+class CLogoutPlayerRequestParam : public CGameRequestParam
+{
+public:
+    CLogoutPlayerRequestParam(const std::string& key) 
+                            : CGameRequestParam(ENGameRequest::LogoutPlayer, 0), key(key)
+    {
+    }
+    virtual ~CLogoutPlayerRequestParam()
+    {
+    }
+    std::string key;
+};
+
+class CCreatePlayerRequestParam : public CGameRequestParam
+{
+public:
+    CCreatePlayerRequestParam(const std::string name) : CGameRequestParam(ENGameRequest::CreatePlayer, 0), name(name)
+    {
+    }
+    virtual ~CCreatePlayerRequestParam()
+    {
+    }
+    std::string name;
 };
 
 class CGetMapObjectsRequestParam : public CGameRequestParam

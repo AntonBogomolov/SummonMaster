@@ -25,6 +25,8 @@
       <File Name="src/Creatures/CResistances.h"/>
       <File Name="src/Creatures/CPlayer.h"/>
       <File Name="src/Creatures/CPlayer.cpp"/>
+      <File Name="src/Creatures/CPawn.h"/>
+      <File Name="src/Creatures/CPawn.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Objects">
       <File Name="src/Objects/CSpawner.h"/>

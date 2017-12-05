@@ -25,6 +25,21 @@ CSummonMasterUser::~CSummonMasterUser()
     }
 }
 
+const std::string& CSummonMasterUser::getCharacterKey() const
+{
+    return characterKey;
+}
+
+void CSummonMasterUser::setCharacterKey(const std::string& key)
+{
+    CLog::getInstance()->addInfo("update char key");
+    if(getIsUserGuest() || getIsAccessClosed()) return;
+    
+    CDBManager* dbManager = CManagers::getInstance()->getDBManager();
+	shared_ptr<CDBRequest> dbRequest(dbManager->createDBRequest());
+    dbRequest->updateRequest("Users", "`charKey` = '" + dbManager->getEscapeString(key) +"'", "`id` = " + valueToString(userId));    
+}
+
 void CSummonMasterUser::afterFillUserData()
 {
 	CDBManager* dbManager = CManagers::getInstance()->getDBManager();
@@ -32,11 +47,12 @@ void CSummonMasterUser::afterFillUserData()
     
     if(getIsUserGuest() || getIsAccessClosed()) return;
     
-    const CDBRequestResult* reqResult = dbRequest->selectRequest(CDBValues("tasks,premEndDate"), "Users", "`id`="+valueToString(userId), " LIMIT 1");
+    const CDBRequestResult* reqResult = dbRequest->selectRequest(CDBValues("tasks,premEndDate,charKey"), "Users", "`id`="+valueToString(userId), " LIMIT 1");
     if(dbRequest->getIsLastQuerySuccess() && reqResult != NULL && reqResult->getRowsCnt() > 0)
     {
         taskHashsStr = reqResult->getStringValue(0, 0);
         premEndDate  = reqResult->getLongValue(0, 1);
+        characterKey = reqResult->getStringValue(0,2);
     }   
     split(taskHashs, taskHashsStr, ",");   
 	setIsValid(true);

@@ -20,11 +20,11 @@ public:
     }
     CObjectsOnMapCollection(const CObjectsOnMapCollection& coll) = delete;
     
-    CObjectsPool<CMapObject>& getObjectsPoolForModify()
+    CObjectsPool<unsigned int, CMapObject>& getObjectsPoolForModify()
     {
         return objectPool;
     }
-    const CObjectsPool<CMapObject>& getObjectsPool() const
+    const CObjectsPool<unsigned int, CMapObject>& getObjectsPool() const
     {
         return objectPool;
     }
@@ -162,5 +162,5 @@ public:
     }
 protected:
     std::unordered_map<CCellCoords, std::vector<CMapObject*>> objects;
-    CObjectsPool<CMapObject> objectPool;
+    CObjectsPool<unsigned int ,CMapObject> objectPool;
 };

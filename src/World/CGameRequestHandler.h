@@ -32,4 +32,7 @@ protected:
     void setPathTarget(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
     
     void getPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
+    void loginPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
+    void logoutPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
+    void createPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
 };

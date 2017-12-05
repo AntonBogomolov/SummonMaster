@@ -5,18 +5,26 @@
 #include "src/CEventDispatcher.h"
 #include "src/IJSONSerializable.h"
 
-enum class ENObjectsType { NOTSET = 0, EFFECT, CREATURE, PLAYER, MAP, INSTANCE };
+enum class ENObjectsType { NOTSET = 0, EFFECT, CREATURE, PLAYER, PAWN, SUMMON, MAP, INSTANCE };
 
 class CObjectCreationParams
 {
 public:
+    CObjectCreationParams(unsigned int objectId, const ENObjectsType type, const CTags& tags)
+    {
+        this->objectId = objectId;
+        this->type = type;
+        this->tags = tags;
+    }
     CObjectCreationParams(const ENObjectsType type, const CTags& tags)
     {
+        this->objectId = 0;
         this->type = type;
         this->tags = tags;
     }
     CObjectCreationParams(const ENObjectsType type)
     {
+        this->objectId = 0;
         this->type = type;
         this->tags = CTags();
     }
@@ -25,6 +33,7 @@ public:
         
     }
     
+    unsigned int objectId;
     ENObjectsType type;
     CTags tags;
 protected:    
@@ -115,7 +124,9 @@ public:
 protected:
     CObject(const CObjectCreationParams& params)
     {
-        this->objectId = CUtils::getInstance()->getRandomNumber();
+        if(params.objectId == 0) this->objectId = CUtils::getInstance()->getRandomNumber();
+        else this->objectId = params.objectId;
+        
         this->objectType = params.type;
         this->tags = params.tags;
         this->isValid = true;

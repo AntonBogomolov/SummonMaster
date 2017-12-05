@@ -29,7 +29,7 @@ public:
     {
         return globalObjectsTable;
     }
-    const CObjectsPool<CPlayer>& getPlayersPool() const 
+    const CObjectsPool<std::string, CPlayer>& getPlayersPool() const 
     {
         return players;
     }
@@ -50,7 +50,7 @@ public:
     {
         return globalObjectsTable;
     }
-    CObjectsPool<CPlayer>& getPlayersPoolForModify() 
+    CObjectsPool<std::string, CPlayer>& getPlayersPoolForModify() 
     {
         return players;
     }
@@ -61,7 +61,7 @@ protected:
     CInstanceManager    instanceManager;
     CSpawner            spawner;
     CObjectsCollection  globalObjectsTable;
-    CObjectsPool<CPlayer> players;
+    CObjectsPool<std::string, CPlayer> players;
      
     void logicLoop();
     void watchHandler();

@@ -3,12 +3,13 @@
 #include "CObject.h"
 #include "CObjectsPool.h"
 #include "src/World/CInstance.h"
+#include "src/Creatures/CPlayer.h"
 
 class CMap;
 class CSpawner
 {
 public:
-    template<class T> CObject* createObject(CObjectsPool<CObject>& objectPool, const CObjectCreationParams& params) const
+    template<class T> CObject* createObject(CObjectsPool<unsigned int, CObject>& objectPool, const CObjectCreationParams& params) const
     {
         CObject* result = nullptr; 
         try
@@ -29,6 +30,22 @@ public:
         try
         {
             result = new T(params);
+        }
+        catch(...)
+        {
+            result = nullptr;
+        }            
+        return result;
+    }
+    
+    template<class T> CPlayer* createPlayer(CObjectsPool<std::string, CPlayer>& playersPool,
+                                            const CPlayerCreationParams& params) const 
+    {
+        CPlayer* result = nullptr; 
+        try
+        {
+            result = new T(params);
+            playersPool.addToPool(result->getKey(), result);
         }
         catch(...)
         {

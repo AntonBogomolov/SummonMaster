@@ -4,7 +4,9 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
-#include "novemberlib/interfaces/ITemplateSingleton.h"
+#include <novemberlib/interfaces/ITemplateSingleton.h>
+#include <novemberlib/utils/utils.h>
+#include <novemberlib/utils/md5.h>
 
 class CUtils : public ITemplateSingleton<CUtils>
 {
@@ -38,6 +40,15 @@ public:
         
         x = cx + (oldX - cx) * cos(rad) - (oldY - cy) * sin(rad);
         y = cy + (oldY - cy) * cos(rad) + (oldX - cx) * sin(rad);
+    }
+    
+    std::string genHashKey(const std::string& data)
+    {
+        return md5(data);
+    }
+    std::string genRndHashKey()
+    {
+        return md5(valueToString(getRandomNumber()));
     }
     
     virtual ~CUtils(){};

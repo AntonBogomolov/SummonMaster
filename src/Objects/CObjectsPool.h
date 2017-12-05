@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <vector>
 
-template<class T> 
+template<class Key, class T> 
 class CObjectsPool
 {
 public:
@@ -19,7 +19,7 @@ public:
         }
     }
     
-    void addToPool(const unsigned int id, T* obj)
+    void addToPool(const Key id, T* obj)
     {
         if(obj == nullptr) return;
         objects[id] = obj;
@@ -40,25 +40,25 @@ public:
             }
         }
     }
-    const T* findObject(const unsigned int id) const
+    const T* findObject(const Key id) const
     {
         if(objects.find(id) == objects.end()) return nullptr;
         return objects.at(id);
     }
-    T* findObjectForModify(const unsigned int id)
+    T* findObjectForModify(const Key id)
     {
         if(objects.find(id) == objects.end()) return nullptr;
         return objects.at(id);
     }
     
-    std::unordered_map<unsigned int, T*>& getObjectsForModify()
+    std::unordered_map<Key, T*>& getObjectsForModify()
     {
         return objects;
     }
-    const std::unordered_map<unsigned int, T*>& getObjects() const
+    const std::unordered_map<Key, T*>& getObjects() const
     {
         return objects;
     }
 protected:
-    std::unordered_map<unsigned int, T*> objects;
+    std::unordered_map<Key, T*> objects;
 };

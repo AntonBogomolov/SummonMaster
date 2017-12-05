@@ -20,48 +20,107 @@ CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request) const
     
     json result;
     result["result"] = json::object();
-        
     const ENGameRequest requestType = request.getParams().getType();
-    if(requestType == ENGameRequest::GetMapObjects)
-    {
-        result["result"] = json::array();
-        getMapObjects(user, request.getParams(), result);        
-        return CGameResponce(request, std::move(json::to_cbor(result)));
-    }else
-    if(requestType == ENGameRequest::GetMapData)
-    {
-        getMapData(user, request.getParams(), result);        
-        return CGameResponce(request, std::move(json::to_cbor(result)));
-    }else
-    if(requestType == ENGameRequest::GetMapObject)
-    {
-        getMapObject(user, request.getParams(), result);        
-        return CGameResponce(request, std::move(json::to_cbor(result)));
-    }else
-    if(requestType == ENGameRequest::SetPathTarget)
-    {
-        setPathTarget(user, request.getParams(), result);        
-        return CGameResponce(request, std::move(json::to_cbor(result)));
-    }else
-    if(requestType == ENGameRequest::GetInstanceDescription)
-    {
-        getInstanceDescription(user, request.getParams(), result);        
-        return CGameResponce(request, std::move(json::to_cbor(result)));
-    }
-    else
-    if(requestType == ENGameRequest::GetInstancesList)
-    {
-        result["result"] = json::array();
-        getInstancesList(user, request.getParams(), result);        
-        return CGameResponce(request, std::move(json::to_cbor(result)));
-    }else
-    if(requestType == ENGameRequest::GetPlayer)
-    {
-        getPlayer(user, request.getParams(), result);        
-        return CGameResponce(request, std::move(json::to_cbor(result)));
-    }
     
+    switch(requestType)
+    {
+        case ENGameRequest::GetMapObjects:
+            result["result"] = json::array();
+            getMapObjects(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        case ENGameRequest::GetMapData:
+            getMapData(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        case ENGameRequest::GetMapObject:
+            getMapObject(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        case ENGameRequest::SetPathTarget:
+            setPathTarget(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        case ENGameRequest::GetInstanceDescription:
+            getInstanceDescription(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        case ENGameRequest::GetInstancesList:
+            result["result"] = json::array();
+            getInstancesList(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        case ENGameRequest::GetPlayer:
+            getPlayer(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        case ENGameRequest::CreatePlayer:
+            loginPlayer(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        case ENGameRequest::LoginPlayer:
+            createPlayer(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        case ENGameRequest::LogoutPlayer:
+            createPlayer(user, request.getParams(), result);        
+            return CGameResponce(request, std::move(json::to_cbor(result)));
+        break;
+        
+        default:
+            return nullResponce;
+        break;
+    }
+ 
     return nullResponce;
+}
+
+void CGameRequestHandler::loginPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
+{
+    CWorld* world = CWorld::getInstance();
+    
+    const CLoginPlayerRequestParam& objParams = static_cast<const CLoginPlayerRequestParam&>(params);
+    CObjectsPool<std::string, CPlayer>& players = world->getPlayersPoolForModify();
+    if(objParams.key != user->getCharacterKey()) return;
+    CPlayer* player = players.findObjectForModify(objParams.key);
+    if(player == nullptr) return;
+    if(objParams.instanceId == 0) return;
+    
+    CMap* map = world->getInstanceManagerForModify().getInstanceForModify(objParams.instanceId)->getMapForModify();
+    if(map == nullptr) return;
+    
+    player->spawnOnMap(CCellCoords(1,1), *map);
+    
+    result["result"] = "ok";
+}
+
+void CGameRequestHandler::logoutPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
+{
+    CWorld* world = CWorld::getInstance();
+    
+    const CLogoutPlayerRequestParam& objParams = static_cast<const CLogoutPlayerRequestParam&>(params);
+    if(objParams.key != user->getCharacterKey()) return;
+    CObjectsPool<std::string, CPlayer>& players = world->getPlayersPoolForModify();
+    CPlayer* player = players.findObjectForModify(objParams.key);
+    if(player == nullptr) return;
+    
+    player->removeFromMap();
+    
+    result["result"] = "ok";
+}
+
+void CGameRequestHandler::createPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
+{
+    CWorld* world = CWorld::getInstance();
+    
+    const CCreatePlayerRequestParam& objParams = static_cast<const CCreatePlayerRequestParam&>(params);
+    CPlayerCreationParams playerCreationParams(CPlayer::getCreationParamsByPreset(ENPlayerPreset::DEFAULT), objParams.name);
+    CObjectsPool<std::string, CPlayer>& players = world->getPlayersPoolForModify();
+    CPlayer* player = world->getSpawnerForModify().createPlayer<CPlayer>(players, playerCreationParams);
+    if(player == nullptr) return;
+    
+    user->setCharacterKey(player->getKey());    
+    result["result"] = player->toJSON();
 }
 
 void CGameRequestHandler::getPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
@@ -69,9 +128,8 @@ void CGameRequestHandler::getPlayer(CSummonMasterUser* user, const CGameRequestP
     CWorld* world = CWorld::getInstance();
      
     const CGetPlayerRequestParam& objParams = static_cast<const CGetPlayerRequestParam&>(params);
-    const CObjectsPool<CPlayer>& players = world->getPlayersPool();
-    unsigned int objId = objParams.getId();
-    const CPlayer* player = players.findObject(objId);
+    const CObjectsPool<std::string, CPlayer>& players = world->getPlayersPool();
+    const CPlayer* player = players.findObject(objParams.key);
     if(player == nullptr) return;
     
     result["result"] = player->toJSON();

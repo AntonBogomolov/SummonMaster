@@ -17,6 +17,8 @@ class CSummonMasterUser : public CDefaultUser
         void addTaskHash(const string taskHash);
         void removeTaskHash(const string taskHash);
         void removeAllTaskHashs();
+        const std::string& getCharacterKey() const;
+        void setCharacterKey(const std::string& key);
         
         bool getIsPrem() const;
         time_t getPremEndDate() const;
@@ -31,6 +33,7 @@ class CSummonMasterUser : public CDefaultUser
         string taskHashsStr;
         time_t premEndDate;
         bool isTasksInit;
+        std::string characterKey;
                 
         void initTasks();
         void updateTaskHashsInDB();
