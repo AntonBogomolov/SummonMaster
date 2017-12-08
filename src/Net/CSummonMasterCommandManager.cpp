@@ -40,6 +40,10 @@ CCommandResult CSummonMasterCommandManager::processCommand(CFCGIRequest* currReq
     if (command == "getMapObject")              return gameGetMapObject(currRequest);
     if (command == "getMapObjects")             return gameGetMapObjects(currRequest);
     if (command == "setPathTarget")             return gameSetPathTarget(currRequest);
+    if (command == "getPlayer")                 return gameGetPlayer(currRequest);
+    if (command == "createPlayer")              return gameCreatePlayer(currRequest);
+    if (command == "loginPlayer")               return gameLoginPlayer(currRequest);
+    if (command == "logoutPlayer")              return gameLogoutPlayer(currRequest);
 
     if (command == "login")             return loginCommand(currRequest);
     if (command == "logout")            return logoutCommand(currRequest);
@@ -48,6 +52,115 @@ CCommandResult CSummonMasterCommandManager::processCommand(CFCGIRequest* currReq
     return result;
 }
 
+CCommandResult CSummonMasterCommandManager::gameGetPlayer(CFCGIRequest* currRequest) const
+{
+    CFCGIRequestHandler* request = currRequest->getRequestForModify();
+	CCommandResult commandResult;
+    commandResult.setData("Not valid input data");
+    time_t now;
+    time(&now);
+       
+    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    std::string playerKey  = request->post.get("key", "");
+    if(playerKey.length() < 4) return commandResult;   
+    
+    CWorld* world = CWorld::getInstance();
+    CGetPlayerRequestParam gameRequestParams(playerKey);
+    CGameRequest  gameRequest(user, gameRequestParams, now);
+    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
+    
+    std::vector<uint8_t>* resultBinData = new std::vector<uint8_t>(std::move(responce.getBinData()));
+    
+    commandResult.setIsSuccess(true);
+    commandResult.setBinData(resultBinData);
+    commandResult.setType(CCommandResult::CR_BIN);
+    commandResult.appendHeader("Access-Control-Allow-Origin: *");
+    return commandResult;
+}
+CCommandResult CSummonMasterCommandManager::gameCreatePlayer(CFCGIRequest* currRequest) const
+{
+    CFCGIRequestHandler* request = currRequest->getRequestForModify();
+	CCommandResult commandResult;
+    commandResult.setData("Not valid input data");
+    time_t now;
+    time(&now);
+       
+    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    std::string playerName  = request->post.get("name", "");
+    if(playerName.length() < 4) return commandResult;   
+    
+    CWorld* world = CWorld::getInstance();
+    CCreatePlayerRequestParam gameRequestParams(playerName);
+    CGameRequest  gameRequest(user, gameRequestParams, now);
+    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
+    
+    std::vector<uint8_t>* resultBinData = new std::vector<uint8_t>(std::move(responce.getBinData()));
+    
+    commandResult.setIsSuccess(true);
+    commandResult.setBinData(resultBinData);
+    commandResult.setType(CCommandResult::CR_BIN);
+    commandResult.appendHeader("Access-Control-Allow-Origin: *");
+    return commandResult;
+}
+CCommandResult CSummonMasterCommandManager::gameLoginPlayer(CFCGIRequest* currRequest) const
+{
+    CFCGIRequestHandler* request = currRequest->getRequestForModify();
+	CCommandResult commandResult;
+    commandResult.setData("Not valid input data");
+    time_t now;
+    time(&now);
+       
+    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    std::string playerKey  = request->post.get("key", "");
+    if(playerKey.length() < 4) return commandResult;   
+    std::string instIdStr = request->post.get("instance_id", "");
+    unsigned int instanceId = 0;
+    try{ instanceId = std::stoi(instIdStr);}
+    catch(...) {instanceId = 0;}
+    if(instanceId == 0) return commandResult;
+    
+    CWorld* world = CWorld::getInstance();
+    CLoginPlayerRequestParam gameRequestParams(playerKey, instanceId);
+    CGameRequest  gameRequest(user, gameRequestParams, now);
+    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
+    
+    std::vector<uint8_t>* resultBinData = new std::vector<uint8_t>(std::move(responce.getBinData()));
+    
+    commandResult.setIsSuccess(true);
+    commandResult.setBinData(resultBinData);
+    commandResult.setType(CCommandResult::CR_BIN);
+    commandResult.appendHeader("Access-Control-Allow-Origin: *");
+    return commandResult;
+}
+CCommandResult CSummonMasterCommandManager::gameLogoutPlayer(CFCGIRequest* currRequest) const
+{
+    CFCGIRequestHandler* request = currRequest->getRequestForModify();
+	CCommandResult commandResult;
+    commandResult.setData("Not valid input data");
+    time_t now;
+    time(&now);
+       
+    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    std::string playerKey  = request->post.get("key", "");
+    if(playerKey.length() < 4) return commandResult;   
+    
+    CWorld* world = CWorld::getInstance();
+    CLogoutPlayerRequestParam gameRequestParams(playerKey);
+    CGameRequest  gameRequest(user, gameRequestParams, now);
+    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
+    
+    std::vector<uint8_t>* resultBinData = new std::vector<uint8_t>(std::move(responce.getBinData()));
+    
+    commandResult.setIsSuccess(true);
+    commandResult.setBinData(resultBinData);
+    commandResult.setType(CCommandResult::CR_BIN);
+    commandResult.appendHeader("Access-Control-Allow-Origin: *");
+    return commandResult;
+}
 
 CCommandResult CSummonMasterCommandManager::gameGetMapObject(CFCGIRequest* currRequest) const
 {

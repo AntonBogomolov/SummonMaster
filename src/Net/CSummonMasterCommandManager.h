@@ -20,6 +20,11 @@ class CSummonMasterCommandManager : public CCommandsManager
         CCommandResult gameGetMapObjects(CFCGIRequest* currRequest) const;
         CCommandResult gameSetPathTarget(CFCGIRequest* currRequest) const;
         
+        CCommandResult gameGetPlayer(CFCGIRequest* currRequest) const;
+        CCommandResult gameCreatePlayer(CFCGIRequest* currRequest) const;
+        CCommandResult gameLoginPlayer(CFCGIRequest* currRequest) const;
+        CCommandResult gameLogoutPlayer(CFCGIRequest* currRequest) const;
+      
         CCommandResult loginCommand(CFCGIRequest* currRequest) const;
         CCommandResult logoutCommand(CFCGIRequest* currRequest) const;
 
