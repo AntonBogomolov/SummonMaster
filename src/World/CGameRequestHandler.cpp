@@ -55,15 +55,15 @@ CGameResponce CGameRequestHandler::executeRequest(CGameRequest& request) const
             return CGameResponce(request, std::move(json::to_cbor(result)));
         break;
         case ENGameRequest::CreatePlayer:
-            loginPlayer(user, request.getParams(), result);        
+            createPlayer(user, request.getParams(), result);        
             return CGameResponce(request, std::move(json::to_cbor(result)));
         break;
         case ENGameRequest::LoginPlayer:
-            createPlayer(user, request.getParams(), result);        
+            loginPlayer(user, request.getParams(), result);        
             return CGameResponce(request, std::move(json::to_cbor(result)));
         break;
         case ENGameRequest::LogoutPlayer:
-            createPlayer(user, request.getParams(), result);        
+            logoutPlayer(user, request.getParams(), result);        
             return CGameResponce(request, std::move(json::to_cbor(result)));
         break;
         
@@ -90,8 +90,8 @@ void CGameRequestHandler::loginPlayer(CSummonMasterUser* user, const CGameReques
     if(map == nullptr) return;
     
     player->spawnOnMap(CCellCoords(1,1), *map);
-    
-    result["result"] = "ok";
+    result["result"] = player->toJSON();
+    CLog::getInstance()->addInfo(result.dump(2));
 }
 
 void CGameRequestHandler::logoutPlayer(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const
@@ -119,7 +119,7 @@ void CGameRequestHandler::createPlayer(CSummonMasterUser* user, const CGameReque
     CPlayer* player = world->getSpawnerForModify().createPlayer<CPlayer>(players, playerCreationParams);
     if(player == nullptr) return;
     
-    user->setCharacterKey(player->getKey());    
+    user->setCharacterKey(player->getKey()); 
     result["result"] = player->toJSON();
 }
 
@@ -251,7 +251,7 @@ void CGameRequestHandler::getMapData(CSummonMasterUser* user, const CGameRequest
     //const bool**& blockMap     = map->getBlockMap();
     //const CTileData**& tileMap = map->getTileMap();
     const CGetMapDataRequestParam& mapParams = static_cast<const CGetMapDataRequestParam&>(params);
-    
+
     unsigned int mapWidth = map->getWidth();
     unsigned int mapHeight= map->getHeight();
     if(mapParams.ldCorner.col > mapWidth - 1 || mapParams.ruCorner.col > mapWidth - 1) return;
@@ -286,6 +286,4 @@ void CGameRequestHandler::getMapData(CSummonMasterUser* user, const CGameRequest
     }
     result["result"]["ldCorner"] = json{{"x", mapParams.ldCorner.col}, {"y", mapParams.ldCorner.row}};
     result["result"]["ruCorner"] = json{{"x", mapParams.ruCorner.col}, {"y", mapParams.ruCorner.row}};
-    
-    CLog::getInstance()->addInfo(result.dump());
 }

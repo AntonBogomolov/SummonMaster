@@ -1,10 +1,11 @@
 #include "CSummonMasterApp.h"
 
-#include "novemberlib/utils/CLog.h"
-#include "novemberlib/novemberlib.h"
+#include <novemberlib/utils/CLog.h>
+#include <novemberlib/novemberlib.h>
 
-#include "novemberlib/HTTPClient/CProxy.h"
-#include "novemberlib/HTTPClient/CHTTPClient.h"
+#include <novemberlib/HTTPClient/CProxy.h>
+#include <novemberlib/HTTPClient/CHTTPClient.h>
+#include <novemberlib/managers/CResourceManager.h>
 #include "CSummonMasterUser.h"
 
 #include "CSummonMasterCommandManager.h"
@@ -37,7 +38,9 @@ void CSummonMasterApp::init()
 
 	CSessionManager*  sessionManager  = CManagers::getInstance()->getSessionManager();
 	sessionManager->setUserType<CSummonMasterUser>();
-	sessionManager->setIsNeedSessionCheck(true);
+	sessionManager->setIsNeedSessionCheck(false);
+    CResourceManager*  resourceManager  = CManagers::getInstance()->getResourceManager();
+    resourceManager->setIsNeedProcessResourceRequest(false);
 
     CConfigHelper::getInstance();
 	// Paths INIT

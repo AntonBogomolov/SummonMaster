@@ -6,6 +6,8 @@
 #include "src/Objects/CSpawner.h"
 #include "src/World/CWorld.h"
 
+#include <novemberlib/utils/CLog.h>
+
 CPawn::CPawn(const int dbId)
 {
     this->dbId = dbId;
@@ -96,7 +98,9 @@ const json CPawn::toJSON() const
 {
     json result = json::object();
     result["movableObject"] = mapObject->toJSON();
+    CLog::getInstance()->addInfo("cre");
     result["creature"]      = creature->toJSON();
     result["name"]          = name;
+    result["key"]           = key;
     return result;
 }

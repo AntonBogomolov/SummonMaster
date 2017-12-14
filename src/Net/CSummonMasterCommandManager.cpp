@@ -56,11 +56,11 @@ CCommandResult CSummonMasterCommandManager::gameGetPlayer(CFCGIRequest* currRequ
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
-       
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
 	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     std::string playerKey  = request->post.get("key", "");
     if(playerKey.length() < 4) return commandResult;   
@@ -82,14 +82,14 @@ CCommandResult CSummonMasterCommandManager::gameCreatePlayer(CFCGIRequest* currR
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
        
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
 	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     std::string playerName  = request->post.get("name", "");
-    if(playerName.length() < 4) return commandResult;   
+    if(playerName.length() < 2) return commandResult;   
     
     CWorld* world = CWorld::getInstance();
     CCreatePlayerRequestParam gameRequestParams(playerName);
@@ -108,11 +108,11 @@ CCommandResult CSummonMasterCommandManager::gameLoginPlayer(CFCGIRequest* currRe
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
        
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
 	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     std::string playerKey  = request->post.get("key", "");
     if(playerKey.length() < 4) return commandResult;   
@@ -139,11 +139,11 @@ CCommandResult CSummonMasterCommandManager::gameLogoutPlayer(CFCGIRequest* currR
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
        
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
 	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     std::string playerKey  = request->post.get("key", "");
     if(playerKey.length() < 4) return commandResult;   
@@ -166,11 +166,11 @@ CCommandResult CSummonMasterCommandManager::gameGetMapObject(CFCGIRequest* currR
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
        
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
 	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     std::string objIdStr  = request->post.get("object_id", "");
     std::string instIdStr = request->post.get("instance_id", "");
@@ -197,11 +197,11 @@ CCommandResult CSummonMasterCommandManager::gameGetMapObjects(CFCGIRequest* curr
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
     CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
        
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
     CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     std::string instanceIdStr = request->post.get("instance_id", "");
     std::string filterModeStr = request->post.get("filter_mode", "");
@@ -267,11 +267,11 @@ CCommandResult CSummonMasterCommandManager::gameSetPathTarget(CFCGIRequest* curr
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
     CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
        
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
     CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     std::string instanceIdStr = request->post.get("instance_id", "");
     std::string objectIdStr = request->post.get("object_id", "");
@@ -315,11 +315,11 @@ CCommandResult CSummonMasterCommandManager::gameGetInstancesList(CFCGIRequest* c
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
-       
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
 	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     
     CWorld* world = CWorld::getInstance();
@@ -340,11 +340,11 @@ CCommandResult CSummonMasterCommandManager::gameGetMapData(CFCGIRequest* currReq
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
        
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
 	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     std::string mapIdStr = request->post.get("map_id", "");
     std::string ldXIdStr = request->post.get("ldX", "");
@@ -356,7 +356,6 @@ CCommandResult CSummonMasterCommandManager::gameGetMapData(CFCGIRequest* currReq
     unsigned int ldY = 0;
     unsigned int ruX = 0;
     unsigned int ruY = 0;
-    CLog::getInstance()->addInfo(mapIdStr + " " + ldXIdStr + ldYIdStr + ruXIdStr + ruYIdStr);
     try
     {
         mapId = std::stoi(mapIdStr);
@@ -393,11 +392,11 @@ CCommandResult CSummonMasterCommandManager::gameGetInstanceDescription(CFCGIRequ
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-    commandResult.setData("Not valid input data");
+    commandResult.setData("");
     time_t now;
     time(&now);
-       
-    if(!isUserIdentity(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
+    
+    if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
 	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
     std::string instIdStr = request->post.get("instance_id", "");
     unsigned int instanceId = 0;
@@ -424,14 +423,13 @@ CCommandResult CSummonMasterCommandManager::loginCommand(CFCGIRequest* currReque
 {
 	CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-	commandResult.setData("Not valid input data");
+	commandResult.setData("");
 
 	std::string login = request->post.get("login", "");
 	std::string pass  = request->post.get("pass", "");
-	std::string newUserStr = request->post.get("newuser", "off");
-	std::string returnPage = request->post.get("ret_page", "index");
-	bool isNewUser = newUserStr == "newuser" ? 1 : 0;
-
+	std::string newUserStr = request->post.get("newuser", "false");
+	bool isNewUser = newUserStr == "true" ? 1 : 0;
+    
 	if (login.length() == (size_t)0 || pass.length() == (size_t)0) return commandResult;
 
 	CSessionManager* sessionManager = CManagers::getInstance()->getSessionManager();
@@ -445,9 +443,18 @@ CCommandResult CSummonMasterCommandManager::loginCommand(CFCGIRequest* currReque
 		sessionManager->loginUser(currRequest, login, pass);
 		CLog::getInstance()->addInfo("login:" + login + " " + pass);
 	}
-
+    const CDefaultUser* user = currRequest->getUser();
+   
+    json result = json::object();
+    result["cookie"] = user->getCookie();
+    result["id"] = user->getUserId();
+    
 	commandResult.setIsSuccess(true);
-	commandResult.setData("<meta http-equiv='refresh' content='0; url=?page=" + returnPage + "' />");
+	commandResult.setData(result.dump());
+    commandResult.appendHeader("Access-Control-Allow-Credentials:false");
+    commandResult.appendHeader("Access-Control-Allow-Origin:http://summonmaster.com");
+   // commandResult.appendHeader("Access-Control-Allow-Headers : Origin, X-Requested-With, Content-Type, Accept, X-OurCustomHeader");
+   
 	return commandResult;
 }
 
@@ -455,15 +462,52 @@ CCommandResult CSummonMasterCommandManager::logoutCommand(CFCGIRequest* currRequ
 {
 	CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
-	commandResult.setData("Not valid input data");
-	std::string returnPage = request->post.get("ret_page", "index");
-
+	commandResult.setData("");
+	
 	CSessionManager* sessionManager = CManagers::getInstance()->getSessionManager();
 	sessionManager->logoutUser(currRequest);
+    const CDefaultUser* user = currRequest->getUser();
 
 	commandResult.setIsSuccess(true);
-	commandResult.setData("<meta http-equiv='refresh' content='0; url=?page=" + returnPage + "' />");
+	commandResult.setData(user->getUserKey());
+    commandResult.appendHeader("Access-Control-Allow-Origin: summonmaster.com");
+    commandResult.appendHeader("Access-Control-Allow-Credentials:false");
 	return commandResult;
+}
+
+
+bool CSummonMasterCommandManager::identAndCheckUser(CFCGIRequest* currRequest) const
+{
+    CFCGIRequestHandler* request = currRequest->getRequestForModify();
+    std::string userIdStr       = request->post.get("user_id", "");
+    std::string userSessionKey  = request->post.get("user_session", "");
+        
+    unsigned int userId = 0;
+    try
+    {
+        userId = std::stoi(userIdStr);
+    }
+    catch(...)
+    {
+        userId = 0;
+    }
+    if(userId == 0 || userSessionKey.length() < 4) return false;
+    
+    CLog::getInstance()->addInfo(userId);
+    
+    CSummonMasterUser* newUser = new CSummonMasterUser(userId);
+    if(!newUser) return false;
+    newUser->fillUserDataById(userId);
+    if(newUser->getIsValid() && newUser->getCookie() == userSessionKey)
+    {
+        currRequest->setUser(newUser);
+        return true;
+    }
+    else
+    {
+        delete newUser;
+    }
+    return false;
 }
 
 const CFileDescriptor* CSummonMasterCommandManager::handleMediaFile(CFCGIRequest* currRequest) const

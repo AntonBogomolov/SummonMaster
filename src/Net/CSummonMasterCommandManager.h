@@ -35,7 +35,7 @@ class CSummonMasterCommandManager : public CCommandsManager
     private:
         const CFileDescriptor* handleMediaFile(CFCGIRequest* currRequest) const;
         const std::vector<const CFileDescriptor*> handlePicFiles(CFCGIRequest* currRequest) const;
-
+        bool identAndCheckUser(CFCGIRequest* currRequest) const;
 };
 
 #endif // CSITECOMMANDMANAGER_H
