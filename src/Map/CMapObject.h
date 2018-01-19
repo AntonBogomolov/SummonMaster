@@ -192,7 +192,7 @@ public:
             {"position", position.toJSON()},
             {"object", object->toJSON()},
             {"isInstanceObject", isInstanceObject},
-            //{"blockMode", static_cast<int>(blockMode)},
+            {"blockMode", static_cast<int>(blockMode)},
             {"layerId", layerId},
             {"instanceId", instanceId}
         };

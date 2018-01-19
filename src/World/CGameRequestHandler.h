@@ -26,6 +26,7 @@ protected:
     void getInstancesList(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
     void getInstanceDescription(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
     void getMapData(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
+    void getMetrics(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
     
     void getMapObject(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;
     void getMapObjects(CSummonMasterUser* user, const CGameRequestParam& params, json& result) const;

@@ -5,6 +5,7 @@
 #include <ctime>
 #include <cmath>
 #include <novemberlib/interfaces/ITemplateSingleton.h>
+#include "IJSONSerializable.h"
 #include <novemberlib/utils/utils.h>
 #include <novemberlib/utils/md5.h>
 
@@ -66,7 +67,7 @@ private:
 
 enum class ENDirection { Up = 0, Down = 1, Right = 2, Left = 3, UpRight = 4, UpLeft = 5, DownRight = 6, DownLeft = 7, NONE = 8 }; 
 
-class CMetrics
+class CMetrics : public IJSONSerializable
 {
 public:
     static const uint16_t cellWidth  = 128;
@@ -75,5 +76,17 @@ public:
     static const uint16_t cellCenterY = cellHeight / 2;
     static const uint16_t baseMoveCost = 10;
     static const uint16_t baseMoveSpeed = 10;
+    
+    virtual const json toJSON() const
+    {
+        return json{
+            {"cellWidth", cellWidth},
+            {"cellHeight", cellHeight},
+            {"cellCenterX", cellCenterX},
+            {"cellCenterY", cellCenterY},
+            {"baseMoveCost", baseMoveCost},
+            {"baseMoveSpeed", baseMoveSpeed}
+        };
+    }
 };
 

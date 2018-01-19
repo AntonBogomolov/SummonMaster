@@ -15,6 +15,7 @@ class CSummonMasterCommandManager : public CCommandsManager
         CCommandResult gameGetInstancesList(CFCGIRequest* currRequest) const;
         CCommandResult gameGetInstanceDescription(CFCGIRequest* currRequest) const;
         CCommandResult gameGetMapData(CFCGIRequest* currRequest) const;
+        CCommandResult gameGetMetrics(CFCGIRequest* currRequest) const;
         
         CCommandResult gameGetMapObject(CFCGIRequest* currRequest) const;
         CCommandResult gameGetMapObjects(CFCGIRequest* currRequest) const;

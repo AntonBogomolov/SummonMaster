@@ -4,7 +4,7 @@
 #include "src/Objects/CTags.h"
 
 enum class ENGameRequest {  GetInstancesList, GetMapData, GetInstanceDescription, GetMapObject, GetMapObjects,
-                            SetPathTarget, GetPlayer, LoginPlayer, LogoutPlayer, CreatePlayer};
+                            SetPathTarget, GetPlayer, LoginPlayer, LogoutPlayer, CreatePlayer, GetMetrics};
 
 class CGameRequestParam
 {
@@ -81,6 +81,18 @@ public:
     }
 public:
     unsigned int instanceId;
+};
+
+
+class CGetMetricsRequestParam : public CGameRequestParam
+{
+public:
+    CGetMetricsRequestParam() : CGameRequestParam(ENGameRequest::GetMetrics, 0)
+    {
+    }
+    virtual ~CGetMetricsRequestParam()
+    {
+    }
 };
 
 class CGetPlayerRequestParam : public CGameRequestParam
@@ -162,12 +174,13 @@ class CGameRequest
 {
 public:
     CGameRequest(CSummonMasterUser* user, const CGameRequestParam& params, const long requestCreationTime) 
-                 : user(user), params(params), requestCreationTime(requestCreationTime)
+                 : user(user), params(params), requestCreationTime(requestCreationTime), isValid(true)
     {
         if(this->user == nullptr) this->isValid = false;
     }
     CGameRequest(const CGameRequest& request)
-                : user(request.getUser()), params(request.getParams()), requestCreationTime(request.getCreationTime())
+                : user(request.getUser()), params(request.getParams()), requestCreationTime(request.getCreationTime()),
+                isValid(true)
     {
         if(this->user == nullptr) this->isValid = false;
     }

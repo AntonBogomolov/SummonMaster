@@ -5,6 +5,8 @@
 #include "src/Map/CMap.h"
 #include "src/Objects/IMovable.h"
 
+#include <novemberlib/utils/CLog.h>
+
 class CMovableObjectCreationParam : public CMapObjectCreationParam
 {
 public:

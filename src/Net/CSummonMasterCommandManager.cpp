@@ -44,6 +44,7 @@ CCommandResult CSummonMasterCommandManager::processCommand(CFCGIRequest* currReq
     if (command == "createPlayer")              return gameCreatePlayer(currRequest);
     if (command == "loginPlayer")               return gameLoginPlayer(currRequest);
     if (command == "logoutPlayer")              return gameLogoutPlayer(currRequest);
+    if (command == "getMetrics")                return gameGetMetrics(currRequest);
 
     if (command == "login")             return loginCommand(currRequest);
     if (command == "logout")            return logoutCommand(currRequest);
@@ -52,6 +53,27 @@ CCommandResult CSummonMasterCommandManager::processCommand(CFCGIRequest* currReq
     return result;
 }
 
+CCommandResult CSummonMasterCommandManager::gameGetMetrics(CFCGIRequest* currRequest) const
+{
+	CCommandResult commandResult;
+    commandResult.setData("");
+    time_t now;
+    time(&now);
+    
+   	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    CWorld* world = CWorld::getInstance();
+    CGetMetricsRequestParam gameRequestParams;
+    CGameRequest  gameRequest(user, gameRequestParams, now);
+    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
+    
+    std::vector<uint8_t>* resultBinData = new std::vector<uint8_t>(std::move(responce.getBinData()));
+    
+    commandResult.setIsSuccess(true);
+    commandResult.setBinData(resultBinData);
+    commandResult.setType(CCommandResult::CR_BIN);
+    commandResult.appendHeader("Access-Control-Allow-Origin: *");
+    return commandResult;
+}
 CCommandResult CSummonMasterCommandManager::gameGetPlayer(CFCGIRequest* currRequest) const
 {
     CFCGIRequestHandler* request = currRequest->getRequestForModify();
@@ -85,17 +107,18 @@ CCommandResult CSummonMasterCommandManager::gameCreatePlayer(CFCGIRequest* currR
     commandResult.setData("");
     time_t now;
     time(&now);
-       
+    
     if(!identAndCheckUser(currRequest) || isUserAccessClosed(currRequest) ) return commandResult;
-	CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    CSummonMasterUser* user = dynamic_cast<CSummonMasterUser*>(currRequest->getUserForModify());
+    
     std::string playerName  = request->post.get("name", "");
     if(playerName.length() < 2) return commandResult;   
     
     CWorld* world = CWorld::getInstance();
     CCreatePlayerRequestParam gameRequestParams(playerName);
     CGameRequest  gameRequest(user, gameRequestParams, now);
-    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));
-    
+
+    CGameResponce responce(std::move(world->getRequestHandler().executeRequest(gameRequest)));    
     std::vector<uint8_t>* resultBinData = new std::vector<uint8_t>(std::move(responce.getBinData()));
     
     commandResult.setIsSuccess(true);
@@ -117,6 +140,7 @@ CCommandResult CSummonMasterCommandManager::gameLoginPlayer(CFCGIRequest* currRe
     std::string playerKey  = request->post.get("key", "");
     if(playerKey.length() < 4) return commandResult;   
     std::string instIdStr = request->post.get("instance_id", "");
+    
     unsigned int instanceId = 0;
     try{ instanceId = std::stoi(instIdStr);}
     catch(...) {instanceId = 0;}
@@ -313,7 +337,6 @@ CCommandResult CSummonMasterCommandManager::gameSetPathTarget(CFCGIRequest* curr
 
 CCommandResult CSummonMasterCommandManager::gameGetInstancesList(CFCGIRequest* currRequest) const
 {
-    CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
     commandResult.setData("");
     time_t now;
@@ -447,7 +470,7 @@ CCommandResult CSummonMasterCommandManager::loginCommand(CFCGIRequest* currReque
    
     json result = json::object();
     result["cookie"] = user->getCookie();
-    result["id"] = user->getUserId();
+    result["id"]  = user->getUserId();
     
 	commandResult.setIsSuccess(true);
 	commandResult.setData(result.dump());
@@ -460,17 +483,20 @@ CCommandResult CSummonMasterCommandManager::loginCommand(CFCGIRequest* currReque
 
 CCommandResult CSummonMasterCommandManager::logoutCommand(CFCGIRequest* currRequest) const
 {
-	CFCGIRequestHandler* request = currRequest->getRequestForModify();
 	CCommandResult commandResult;
 	commandResult.setData("");
 	
 	CSessionManager* sessionManager = CManagers::getInstance()->getSessionManager();
 	sessionManager->logoutUser(currRequest);
     const CDefaultUser* user = currRequest->getUser();
+    
+    json result = json::object();
+    result["cookie"] = user->getCookie();
+    result["id"] = user->getUserId();
 
 	commandResult.setIsSuccess(true);
-	commandResult.setData(user->getUserKey());
-    commandResult.appendHeader("Access-Control-Allow-Origin: summonmaster.com");
+	commandResult.setData(result.dump());
+    commandResult.appendHeader("Access-Control-Allow-Origin: http://summonmaster.com");
     commandResult.appendHeader("Access-Control-Allow-Credentials:false");
 	return commandResult;
 }
@@ -492,8 +518,6 @@ bool CSummonMasterCommandManager::identAndCheckUser(CFCGIRequest* currRequest) c
         userId = 0;
     }
     if(userId == 0 || userSessionKey.length() < 4) return false;
-    
-    CLog::getInstance()->addInfo(userId);
     
     CSummonMasterUser* newUser = new CSummonMasterUser(userId);
     if(!newUser) return false;

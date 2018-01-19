@@ -97,8 +97,7 @@ bool CPawn::getIsOnMap() const
 const json CPawn::toJSON() const
 {
     json result = json::object();
-    result["movableObject"] = mapObject->toJSON();
-    CLog::getInstance()->addInfo("cre");
+    if(getIsOnMap()) result["movableObject"] = mapObject->toJSON();
     result["creature"]      = creature->toJSON();
     result["name"]          = name;
     result["key"]           = key;
